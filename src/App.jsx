@@ -10,14 +10,14 @@ function App() {
   const handleMouseMove = (e) => {
     const rect = e.target.getBoundingClientRect();
     setMousePosition({
-      x: e.clientX - rect.left - 50, // Ajusta para centrar el círculo
-      y: e.clientY - rect.top - 50,  // Ajusta para centrar el círculo
+      x: e.clientX - rect.left, // Coordenadas relativas al contenedor
+      y: e.clientY - rect.top,
     });
   };
 
   const style = {
-    width: '100%',
-    height: '100%',
+    width: '100vw',
+    height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,8 +28,10 @@ function App() {
   const imgStyle = {
     width: '100%',
     height: 'auto',
-    opacity: 0.1,
+    opacity: 1,
     position: 'relative',
+    overflow: 'hidden',
+    objectFit: 'cover',
   }
   
 

@@ -1,0 +1,45 @@
+#mouse {
+  position: relative;
+}
+
+#mouse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0);
+  pointer-events: none;
+  transition: background 0.3s;
+}
+
+/* #mouse:hover::after {
+  background: rgb(116, 0, 0);
+} */
+
+.circle {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 50%;
+  /* background: #000; */
+}
+
+.circle::before{
+  content: '';
+  position: absolute;
+  top: var(--mouse-y);
+  left: var(--mouse-x);
+  width: 200px; /* Tamaño del efecto */
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* img {
+  mask-image: radial-gradient(circle at center, transparent 50px, black 51px);
+} */

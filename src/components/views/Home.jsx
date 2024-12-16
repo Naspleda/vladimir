@@ -17,7 +17,6 @@ function Home() {
     };
 
     const principal = {
-        width: '100vw',
         height: '100vh',
         // display: 'flex',
         // flexWrap: 'wrap',
@@ -30,7 +29,7 @@ function Home() {
     return (
         <div style={principal}>
             <AuroraBackgroundDemo></AuroraBackgroundDemo>
-            <div className="container mx-auto my-auto bg-gray-100 dark:bg-gray-900">
+            <div className=" bg-gray-100 dark:bg-gray-900">
                 <button
                 onClick={toggleDarkMode}
                 className="ml-4 p-2 rounded bg-gray-200 dark:bg-gray-700 text-black dark:text-white"

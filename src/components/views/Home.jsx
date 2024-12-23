@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AuroraBackgroundDemo } from "../auroraBackground/auroraBackgroundComponent";
 import { ThreeDCardDemo } from "../ThreeD-Card/3d-cardComponent";
+import { InfiniteMovingCardsDemo } from "../movingCards/movingCardComponent";
 
 function Home() {
     const [darkMode, setDarkMode] = useState(false);
@@ -36,6 +37,10 @@ function Home() {
                 >
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
                 </button>
+
+                <div>
+                <InfiniteMovingCardsDemo></InfiniteMovingCardsDemo>
+                </div>
 
                 <div className="container columns-3 mx-auto" >
                     <div className='break-inside-avoid-column mx-auto max-w-full'>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { AuroraBackgroundDemo } from "../auroraBackground/auroraBackgroundComponent";
 import { ThreeDCardDemo } from "../ThreeD-Card/3d-cardComponent";
 import { InfiniteMovingCardsDemo } from "../movingCards/movingCardComponent";
+import { BackgroundBeamsDemo } from "../backgroundBeams/backgroundBeamsComponent";
+import { VortexDemo } from "../vortexBackground/vortexBackgroundComponent";
 
 function Home() {
     const [darkMode, setDarkMode] = useState(false);
@@ -29,7 +31,9 @@ function Home() {
 
     return (
         <div style={principal}>
-            <AuroraBackgroundDemo></AuroraBackgroundDemo>
+            {/* <AuroraBackgroundDemo></AuroraBackgroundDemo> */}
+            {/* <BackgroundBeamsDemo></BackgroundBeamsDemo> */}
+            <VortexDemo></VortexDemo>
             <div className=" bg-gray-100 dark:bg-gray-900">
                 <button
                 onClick={toggleDarkMode}

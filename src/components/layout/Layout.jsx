@@ -1,10 +1,10 @@
-import Navbar from "../navbar/Navbar";
+import { AppleNavbar } from "../navbar/appleNavbar";
 import Home from "../views/Home";
 
 function Layout() {
   return (
-    <div className="mt-[70px] bg-gray-100 dark:bg-gray-900">
-        <Navbar />
+    <div className="bg-stone-950">
+        <AppleNavbar />
         <Home />
       {/* <Header />
       <Main />

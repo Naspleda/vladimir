@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { AuroraBackgroundDemo } from "../auroraBackground/auroraBackgroundComponent";
 import { ThreeDCardDemo } from "../ThreeD-Card/3d-cardComponent";
-import { InfiniteMovingCardsDemo } from "../movingCards/movingCardComponent";
-import { BackgroundBeamsDemo } from "../backgroundBeams/backgroundBeamsComponent";
-import { VortexDemo } from "../vortexBackground/vortexBackgroundComponent";
-import { HeroScrollDemo } from "../scrollAnimation/scrollAnimationComponent";
+import { HeroExample } from "../heroExample/heroExample";
+import { ButtonBorder } from "../buttonBorder";
+import { GoldCard } from "../ThreeD-Card/goldCard";
+import bgGradient from "../../assets/img/bg_point.jpg";
+import gear from "../../assets/img/gear_png.png";
+import gear_second from "../../assets/img/gear_second.png";
 
 function Home() {
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
 
     const toggleDarkMode = () => {
         if (darkMode) {
@@ -20,47 +21,41 @@ function Home() {
         setDarkMode(!darkMode);
     };
 
-    const principal = {
-        height: '100vh',
-        // display: 'flex',
-        // flexWrap: 'wrap',
-        // justifyContent: 'center',
-        // flexDirection: 'column',
-        
-    }
+    const description = 'Join the future of trading with our state-of-the-art bot trading platform. Our advanced algorithms and AI-driven strategies ensure you stay ahead of the market, maximizing your profits with minimal effort. Experience seamless, automated trading like never before. Sign up today and take control of your financial future with confidence.'
 
 
     return (
-        <div style={principal}>
-            {/* <AuroraBackgroundDemo></AuroraBackgroundDemo> */}
-            <BackgroundBeamsDemo></BackgroundBeamsDemo>
-            {/* <VortexDemo></VortexDemo> */}
-            <HeroScrollDemo></HeroScrollDemo>
-            <div className=" bg-gray-100 dark:bg-gray-900">
-                <button
-                onClick={toggleDarkMode}
-                className="ml-4 p-2 rounded bg-gray-200 dark:bg-gray-700 text-black dark:text-white"
-                >
-                {darkMode ? 'Light Mode' : 'Dark Mode'}
-                </button>
-
-                <div>
-                <InfiniteMovingCardsDemo></InfiniteMovingCardsDemo>
-                </div>
-
-                <div className="container columns-3 mx-auto" >
-                    <div className='break-inside-avoid-column mx-auto max-w-full'>
-                        <ThreeDCardDemo title="titulo"></ThreeDCardDemo>
+        <div className="relative h-screen w-full overflow-hidden">
+            {/* Fondo */}
+            <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/>
+            {/* Gear Giratorio */}
+            <div className="absolute inset-0 size-full isolate">
+                <img
+                    src={gear_second}
+                    alt=""
+                    className="absolute inset-0 object-cover w-[40%] h-[90%] justify-self-center
+                    animate-[spin_20s_linear_infinite]
+                    origin-center
+                    !overflow-visible"
+                />
+            </div>
+            {/* Cards */}
+            <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+                <div className="columns-3 w-full mx-auto">
+                    <div className='break-inside-avoid-column'>
+                        {/* <ThreeDCardDemo title="titulo"></ThreeDCardDemo> */}
+                        <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
-                    <div className='break-inside-avoid-column mx-auto max-w-full'>
-                        <ThreeDCardDemo></ThreeDCardDemo>
+                    <div className='break-inside-avoid-column'>
+                        aaa
+                        {/* <ThreeDCardDemo></ThreeDCardDemo> */}
                     </div>
-                    <div className='break-inside-avoid-column mx-auto max-w-full'>
-                        <ThreeDCardDemo></ThreeDCardDemo>
+
+                    <div className='break-inside-avoid-column'>
+                        <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
                 </div>
             </div>
-                {/* </LanternEffect> */}
         </div>
     )
 }

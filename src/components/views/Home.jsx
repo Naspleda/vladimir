@@ -34,23 +34,18 @@ function Home() {
                     src={gear_second}
                     alt=""
                     className="absolute inset-0 object-cover w-[40%] h-[90%] justify-self-center
-                    animate-[spin_20s_linear_infinite]
+                    animate-[spin_70s_linear_infinite]
+                    opacity-[0.7]
                     origin-center
                     !overflow-visible"
                 />
             </div>
             {/* Cards */}
             <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
-                <div className="columns-3 w-full mx-auto">
+                <div className="w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4">
                     <div className='break-inside-avoid-column'>
-                        {/* <ThreeDCardDemo title="titulo"></ThreeDCardDemo> */}
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
-                    <div className='break-inside-avoid-column'>
-                        aaa
-                        {/* <ThreeDCardDemo></ThreeDCardDemo> */}
-                    </div>
-
                     <div className='break-inside-avoid-column'>
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>

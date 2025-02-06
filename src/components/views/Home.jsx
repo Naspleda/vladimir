@@ -6,6 +6,8 @@ import { GoldCard } from "../ThreeD-Card/goldCard";
 import bgGradient from "../../assets/img/bg_point.jpg";
 import gear from "../../assets/img/gear_png.png";
 import gear_second from "../../assets/img/gear_second.png";
+import Scene from "../../../public/models/Scene";
+
 
 function Home() {
     const [darkMode, setDarkMode] = useState(true);
@@ -21,16 +23,23 @@ function Home() {
         setDarkMode(!darkMode);
     };
 
+    const canvas = {
+        'position': 'absolute',
+        'width': '100%',
+        'height': '100%',
+    }
+
     const description = 'Join the future of trading with our state-of-the-art bot trading platform. Our advanced algorithms and AI-driven strategies ensure you stay ahead of the market, maximizing your profits with minimal effort. Experience seamless, automated trading like never before. Sign up today and take control of your financial future with confidence.'
 
 
     return (
         <div className="relative h-screen w-full overflow-hidden">
             {/* Fondo */}
-            <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/>
+            {/* <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/> */}
+            <Scene className={canvas}></Scene>
             {/* Gear Giratorio */}
             <div className="absolute inset-0 size-full isolate">
-                <img
+                {/* <img
                     src={gear_second}
                     alt=""
                     className="absolute inset-0 object-cover w-[40%] h-[90%] justify-self-center
@@ -38,10 +47,10 @@ function Home() {
                     opacity-[0.7]
                     origin-center
                     !overflow-visible"
-                />
+                /> */}
             </div>
             {/* Cards */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+            {/* <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
                 <div className="w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4">
                     <div className='break-inside-avoid-column'>
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
@@ -50,7 +59,7 @@ function Home() {
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

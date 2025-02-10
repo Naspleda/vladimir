@@ -7,6 +7,7 @@ import bgGradient from "../../assets/img/bg_point.jpg";
 import gear from "../../assets/img/gear_png.png";
 import gear_second from "../../assets/img/gear_second.png";
 import Scene from "../../../public/models/Scene";
+import MouseMoveEffect from "../mouseMoveEffect";
 
 
 function Home() {
@@ -34,6 +35,7 @@ function Home() {
 
     return (
         <div className="relative h-screen w-full overflow-hidden">
+            <MouseMoveEffect />
             {/* Fondo */}
             {/* <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/> */}
             <Scene className={canvas}></Scene>

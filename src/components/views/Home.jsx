@@ -24,11 +24,12 @@ function Home() {
         setDarkMode(!darkMode);
     };
 
-    const canvas = {
-        'position': 'absolute',
-        'width': '100%',
-        'height': '100%',
-    }
+    // const canvas = {
+    //     'position': 'absolute',
+    //     'width': '80%',
+    //     'height': '100%',
+    //     'top': '1000px'
+    // }
 
     const description = 'Join the future of trading with our state-of-the-art bot trading platform. Our advanced algorithms and AI-driven strategies ensure you stay ahead of the market, maximizing your profits with minimal effort. Experience seamless, automated trading like never before. Sign up today and take control of your financial future with confidence.'
 
@@ -38,7 +39,7 @@ function Home() {
             <MouseMoveEffect />
             {/* Fondo */}
             {/* <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/> */}
-            <Scene className={canvas}></Scene>
+            <Scene></Scene>
             {/* Gear Giratorio */}
             <div className="absolute inset-0 size-full isolate">
                 {/* <img

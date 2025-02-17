@@ -3,7 +3,7 @@ import Home from "../views/Home";
 
 function Layout() {
   return (
-    <div className="bg-stone-950">
+    <div className="bg-black">
         <AppleNavbar />
         <Home />
       {/* <Header />

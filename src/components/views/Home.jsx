@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ThreeDCardDemo } from "../ThreeD-Card/3d-cardComponent";
-import { HeroExample } from "../heroExample/heroExample";
 import { ButtonBorder } from "../buttonBorder";
 import { GoldCard } from "../ThreeD-Card/goldCard";
 import bgGradient from "../../assets/img/bg_point.jpg";

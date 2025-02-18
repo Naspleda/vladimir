@@ -26,7 +26,11 @@ function Scene() {
 
   return (
     <Canvas>
-      <Camera position={[10, 2, 5]} lookAt={[0, 0, 0]} />
+      <Camera 
+        position={[0, 0, 15]} // x, y, z (horinzontal, profundidad, vertical)
+        zoomSpeed={10.5} 
+        zoomDistance={0.5} 
+      />
       <ambientLight intensity={10} />
       <pointLight position={[10, 10, 10]} />
       {/* Desactivamos OrbitControls para usar solo el scroll */}
@@ -36,7 +40,7 @@ function Scene() {
       <Model 
         scale={2.5}
         position={[0, -1, 0]}
-        rotation={[0, rotationY, 0]} // Rotación en el eje Y
+        rotation={[0, 0, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
       
 

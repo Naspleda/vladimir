@@ -27,8 +27,8 @@ function Scene() {
   return (
     <Canvas>
       <Camera 
-        position={[0, 0, 15]} // x, y, z (horinzontal, profundidad, vertical)
-        zoomSpeed={10.5} 
+        position={[0, 10, 35]} // x, y, z (horinzontal, vertical, distancia)
+        zoomSpeed={1.0} 
         zoomDistance={0.5} 
       />
       <ambientLight intensity={10} />
@@ -39,7 +39,7 @@ function Scene() {
 
       <Model 
         scale={2.5}
-        position={[0, -1, 0]}
+        position={[0, -5, 10]} // x, y, z (horinzontal, vertical, distancia)
         rotation={[0, 0, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
       

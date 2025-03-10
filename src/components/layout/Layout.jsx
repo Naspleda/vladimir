@@ -3,7 +3,8 @@ import Home from "../views/Home";
 
 function Layout() {
   return (
-    <div className="bg-black">
+    // bg-black cuando tenga el modelo
+    <div className="bg-white">
         <AppleNavbar />
         <Home />
       {/* <Header />

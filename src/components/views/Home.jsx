@@ -35,7 +35,7 @@ function Home() {
 
     return (
         <div className="relative h-screen w-full overflow-hidden">
-            <MouseMoveEffect />
+            {/* <MouseMoveEffect /> */}
             {/* Fondo */}
             {/* <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/> */}
             <Scene></Scene>

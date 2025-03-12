@@ -23,34 +23,13 @@ function Home() {
         setDarkMode(!darkMode);
     };
 
-    // const canvas = {
-    //     'position': 'absolute',
-    //     'width': '80%',
-    //     'height': '100%',
-    //     'top': '1000px'
-    // }
-
     const description = 'Join the future of trading with our state-of-the-art bot trading platform. Our advanced algorithms and AI-driven strategies ensure you stay ahead of the market, maximizing your profits with minimal effort. Experience seamless, automated trading like never before. Sign up today and take control of your financial future with confidence.'
-
-
     return (
         <div className="relative h-screen w-full overflow-hidden">
-            {/* <MouseMoveEffect /> */}
+            <MouseMoveEffect />
             {/* Fondo */}
-            {/* <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0"/> */}
+            <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0 opacity-[30%]"/>
             <Scene></Scene>
-            {/* Gear Giratorio */}
-            <div className="absolute inset-0 size-full isolate">
-                {/* <img
-                    src={gear_second}
-                    alt=""
-                    className="absolute inset-0 object-cover w-[40%] h-[90%] justify-self-center
-                    animate-[spin_70s_linear_infinite]
-                    opacity-[0.7]
-                    origin-center
-                    !overflow-visible"
-                /> */}
-            </div>
             {/* Cards */}
             {/* <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
                 <div className="w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4">

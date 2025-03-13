@@ -29,16 +29,16 @@ function Scene() {
     
       <OrbitControls
       makeDefault
-        // enableZoom={true}
-        // enableRotate={true}
-        // zoomSpeed={1.0}
-        // rotateSpeed={0.4}
-        // minPolarAngle={0} // Límite inferior de rotación vertical (0 grados)
-        // maxPolarAngle={Math.PI / 2} // Límite superior de rotación vertical (90 grados)
-        // minAzimuthAngle={-Math.PI / 4} // Límite izquierdo de rotación horizontal (-45 grados)
-        // maxAzimuthAngle={Math.PI / 4} // Límite derecho de rotación horizontal (45 grados)
-        // enableDamping={true}
-        // dampingFactor={0.05}
+        enableZoom={true}
+        enableRotate={true}
+        zoomSpeed={10.0}
+        rotateSpeed={0.4}
+        minPolarAngle={1} // Límite inferior de rotación vertical (0 grados)
+        maxPolarAngle={Math.PI / 2} // Límite superior de rotación vertical (90 grados)
+        minAzimuthAngle={-Math.PI / 4} // Límite izquierdo de rotación horizontal (-45 grados)
+        maxAzimuthAngle={Math.PI / 4} // Límite derecho de rotación horizontal (45 grados)
+        enableDamping={true}
+        dampingFactor={0.05}
       />
     </Canvas>
   );

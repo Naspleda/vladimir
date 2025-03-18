@@ -3,13 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Model } from "./Model";
 import { Camera } from "./Camera";
-import { extend } from '@react-three/fiber'
-import { BoxGeometry } from "three";
 
 function Scene() {
 
   return (
-    <Canvas>
+    <Canvas camera={{ position: [0, 15, 60] }}>
       {/* <Camera 
         position={[0, 10, 85]} // x, y, z (horinzontal, vertical, distancia)
         zoomSpeed={1.0} 
@@ -23,7 +21,7 @@ function Scene() {
 
       <Model 
         scale={1.5}
-        position={[0, -10, -50]} // x, y, z (horinzontal, vertical, distancia)
+        // position={[0, -10, -50]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
     
@@ -31,7 +29,7 @@ function Scene() {
       makeDefault
         enableZoom={true}
         enableRotate={true}
-        zoomSpeed={10.0}
+        zoomSpeed={4.0}
         rotateSpeed={0.4}
         minPolarAngle={1} // Límite inferior de rotación vertical (0 grados)
         maxPolarAngle={Math.PI / 2} // Límite superior de rotación vertical (90 grados)

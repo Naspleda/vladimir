@@ -29,18 +29,21 @@ function Home() {
             <MouseMoveEffect />
             {/* Fondo */}
             <img src={bgGradient} alt="Background Image" className="absolute inset-0 object-cover object-center w-full h-full z-0 opacity-[30%]"/>
-            <Scene></Scene>
+            {/* <Scene></Scene> */}
             {/* Cards */}
-            {/* <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
-                <div className="w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4">
-                    <div className='break-inside-avoid-column'>
+            <div className="absolute inset-0 z-10 flex items-center justify-center p-4 pt-32">
+                <div className="w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4 grid grid-cols-12">
+                    <div className='col-span-3'>
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
-                    <div className='break-inside-avoid-column'>
+                    <div className='col-span-6'>
+                    <Scene></Scene>
+                    </div>
+                    <div className='col-span-3'>
                         <GoldCard title="Kremlin Trading" description={description}></GoldCard>
                     </div>
                 </div>
-            </div> */}
+            </div>
         </div>
     )
 }

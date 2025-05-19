@@ -1,19 +1,21 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Environment } from "@react-three/drei";
 import { Model } from "./Model";
 import { Camera } from "./Camera";
 
 function Scene() {
 
   return (
-    <Canvas camera={{ position: [0, 15, 60] }}>
+    <Canvas camera={{ position: [0, 120, 10], fov: 40 }}>
+      <Environment preset="sunset" background={false} />
       {/* <Camera 
         position={[0, 10, 85]} // x, y, z (horinzontal, vertical, distancia)
         zoomSpeed={1.0} 
         zoomDistance={0.5} 
       /> */}
-      <ambientLight intensity={10} />
+      
+      <ambientLight intensity={0.3} />
       <pointLight position={[10, 10, 10]} />
       {/* Desactivamos OrbitControls para usar solo el scroll */}
 

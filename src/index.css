@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .bg-radial-center {
+      background-image: radial-gradient(
+        circle at center,
+        #021024 0%,
+        #000814 60%,
+        #00010f 100%
+      );
+    }
+  }

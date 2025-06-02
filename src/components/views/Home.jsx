@@ -3,6 +3,9 @@ import { ButtonBorder } from "../buttonBorder";
 import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
 import NeonCircle from "../NeonCircle";
+import { WavyBackground } from "../waveBackground/wavyBackground";
+import { AuroraBackground } from "../auroraBackground/auroraBackground";
+import { LampDemo } from "../lamp/lampComponent";
 
 
 function Home() {
@@ -22,11 +25,13 @@ function Home() {
     const description = 'Join the future of trading with our state-of-the-art bot trading platform. Our advanced algorithms and AI-driven strategies ensure you stay ahead of the market, maximizing your profits with minimal effort. Experience seamless, automated trading like never before. Sign up today and take control of your financial future with confidence.'
     return (
         <div className="relative h-screen w-full overflow-hidden min-h-screen
-            ">
+        ">
             {/* <MouseMoveEffect /> */}
+            {/* <AuroraBackground /> */}
+            <LampDemo/>
             <NeonCircle />
             <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
-                <div className="h-[100%] w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4 grid grid-cols-12 bg-red-500 ">
+                <div className="h-[100%] w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4 grid grid-cols-12 ">
                     <div className="col-span-12 justify-center flex align-center">
                         <Scene />
                     </div>

@@ -1,5 +1,4 @@
-import { Navbar } from "../navbar";
-import { AppleNavbar } from "../navbar/appleNavbar";
+import { Navbar } from "../Navbar";
 import Home from "../views/Home";
 
 

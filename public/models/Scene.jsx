@@ -7,7 +7,17 @@ import { Camera } from "./Camera";
 function Scene() {
 
   return (
-    <Canvas camera={{ position: [0, 120, 10], fov: 40 }}>
+    <Canvas 
+      style={{
+        width: '100vw',
+        height: '100vh',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        // paddingTop: '200px',
+        zIndex: 10000, // Asegura que el canvas esté detrás de otros elementos
+      }}
+      camera={{ position: [0, 100, 280], fov: 15 }}>
       <Environment preset="sunset" background={false} />
       {/* <Camera 
         position={[0, 10, 85]} // x, y, z (horinzontal, vertical, distancia)
@@ -23,7 +33,7 @@ function Scene() {
 
       <Model 
         scale={1.5}
-        // position={[0, -10, -50]} // x, y, z (horinzontal, vertical, distancia)
+        position={[0, -40, -50]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
     

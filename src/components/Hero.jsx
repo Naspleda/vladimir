@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { animate } from "motion";
 
-export function Hero() {
+export function Hero({ onComplete }) {
   useEffect(() => {
     const controls = animate(
       ".hero-text",
       { opacity: [0, 1], y: [-50, 0] },
       { duration: 1.5, easing: "ease-out" }
     );
+    controls.finished.then(() => {
+      if (onComplete) onComplete();
+    });
     return () => controls.stop();
-  }, []);
+  }, [onComplete]);
 
 return (
   <>

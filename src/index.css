@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer utilities {
     .bg-radial-center {
       background-image: radial-gradient(
         circle at center,
-        #021024 0%,
-        #000814 60%,
-        #00010f 100%
+        #001f4c 0%,
+        #000b1a 60%,
+        #000000 100%
       );
     }
   }

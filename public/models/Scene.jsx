@@ -3,6 +3,31 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { Model } from "./Model";
 import { Camera } from "./Camera";
+import { useThree } from "@react-three/fiber";
+import { useEffect } from "react";
+import gsap from "gsap";
+
+export function CameraAnimation({ from, to, duration = 5 }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    // Coloca la cámara en la posición "from" al inicio
+    camera.position.set(...from);
+    camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
+
+    // Anima a la posición "to" en `duration` segundos
+    gsap.to(camera.position, {
+      x: to[0],
+      y: to[1],
+      z: to[2],
+      duration,
+      ease: 'power2.out',
+      onUpdate: () => camera.updateProjectionMatrix(),
+    });
+  }, [camera, from, to, duration]);
+
+  return null; // no renderiza nada
+}
 
 function Scene() {
 
@@ -15,27 +40,29 @@ function Scene() {
         top: 0,
         left: 0,
         // paddingTop: '200px',
-        zIndex: 10000, // Asegura que el canvas esté detrás de otros elementos
+        zIndex: 50, // Asegura que el canvas esté detrás de otros elementos
       }}
-      camera={{ position: [0, 100, 280], fov: 15 }}>
-      <Environment preset="sunset" background={false} />
-      {/* <Camera 
-        position={[0, 10, 85]} // x, y, z (horinzontal, vertical, distancia)
-        zoomSpeed={1.0} 
-        zoomDistance={0.5} 
-      /> */}
+      camera={{ position: [0, 60, 300], fov: 15 }}
+      shadows
+      >
+
+      <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} />
+      <Environment preset="apartment" background={false} />
+      {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
-      <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} />
-      {/* Desactivamos OrbitControls para usar solo el scroll */}
-
-      {/* Modelo con rotación controlada por scroll */}
-
+      <ambientLight intensity={0.8} />
+      <hemisphereLight 
+        skyColor="#lightblue" 
+        groundColor="#lightyellow" 
+        intensity={2.6} 
+      />
       <Model 
         scale={1.5}
-        position={[0, -40, -50]} // x, y, z (horinzontal, vertical, distancia)
+        position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
+
+      
     
       <OrbitControls
       makeDefault

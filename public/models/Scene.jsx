@@ -5,7 +5,7 @@ import { Model } from "./Model";
 import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
-import gsap from "gsap";
+import { animate } from "motion";
 
 export function CameraAnimation({ from, to, duration = 5 }) {
   const { camera } = useThree();
@@ -16,14 +16,16 @@ export function CameraAnimation({ from, to, duration = 5 }) {
     camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
 
     // Anima a la posición "to" en `duration` segundos
-    gsap.to(camera.position, {
-      x: to[0],
-      y: to[1],
-      z: to[2],
-      duration,
-      ease: 'power2.out',
-      onUpdate: () => camera.updateProjectionMatrix(),
-    });
+    const controls = animate(
+      camera.position,
+      { x: to[0], y: to[1], z: to[2] },
+      {
+        duration,
+        easing: 'ease-out',
+        onUpdate: () => camera.updateProjectionMatrix(),
+      }
+    );
+    return () => controls.stop();
   }, [camera, from, to, duration]);
 
   return null; // no renderiza nada

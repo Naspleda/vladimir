@@ -7,11 +7,10 @@ import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { animate } from "motion";
 
-export function CameraAnimation({ from, to, duration = 5, play }) {
+export function CameraAnimation({ from, to, duration = 5 }) {
   const { camera } = useThree();
 
   useEffect(() => {
-    if (!play) return;
     // Coloca la cámara en la posición "from" al inicio
     camera.position.set(...from);
     camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
@@ -27,12 +26,12 @@ export function CameraAnimation({ from, to, duration = 5, play }) {
       }
     );
     return () => controls.stop();
-  }, [camera, from, to, duration, play]);
+  }, [camera, from, to, duration]);
 
   return null; // no renderiza nada
 }
 
-function Scene({ play }) {
+function Scene() {
 
   return (
     <Canvas 
@@ -49,7 +48,7 @@ function Scene({ play }) {
       shadows
       >
 
-      <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} play={play} />
+      <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} />
       <Environment preset="apartment" background={false} />
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       

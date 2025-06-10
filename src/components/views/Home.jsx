@@ -4,7 +4,7 @@ import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
 
 
-function Home({ startScene = false }) {
+function Home() {
     
 
     return (

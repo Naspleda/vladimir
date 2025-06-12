@@ -2,7 +2,6 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { Model } from "./Model";
-import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { animate } from "motion";
@@ -42,17 +41,18 @@ function Scene() {
         top: 0,
         left: 0,
         // paddingTop: '200px',
-        zIndex: 50, // Asegura que el canvas esté detrás de otros elementos
+        zIndex: 0, // Asegura que el canvas esté detrás de otros elementos
       }}
       camera={{ position: [0, 60, 300], fov: 15 }}
       shadows
       >
 
-      <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} />
-      <Environment preset="apartment" background={false} />
+      {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
+      {/* <Environment preset="city" background={false} /> */}
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={1.1} />
+      <directionalLight position={[0, 0, 5]} color="red" />
       <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 

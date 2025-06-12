@@ -3,7 +3,6 @@ import { ButtonBorder } from "../buttonBorder";
 import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
 
-import { useGSAP } from "@gsap/react";
 
 function Home() {
     

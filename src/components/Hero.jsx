@@ -1,14 +1,18 @@
-import gsap from "gsap";
+import { useEffect } from "react";
+import { animate } from "motion";
 
 export function Hero() {
-  gsap.registerPlugin();
-
-  // GSAP animation for the hero section
-  gsap.fromTo(
-    ".hero-text",
-    { opacity: 0, y: -50 },
-    { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" }
-  );
+  useEffect(() => {
+    const controls = animate(
+      ".hero-text",
+      { opacity: [0, 1], y: [-50, 0] },
+      { duration: 1.5, easing: "ease-out" }
+    );
+    // controls.finished.then(() => {
+    //   if (onComplete) onComplete();
+    // });
+    return () => controls.stop();
+  },);
 
 return (
   <>

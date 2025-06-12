@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ButtonBorder } from "../buttonBorder";
 import { Hero } from "../Hero";
 import { Navbar } from "../Navbar";

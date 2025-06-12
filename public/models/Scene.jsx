@@ -2,10 +2,9 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import { Model } from "./Model";
-import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
-import gsap from "gsap";
+import { animate } from "motion";
 
 export function CameraAnimation({ from, to, duration = 5 }) {
   const { camera } = useThree();
@@ -16,14 +15,16 @@ export function CameraAnimation({ from, to, duration = 5 }) {
     camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
 
     // Anima a la posición "to" en `duration` segundos
-    gsap.to(camera.position, {
-      x: to[0],
-      y: to[1],
-      z: to[2],
-      duration,
-      ease: 'power2.out',
-      onUpdate: () => camera.updateProjectionMatrix(),
-    });
+    const controls = animate(
+      camera.position,
+      { x: to[0], y: to[1], z: to[2] },
+      {
+        duration,
+        easing: 'ease-out',
+        onUpdate: () => camera.updateProjectionMatrix(),
+      }
+    );
+    return () => controls.stop();
   }, [camera, from, to, duration]);
 
   return null; // no renderiza nada
@@ -40,17 +41,18 @@ function Scene() {
         top: 0,
         left: 0,
         // paddingTop: '200px',
-        zIndex: 50, // Asegura que el canvas esté detrás de otros elementos
+        zIndex: 0, // Asegura que el canvas esté detrás de otros elementos
       }}
       camera={{ position: [0, 60, 300], fov: 15 }}
       shadows
       >
 
-      <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} />
-      <Environment preset="apartment" background={false} />
+      {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
+      {/* <Environment preset="city" background={false} /> */}
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={1.1} />
+      <directionalLight position={[0, 0, 5]} color="red" />
       <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 

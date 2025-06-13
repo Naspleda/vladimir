@@ -35,8 +35,8 @@ function Scene() {
   return (
     <Canvas 
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
+        height: '100%',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -48,26 +48,43 @@ function Scene() {
       >
 
       {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
-      {/* <Environment preset="city" background={false} /> */}
+      <Environment preset="city" background={true} ground={true} environmentIntensity={10} backgroundIntensity={5} />
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[0, 0, 5]} color="red" />
+      <ambientLight intensity={0.3} />
+      {/* <directionalLight position={[-5, -5, 5]} color="blue" /> */}
+
+       <directionalLight
+        castShadow
+        position={[5, 10, 5]}
+        intensity={1}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-near={0.5}
+        shadow-camera-far={50}
+      />
+
       <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 
         intensity={2.6} 
       />
+
+      <pointLight 
+        position={[-5, 5, 5]} 
+        intensity={0.8} 
+        distance={100}
+        color="blue" 
+      />
+
       <Model 
         scale={1.5}
         position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
-
-      
     
       <OrbitControls
-      makeDefault
+        makeDefault
         enableZoom={true}
         enableRotate={true}
         zoomSpeed={4.0}

@@ -48,11 +48,11 @@ function Scene() {
       >
 
       {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
-      {/* <Environment preset="city" background={false} /> */}
+      <Environment preset="city" background={false} />
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[0, 0, 5]} color="red" />
+      <ambientLight intensity={0.1} />
+      <directionalLight position={[10, 10, 5]} color="white" />
       <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 

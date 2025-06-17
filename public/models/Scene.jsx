@@ -35,8 +35,8 @@ function Scene() {
   return (
     <Canvas 
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
+        height: '100%',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -58,16 +58,22 @@ function Scene() {
         groundColor="#lightyellow" 
         intensity={2.6} 
       />
+
+      <pointLight 
+        position={[-5, 5, 5]} 
+        intensity={0.8} 
+        distance={100}
+        color="blue" 
+      />
+
       <Model 
         scale={1.5}
         position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
-
-      
     
       <OrbitControls
-      makeDefault
+        makeDefault
         enableZoom={true}
         enableRotate={true}
         zoomSpeed={4.0}

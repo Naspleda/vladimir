@@ -17,7 +17,6 @@ function Home() {
                     {/* <div className="h-[80%] w-full flex items-end justify-center text-center px-4 pb-12 z-[60]">
                         <ButtonBorder title="Enter" />
                     </div> */}
-                    </div> */}
                 </div>
             </div>
             <div className="absolute bottom-4 inset-x-0 flex justify-center">

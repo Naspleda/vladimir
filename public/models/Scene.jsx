@@ -6,6 +6,8 @@ import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { animate } from "motion";
 
+import Ground from "../../src/components/Ground";
+
 export function CameraAnimation({ from, to, duration = 5 }) {
   const { camera } = useThree();
 
@@ -48,7 +50,7 @@ function Scene() {
       >
 
       {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
-      <Environment preset="city" background={false} />
+      {/* <Environment preset="city" background={false} /> */}
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
       
       <ambientLight intensity={0.1} />
@@ -56,7 +58,7 @@ function Scene() {
       <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 
-        intensity={2.6} 
+        intensity={0.6} 
       />
 
       <pointLight 
@@ -71,6 +73,7 @@ function Scene() {
         position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
+      <Ground />
     
       <OrbitControls
         makeDefault

@@ -10,10 +10,11 @@ function Ground() {
       {/* Plano del suelo */}
       <mesh
         rotation-x={-Math.PI / 2}
-        position={[0, -1.16, 0]}
+        position={[0, -24, -100]} //0, -1.16, 0 -- ORIGINAL
+        scale={10} // 0 ORIGINAL
         receiveShadow
       >
-        <planeGeometry args={[20, 20]} />
+        <planeGeometry args={[50, 50]} />
         <meshStandardMaterial
           color="#15151a"
           metalness={0.8}
@@ -24,8 +25,8 @@ function Ground() {
       {/* Líneas de neón: un “ring” con 4 segmentos es un cuadrado, con 3 segmentos un triángulo, etc. */}
       <mesh
         rotation-x={-Math.PI / 2}
-        position={[0, -1.159, 0]}
-        scale={4}
+        position={[0, -23.99, -100]} // 0, -1.159, 0 -- ORIGINAL
+        scale={70}
       >
         <ringGeometry args={[0.9, 1, 4, 1]} />
         <meshBasicMaterial

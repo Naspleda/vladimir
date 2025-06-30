@@ -1,12 +1,13 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment } from "@react-three/drei";
+import { OrbitControls, Environment, Lightformer } from "@react-three/drei";
 import { Model } from "./Model";
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import { animate } from "motion";
 
 import Ground from "../../src/components/Ground";
+// import { Effects } from "../../src/components/Effects";
 
 export function CameraAnimation({ from, to, duration = 5 }) {
   const { camera } = useThree();
@@ -52,7 +53,9 @@ function Scene() {
       {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
       {/* <Environment preset="city" background={false} /> */}
       {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
-      
+      {/* <Effects /> */}
+
+
       <ambientLight intensity={0.1} />
       <directionalLight position={[10, 10, 5]} color="white" />
       <hemisphereLight 

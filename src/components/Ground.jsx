@@ -1,3 +1,4 @@
+
 import { Canvas } from '@react-three/fiber'
 import { Environment, Lightformer, ContactShadows, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
@@ -16,7 +17,7 @@ function Ground() {
       >
         <planeGeometry args={[50, 50]} />
         <meshStandardMaterial
-          color="#15151a"
+          color="#001f4c"
           metalness={0.8}
           roughness={0.1}
         />

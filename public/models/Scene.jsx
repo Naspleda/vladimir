@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Lightformer } from "@react-three/drei";
 import { Model } from "./Model";
 import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { animate } from "motion";
 
 import Ground from "../../src/components/Ground";
@@ -34,6 +34,24 @@ export function CameraAnimation({ from, to, duration = 5 }) {
 }
 
 function Scene() {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      // Normalizar las coordenadas del mouse de -1 a 1
+      const x = (event.clientX / window.innerWidth) * 2 - 1;
+      const y = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+      // Escalar para obtener posiciones de luz más dramáticas
+      setMousePosition({
+        x: x * 20, // Ajusta el multiplicador según necesites
+        y: y * 20
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <Canvas 
@@ -57,19 +75,19 @@ function Scene() {
 
 
       <ambientLight intensity={0.1} />
-      <directionalLight position={[10, 10, 5]} color="white" />
-      <hemisphereLight 
+      <directionalLight position={[mousePosition.x, mousePosition.y, 5]} color="white" />
+      {/* <hemisphereLight 
         skyColor="#lightblue" 
         groundColor="#lightyellow" 
         intensity={0.6} 
-      />
+      /> */}
 
-      <pointLight 
+      {/* <pointLight 
         position={[-5, 5, 5]} 
         intensity={0.8} 
         distance={100}
         color="blue" 
-      />
+      /> */}
 
       <Model 
         scale={1.5}

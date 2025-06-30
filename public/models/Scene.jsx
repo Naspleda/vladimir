@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Lightformer } from "@react-three/drei";
+import { OrbitControls, Environment, Lightformer, MeshReflectorMaterial, ContactShadows } from "@react-three/drei";
 import { Model } from "./Model";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
@@ -34,7 +34,7 @@ export function CameraAnimation({ from, to, duration = 5 }) {
 }
 
 function Scene() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -74,26 +74,31 @@ function Scene() {
       {/* <Effects /> */}
 
 
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[mousePosition.x, mousePosition.y, 5]} color="white" />
-      {/* <hemisphereLight 
-        skyColor="#lightblue" 
-        groundColor="#lightyellow" 
-        intensity={0.6} 
-      /> */}
+      <ambientLight intensity={0.1} castShadow/>
+      <directionalLight
+         position={[mousePosition.x, mousePosition.y, 10]} 
+         color="white" 
+         
+        intensity={1}
+        castShadow // Habilita que esta luz proyecte sombras
+        shadow-mapSize-width={2048} // Resolución de la sombra
+        shadow-mapSize-height={2048}
+        shadow-camera-far={50}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+         />
 
-      {/* <pointLight 
-        position={[-5, 5, 5]} 
-        intensity={0.8} 
-        distance={100}
-        color="blue" 
-      /> */}
+         {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
 
       <Model 
+      castShadow
         scale={1.5}
         position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
+
       <Ground />
     
       <OrbitControls

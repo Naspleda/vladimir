@@ -1,12 +1,14 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Lightformer, MeshReflectorMaterial, ContactShadows } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Model } from "./Model";
 import { useThree } from "@react-three/fiber";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
+import PropTypes from 'prop-types';
 
 import Ground from "../../src/components/Ground";
+import GradientBackground from '../../src/components/GradientBackground';
 // import { Effects } from "../../src/components/Effects";
 
 export function CameraAnimation({ from, to, duration = 5 }) {
@@ -33,8 +35,29 @@ export function CameraAnimation({ from, to, duration = 5 }) {
   return null; // no renderiza nada
 }
 
+CameraAnimation.propTypes = {
+  from: PropTypes.array.isRequired,
+  to: PropTypes.array.isRequired,
+  duration: PropTypes.number,
+};
+
 function Scene() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const directionalLight = useRef();
+
+  useEffect(() => {
+    if (directionalLight.current) {
+      directionalLight.current.castShadow = true;
+      directionalLight.current.shadow.mapSize.width = 1024;
+      directionalLight.current.shadow.mapSize.height = 1024;
+      directionalLight.current.shadow.camera.far = 500;
+      directionalLight.current.shadow.camera.left = -100;
+      directionalLight.current.shadow.camera.right = 100;
+      directionalLight.current.shadow.camera.top = 100;
+      directionalLight.current.shadow.camera.bottom = -100;
+      directionalLight.current.shadow.bias = -0.001;
+    }
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -68,20 +91,12 @@ function Scene() {
       shadows
       >
 
-      <ambientLight intensity={0.1} castShadow/>
+      <ambientLight intensity={0.5} castShadow/>
       <directionalLight
+        ref={directionalLight}
         position={[mousePosition.x, mousePosition.y, 100]} // Aumenté la distancia para cubrir más área
         color="white"
         intensity={1.5} // Un poco más de intensidad para sombras más notorias
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-        shadow-camera-far={500} // Aumentado para asegurar que el castillo esté dentro del frustum
-        shadow-camera-left={-100} // Aumentado para cubrir el ancho del castillo
-        shadow-camera-right={100} // Aumentado para cubrir el ancho del castillo
-        shadow-camera-top={100} // Aumentado para cubrir la altura del castillo
-        shadow-camera-bottom={-100} // Aumentado para cubrir la altura del castillo
-        shadow-bias={-0.001} // Ayuda a prevenir artefactos en las sombras
       />
 
          {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
@@ -93,6 +108,7 @@ function Scene() {
         // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
       />
 
+      {/* <GradientBackground /> */}
       <Ground />
     
       <OrbitControls

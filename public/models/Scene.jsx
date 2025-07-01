@@ -43,21 +43,6 @@ CameraAnimation.propTypes = {
 
 function Scene() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const directionalLight = useRef();
-
-  useEffect(() => {
-    if (directionalLight.current) {
-      directionalLight.current.castShadow = true;
-      directionalLight.current.shadow.mapSize.width = 1024;
-      directionalLight.current.shadow.mapSize.height = 1024;
-      directionalLight.current.shadow.camera.far = 500;
-      directionalLight.current.shadow.camera.left = -100;
-      directionalLight.current.shadow.camera.right = 100;
-      directionalLight.current.shadow.camera.top = 100;
-      directionalLight.current.shadow.camera.bottom = -100;
-      directionalLight.current.shadow.bias = -0.001;
-    }
-  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -91,12 +76,20 @@ function Scene() {
       shadows
       >
 
-      <ambientLight intensity={0.5} castShadow/>
+      <ambientLight intensity={0.4} />
       <directionalLight
-        ref={directionalLight}
-        position={[mousePosition.x, mousePosition.y, 100]} // Aumenté la distancia para cubrir más área
+        castShadow
+        position={[mousePosition.x, mousePosition.y, 100]}
+        intensity={0.5}
         color="white"
-        intensity={1.5} // Un poco más de intensidad para sombras más notorias
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-far={500}
+        shadow-camera-left={-100}
+        shadow-camera-right={100}
+        shadow-camera-top={100}
+        shadow-camera-bottom={-100}
+        shadow-bias={-0.001}
       />
 
          {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}

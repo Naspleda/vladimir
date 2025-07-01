@@ -68,27 +68,21 @@ function Scene() {
       shadows
       >
 
-      {/* <CameraAnimation from={[0, 0, 0]} to={[0, 60, 300]} duration={4} /> */}
-      {/* <Environment preset="city" background={false} /> */}
-      {/* Preset must be one of: apartment, city, dawn, forest, lobby, night, park, studio, sunset, warehouse */}
-      {/* <Effects /> */}
-
-
       <ambientLight intensity={0.1} castShadow/>
       <directionalLight
-         position={[mousePosition.x, mousePosition.y, 10]} 
-         color="white" 
-         
-        intensity={1}
-        castShadow // Habilita que esta luz proyecte sombras
-        shadow-mapSize-width={2048} // Resolución de la sombra
+        position={[mousePosition.x, mousePosition.y, 100]} // Aumenté la distancia para cubrir más área
+        color="white"
+        intensity={1.5} // Un poco más de intensidad para sombras más notorias
+        castShadow
+        shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-         />
+        shadow-camera-far={500} // Aumentado para asegurar que el castillo esté dentro del frustum
+        shadow-camera-left={-100} // Aumentado para cubrir el ancho del castillo
+        shadow-camera-right={100} // Aumentado para cubrir el ancho del castillo
+        shadow-camera-top={100} // Aumentado para cubrir la altura del castillo
+        shadow-camera-bottom={-100} // Aumentado para cubrir la altura del castillo
+        shadow-bias={-0.001} // Ayuda a prevenir artefactos en las sombras
+      />
 
          {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
 

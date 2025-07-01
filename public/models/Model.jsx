@@ -5,11 +5,10 @@ export function Model(props) {
   const { scene } = useGLTF("/models/model.glb");
 
   useEffect(() => {
-    // Habilitar sombras para todos los meshes del modelo
     scene.traverse((child) => {
       if (child.isMesh) {
-        child.castShadow = true;    // El objeto proyecta sombras
-        child.receiveShadow = true; // El objeto puede recibir sombras
+        child.castShadow = true;
+        child.receiveShadow = true;
       }
     });
   }, [scene]);

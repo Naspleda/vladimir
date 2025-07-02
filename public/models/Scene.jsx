@@ -6,6 +6,8 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
 import PropTypes from 'prop-types';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
+
 
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
@@ -93,13 +95,15 @@ function Scene() {
       />
 
          {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
-
-      <Model 
-      castShadow
-        scale={1.5}
-        position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
-        // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
-      />
+      <EffectComposer>
+        <Bloom intensity={0.5} luminanceThreshold={0.5} luminanceSmoothing={0.9} height={1000} />
+        <Model 
+        castShadow
+          scale={1.5}
+          position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
+          // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
+        />
+      </EffectComposer>
 
       {/* <GradientBackground /> */}
       <Ground />

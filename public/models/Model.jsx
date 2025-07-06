@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { useEffect } from "react";
 
 export function Model(props) {
-  const { scene } = useGLTF("/models/model.glb");
+  const { scene } = useGLTF("/models/kremlin.glb");
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -17,4 +17,4 @@ export function Model(props) {
 }
 
 // Precargar el modelo
-useGLTF.preload("/models/model.glb");
+useGLTF.preload("/models/kremlin.glb");

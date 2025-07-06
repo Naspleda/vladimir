@@ -96,7 +96,12 @@ function Scene() {
 
          {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
       <EffectComposer>
-        <Bloom intensity={0.5} luminanceThreshold={0.5} luminanceSmoothing={0.9} height={1000} />
+        <Bloom 
+        intensity={0.1} 
+        luminanceThreshold={0.9} 
+        luminanceSmoothing={0.5} 
+        kernelSize={1}
+        height={2000} />
         <Model 
         castShadow
           scale={1.5}

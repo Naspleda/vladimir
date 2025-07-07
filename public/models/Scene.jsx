@@ -15,6 +15,7 @@ import { Kremlin } from "./Kremlin";
 import { text } from "framer-motion/client";
 import { texture } from "three/tsl";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
+import { Cubo } from "../../src/components/Cubo";
 // import { Effects } from "../../src/components/Effects";
 
 // export function CameraAnimation({ from, to, duration = 5 }) {
@@ -72,22 +73,6 @@ function Scene() {
       // camera={{ position: [0, 60, 300], fov: 15 }}
       shadows
       >
-
-      {/* <ambientLight intensity={0.4} 
-      color={"white"}
-      /> */}
-      {/* <pointLight 
-        intensity={1} 
-        position={[20, 30, -60]} 
-        distance={50} 
-        decay={0} 
-      />
-      <pointLight 
-        intensity={1} 
-        position={[-40, 30, -60]} 
-        distance={50} 
-        decay={0} 
-      /> */}
       {/* <hemisphereLight 
       skyColor="skyblue" 
       groundColor="white" 
@@ -133,6 +118,17 @@ function Scene() {
       )}
       </CubeCamera>
 
+      <Cubo />
+
+      <EffectComposer>
+        <Bloom
+          luminanceThreshold={0.1}
+          luminanceSmoothing={0.1}
+          intensity={0.5}
+        />
+      </EffectComposer>
+
+        
       <FloatingGrid />
 
       {/* <spotLight
@@ -144,6 +140,12 @@ function Scene() {
         castShadow
         shadow-bias={-0.0001}
       /> */}
+      <hemisphereLight 
+        position={[0, -1, 0]}
+        skyColor="white" 
+        groundColor="black" 
+        intensity={1} 
+      />
       <spotLight
         color={[0.14, 0.5, 1]}
         intensity={1000}

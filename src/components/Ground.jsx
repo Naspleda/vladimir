@@ -56,8 +56,8 @@ function Ground() {
       {/* Pared */}
       <mesh position={[0, 14, -10]} receiveShadow>
           <planeGeometry args={[30, 30]} />
-          <meshStandardMaterial color="#09396e" />
-          //#09396e
+          <meshStandardMaterial color="#04182e" />
+          //#04182e
       </mesh>
     </>
   )

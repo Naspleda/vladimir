@@ -1,47 +1,47 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { Model } from "./Model";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
 import PropTypes from 'prop-types';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
+import { Model } from "./Model";
 
 
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
 // import { Effects } from "../../src/components/Effects";
 
-export function CameraAnimation({ from, to, duration = 5 }) {
-  const { camera } = useThree();
+// export function CameraAnimation({ from, to, duration = 5 }) {
+//   const { camera } = useThree();
 
-  useEffect(() => {
-    // Coloca la cámara en la posición "from" al inicio
-    camera.position.set(...from);
-    camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
+//   useEffect(() => {
+//     // Coloca la cámara en la posición "from" al inicio
+//     camera.position.set(...from);
+//     camera.lookAt(0, -25, -80); // ajusta el target si lo necesitas
 
-    // Anima a la posición "to" en `duration` segundos
-    const controls = animate(
-      camera.position,
-      { x: to[0], y: to[1], z: to[2] },
-      {
-        duration,
-        easing: 'ease-out',
-        onUpdate: () => camera.updateProjectionMatrix(),
-      }
-    );
-    return () => controls.stop();
-  }, [camera, from, to, duration]);
+//     // Anima a la posición "to" en `duration` segundos
+//     const controls = animate(
+//       camera.position,
+//       { x: to[0], y: to[1], z: to[2] },
+//       {
+//         duration,
+//         easing: 'ease-out',
+//         onUpdate: () => camera.updateProjectionMatrix(),
+//       }
+//     );
+//     return () => controls.stop();
+//   }, [camera, from, to, duration]);
 
-  return null; // no renderiza nada
-}
+//   return null; // no renderiza nada
+// }
 
-CameraAnimation.propTypes = {
-  from: PropTypes.array.isRequired,
-  to: PropTypes.array.isRequired,
-  duration: PropTypes.number,
-};
+// CameraAnimation.propTypes = {
+//   from: PropTypes.array.isRequired,
+//   to: PropTypes.array.isRequired,
+//   duration: PropTypes.number,
+// };
 
 function Scene() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -65,25 +65,44 @@ function Scene() {
 
   return (
     <Canvas 
-      style={{
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        // paddingTop: '200px',
-        zIndex: 0, // Asegura que el canvas esté detrás de otros elementos
-      }}
-      camera={{ position: [0, 60, 300], fov: 15 }}
+      // camera={{ position: [0, 60, 300], fov: 15 }}
       shadows
       >
 
-      <ambientLight intensity={0.4} />
-      <directionalLight
+      {/* <ambientLight intensity={0.4} 
+      color={"white"}
+      /> */}
+      {/* <pointLight 
+        intensity={1} 
+        position={[20, 30, -60]} 
+        distance={50} 
+        decay={0} 
+      />
+      <pointLight 
+        intensity={1} 
+        position={[-40, 30, -60]} 
+        distance={50} 
+        decay={0} 
+      /> */}
+      {/* <hemisphereLight 
+      skyColor="skyblue" 
+      groundColor="white" 
+      intensity={1} 
+    /> */}
+    {/* <rectAreaLight 
+      width={40} 
+      height={10} 
+      intensity={80} 
+      color="white" 
+      position={[0, 200, 0]} 
+      rotation={[-Math.PI / 2, 0, 0]} 
+    /> */}
+
+      {/* <directionalLight
         castShadow
         position={[mousePosition.x, mousePosition.y, 100]}
         intensity={0.5}
-        color="white"
+        color="#white" //#0267fd
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
         shadow-camera-far={500}
@@ -92,28 +111,54 @@ function Scene() {
         shadow-camera-top={100}
         shadow-camera-bottom={-100}
         shadow-bias={-0.001}
-      />
+      /> */}
 
-         {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
-      <EffectComposer>
+      {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
+      {/* <EffectComposer>
         <Bloom 
-        intensity={0.1} 
+        intensity={.1} 
         luminanceThreshold={0.9} 
         luminanceSmoothing={0.5} 
-        kernelSize={1}
+        kernelSize={5}
         height={2000} />
         <Model 
         castShadow
           scale={1.5}
-          position={[0, -25, -80]} // x, y, z (horinzontal, vertical, distancia)
-          // rotation={[0, rotationY, 0]} // Rotación en el eje Y // cambiar 2do param a rotationY para la rotar con scroll
+          position={[0, -25, -80]}
         />
-      </EffectComposer>
+      </EffectComposer> */}
 
       {/* <GradientBackground /> */}
+      {/* <Ground /> */}
+      
+      <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.45} />
+
+      <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]} />
+
+      <color args={[0, 0, 0]} attach={"background"} />
+      {/* <ambientLight intensity={0.5} /> */}
+      <spotLight
+        color={[1, 0.25, 0.7]}
+        intensity={100.5}
+        angle={0.6}
+        penumbra={0.5}
+        position={[5, 5, 0]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
+      <spotLight
+        color={[0.14, 0.5, 1]}
+        intensity={200}
+        angle={0.6}
+        penumbra={0.5}
+        position={[-5, 5, 0]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
       <Ground />
+      {/* <GroundTest/> */}
     
-      <OrbitControls
+      {/* <OrbitControls
         makeDefault
         enableZoom={true}
         enableRotate={true}
@@ -125,7 +170,7 @@ function Scene() {
         maxAzimuthAngle={Math.PI / 4} // Límite derecho de rotación horizontal (45 grados)
         enableDamping={true}
         dampingFactor={0.05}
-      />
+      /> */}
     </Canvas>
   );
 }

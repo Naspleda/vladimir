@@ -11,6 +11,7 @@ import { Model } from "./Model";
 
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
+import { Kremlin } from "./Kremlin";
 // import { Effects } from "../../src/components/Effects";
 
 // export function CameraAnimation({ from, to, duration = 5 }) {
@@ -137,6 +138,9 @@ function Scene() {
 
       <color args={[0, 0, 0]} attach={"background"} />
       {/* <ambientLight intensity={0.5} /> */}
+
+      <Kremlin />
+
       <spotLight
         color={[1, 0.25, 0.7]}
         intensity={100.5}

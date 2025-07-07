@@ -20,7 +20,7 @@ function GroundTest() {
     }, [normal, roughness]);
     return (
         <>
-        <mesh rotation={[-Math.PI * 0.5]} scale={100} castShadow receiveShadow>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]} receiveShadow>
             <planeGeometry args={[50, 50]} />
             <MeshReflectorMaterial
                 envMapIntensity={0}
@@ -43,6 +43,12 @@ function GroundTest() {
                 debug={0}
                 reflectorOffset={0.2}
             />
+        </mesh>
+
+        {/* Pared */}
+        <mesh position={[0, 24, -25]} receiveShadow>
+            <planeGeometry args={[50, 50]} />
+            <meshStandardMaterial color="#404040" />
         </mesh>
         </>
     );

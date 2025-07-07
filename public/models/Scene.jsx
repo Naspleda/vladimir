@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { CubeCamera, Environment, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
@@ -12,6 +12,8 @@ import { Model } from "./Model";
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
 import { Kremlin } from "./Kremlin";
+import { text } from "framer-motion/client";
+import { texture } from "three/tsl";
 // import { Effects } from "../../src/components/Effects";
 
 // export function CameraAnimation({ from, to, duration = 5 }) {
@@ -113,35 +115,24 @@ function Scene() {
         shadow-camera-bottom={-100}
         shadow-bias={-0.001}
       /> */}
-
-      {/* <ContactShadows resolution={512} position={[0, -0.8, 0]} opacity={1} scale={10} blur={2} far={0.8} /> */}
-      {/* <EffectComposer>
-        <Bloom 
-        intensity={.1} 
-        luminanceThreshold={0.9} 
-        luminanceSmoothing={0.5} 
-        kernelSize={5}
-        height={2000} />
-        <Model 
-        castShadow
-          scale={1.5}
-          position={[0, -25, -80]}
-        />
-      </EffectComposer> */}
-
-      {/* <GradientBackground /> */}
-      {/* <Ground /> */}
       
       <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.45} />
 
-      <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]} />
+      <PerspectiveCamera makeDefault fov={50} position={[0, 2, 5]} />
 
       <color args={[0, 0, 0]} attach={"background"} />
       {/* <ambientLight intensity={0.5} /> */}
 
-      <Kremlin />
+      <CubeCamera resolution={256} frames={Infinity} >
+      {(texture) => (
+        <>
+        <Environment map={texture} />
+        <Kremlin />
+        </>
+      )}
+      </CubeCamera>
 
-      <spotLight
+      {/* <spotLight
         color={[1, 0.25, 0.7]}
         intensity={100.5}
         angle={0.6}
@@ -149,32 +140,35 @@ function Scene() {
         position={[5, 5, 0]}
         castShadow
         shadow-bias={-0.0001}
+      /> */}
+      <spotLight
+        color={[0.14, 0.5, 1]}
+        intensity={100}
+        angle={0.8}
+        penumbra={0.5}
+        position={[0, 5, -30]}
+        castShadow
+        shadow-bias={-0.0001}
       />
       <spotLight
+        color={[0.14, 0.5, 1]}
+        intensity={1000}
+        angle={0.8}
+        penumbra={0.5}
+        position={[0, 5, 30]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
+      {/* <spotLight
         color={[0.14, 0.5, 1]}
         intensity={200}
         angle={0.6}
         penumbra={0.5}
-        position={[-5, 5, 0]}
+        position={[5, 5, 3]}
         castShadow
         shadow-bias={-0.0001}
-      />
-      <Ground />
-      {/* <GroundTest/> */}
-    
-      {/* <OrbitControls
-        makeDefault
-        enableZoom={true}
-        enableRotate={true}
-        zoomSpeed={4.0}
-        rotateSpeed={0.4}
-        minPolarAngle={1} // Límite inferior de rotación vertical (0 grados)
-        maxPolarAngle={Math.PI / 2} // Límite superior de rotación vertical (90 grados)
-        minAzimuthAngle={-Math.PI / 4} // Límite izquierdo de rotación horizontal (-45 grados)
-        maxAzimuthAngle={Math.PI / 4} // Límite derecho de rotación horizontal (45 grados)
-        enableDamping={true}
-        dampingFactor={0.05}
       /> */}
+      <Ground />
     </Canvas>
   );
 }

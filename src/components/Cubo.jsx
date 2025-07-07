@@ -14,8 +14,8 @@ export function Cubo() {
 
   return (
     <mesh ref={meshRef}
-         position={[0.94, 0.3, 0]}
-         scale={0.2}
+         position={[0.94, 0.25, -0.05]}
+         scale={[0.30, 0.4, 0.35]}
     >
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial 

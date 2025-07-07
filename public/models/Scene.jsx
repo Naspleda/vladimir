@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { CubeCamera, Environment, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { CubeCamera, Environment, Float, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
@@ -14,6 +14,7 @@ import GradientBackground from '../../src/components/GradientBackground';
 import { Kremlin } from "./Kremlin";
 import { text } from "framer-motion/client";
 import { texture } from "three/tsl";
+import { FloatingGrid } from "../../src/components/FloatingGrid";
 // import { Effects } from "../../src/components/Effects";
 
 // export function CameraAnimation({ from, to, duration = 5 }) {
@@ -132,6 +133,8 @@ function Scene() {
       )}
       </CubeCamera>
 
+      <FloatingGrid />
+
       {/* <spotLight
         color={[1, 0.25, 0.7]}
         intensity={100.5}
@@ -143,10 +146,10 @@ function Scene() {
       /> */}
       <spotLight
         color={[0.14, 0.5, 1]}
-        intensity={100}
+        intensity={1000}
         angle={0.8}
         penumbra={0.5}
-        position={[0, 5, -30]}
+        position={[10, 5, -30]}
         castShadow
         shadow-bias={-0.0001}
       />

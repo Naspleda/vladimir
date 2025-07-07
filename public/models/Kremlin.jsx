@@ -9,7 +9,7 @@ export function Kremlin() {
     
     useEffect(() => {
         gltf.scene.scale.set(0.07, 0.07, 0.07); // Ajusta la escala del modelo
-        gltf.scene.position.set(0, -1.1, 0); // Ajusta la posición del modelo
+        gltf.scene.position.set(0, -1.03, 0); // Ajusta la posición del modelo
         gltf.scene.traverse((object) => {
             if (object instanceof Mesh) {
                 object.castShadow = true; // Habilita las sombras

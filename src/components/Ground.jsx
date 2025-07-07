@@ -26,7 +26,7 @@ function Ground() {
         scale={1} // 0 ORIGINAL
         receiveShadow
       >
-        <planeGeometry args={[50, 50]} />
+        <planeGeometry args={[30, 30]} />
         {/* <meshStandardMaterial color="grey" roughness={0.1} metalness={0} /> */}
         <MeshReflectorMaterial
                         envMapIntensity={0}
@@ -54,8 +54,8 @@ function Ground() {
       </mesh>
 
       {/* Pared */}
-      <mesh position={[0, 24, -25]} receiveShadow>
-          <planeGeometry args={[50, 50]} />
+      <mesh position={[0, 14, -10]} receiveShadow>
+          <planeGeometry args={[30, 30]} />
           <meshStandardMaterial color="#09396e" />
           //#09396e
       </mesh>

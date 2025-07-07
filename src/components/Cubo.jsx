@@ -17,7 +17,7 @@ export function Cubo() {
          position={[0.94, 0.25, -0.05]}
          scale={[0.30, 0.4, 0.35]}
     >
-      <boxGeometry args={[1, 1, 1]} />
+      <cylinderGeometry args={[0.5, 0.5, 1.5, 32]} />
       <meshStandardMaterial 
       color={"orange"} 
       emissive={"orange"} 

@@ -14,6 +14,34 @@ export function Cubo() {
 
   return (
     <>
+
+    {/* LUZ DE TECHO */}
+    <mesh ref={meshRef}
+         position={[0, 0.71, -0.99]}
+         scale={[0.30, 0.4, 0.30]}
+    >
+      <cylinderGeometry args={[1.47, 1.47, 0.55, 32]} />
+      <meshStandardMaterial 
+        color={"orange"} 
+        emissive={"orange"} 
+        emissiveIntensity={0.8}
+        toneMapped={false}
+        />
+    </mesh>
+
+    {/* RECTANGULO HORIZONTAL */}
+    <mesh
+         position={[0, -0.2, -0.15]}
+    >
+      <boxGeometry args={[2.4, 0.35, 0.5]} />
+      <meshStandardMaterial 
+        color={"orange"} 
+        emissive={"orange"} 
+        emissiveIntensity={0.8}
+        toneMapped={false}
+        />
+    </mesh>
+
     {/*  ADELANTE DERECHA */}
     <mesh ref={meshRef}
          position={[0.94, 0.25, -0.05]}
@@ -28,8 +56,7 @@ export function Cubo() {
         />
     </mesh>
 
-    
-
+     {/*  ADELANTE IZQUIERDA */}
     <mesh ref={meshRef}
          position={[-0.94, 0.25, -0.05]}
          scale={[0.30, 0.4, 0.35]}
@@ -43,6 +70,7 @@ export function Cubo() {
         />
     </mesh>
 
+    {/* ATRAS DERECHA */}
     <mesh ref={meshRef}
          position={[0.94, 0.25, -1.923]}
          scale={[0.30, 0.4, 0.35]}
@@ -56,6 +84,7 @@ export function Cubo() {
         />
     </mesh>
 
+    {/* ATRAS IZQUIERDA */}
     <mesh ref={meshRef}
          position={[-0.94, 0.25, -1.923]}
          scale={[0.30, 0.4, 0.35]}
@@ -68,6 +97,8 @@ export function Cubo() {
         toneMapped={false}
         />
     </mesh>
+
+    
     </>
   );
 }

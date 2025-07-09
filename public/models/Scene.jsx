@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { Canvas } from "@react-three/fiber";
-import { CubeCamera, Environment, Float, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { CubeCamera, Environment, Float, OrbitControls, PerspectiveCamera, Backdrop } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState, useRef } from "react";
 import { animate } from "motion";
@@ -15,7 +15,7 @@ import { Kremlin } from "./Kremlin";
 import { text } from "framer-motion/client";
 import { texture } from "three/tsl";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
-import { Cubo } from "../../src/components/Cubo";
+import { Luces } from "../../src/components/Luces";
 // import { Effects } from "../../src/components/Effects";
 
 // export function CameraAnimation({ from, to, duration = 5 }) {
@@ -70,22 +70,8 @@ function Scene() {
 
   return (
     <Canvas 
-      // camera={{ position: [0, 60, 300], fov: 15 }}
       shadows
       >
-      {/* <hemisphereLight 
-      skyColor="skyblue" 
-      groundColor="white" 
-      intensity={1} 
-    /> */}
-    {/* <rectAreaLight 
-      width={40} 
-      height={10} 
-      intensity={80} 
-      color="white" 
-      position={[0, 200, 0]} 
-      rotation={[-Math.PI / 2, 0, 0]} 
-    /> */}
 
       {/* <directionalLight
         castShadow
@@ -118,7 +104,10 @@ function Scene() {
       )}
       </CubeCamera>
 
-      <Cubo />
+      {/* <Backdrop castShadow floor={3} position={[0, -1.9, -3]} scale={[50, 10, 4]}>
+        <meshStandardMaterial color="#353540" envMapIntensity={0.1} />
+      </Backdrop> */}
+      <Luces />
 
       <EffectComposer>
         <Bloom
@@ -128,25 +117,37 @@ function Scene() {
         />
       </EffectComposer>
 
-        
+      <Ground />
       <FloatingGrid />
 
-      {/* <spotLight
+      {/* LUCES BASE */}
+      <spotLight
         color={[1, 0.25, 0.7]}
-        intensity={100.5}
+        intensity={10.5}
         angle={0.6}
         penumbra={0.5}
         position={[5, 5, 0]}
         castShadow
         shadow-bias={-0.0001}
-      /> */}
+      />
+      <spotLight
+        color={[0.14, 0.5, 1]}
+        intensity={20}
+        angle={0.6}
+        penumbra={0.5}
+        position={[-5, 5, 3]}
+        castShadow
+        shadow-bias={-0.0001}
+      />
       <hemisphereLight 
         position={[0, -1, 0]}
         skyColor="white" 
         groundColor="black" 
         intensity={1} 
       />
-      <spotLight
+      
+      {/* LUCES CUSTOM */}
+      {/* <spotLight
         color={[0.14, 0.5, 1]}
         intensity={1000}
         angle={0.8}
@@ -163,17 +164,8 @@ function Scene() {
         position={[0, 5, 30]}
         castShadow
         shadow-bias={-0.0001}
-      />
-      {/* <spotLight
-        color={[0.14, 0.5, 1]}
-        intensity={200}
-        angle={0.6}
-        penumbra={0.5}
-        position={[5, 5, 3]}
-        castShadow
-        shadow-bias={-0.0001}
       /> */}
-      <Ground />
+      
     </Canvas>
   );
 }

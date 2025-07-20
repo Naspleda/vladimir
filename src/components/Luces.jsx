@@ -34,7 +34,7 @@ export function Luces() {
     <>
 
     {/* LUZ DE TECHO */}
-    <mesh ref={meshRef}
+    {/* <mesh ref={meshRef}
          position={[0, 0.71, -0.99]}
          scale={[0.30, 0.4, 0.30]}
     >
@@ -45,7 +45,7 @@ export function Luces() {
         emissiveIntensity={0.7}
         toneMapped={true}
         />
-    </mesh>
+    </mesh> */}
 
     {/* RECTANGULO HORIZONTAL */}
     <mesh
@@ -71,7 +71,22 @@ export function Luces() {
       />
     ))}
 
-    
+    {/* CIRCULO DE LUZ */}
+    <mesh position={[0, 0.60, -0.99]} rotation={[-Math.PI / 2, 0, 0]}>
+      <circleGeometry args={[0.45, 32]} />
+      <meshStandardMaterial
+        color={"orange"}
+        emissive={"orange"}
+        emissiveIntensity={0.8}
+        toneMapped={false}
+      />
+      <pointLight
+        color="orange"
+        intensity={1}
+        distance={5}
+        position={[0, 0, 0.2]} // La luz apunta hacia arriba
+      />
+    </mesh>
     </>
   );
 }

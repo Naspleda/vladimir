@@ -3,21 +3,14 @@ import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
-// Se define la geometria y el material una sola vez para reutilizarlos
-const windowGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1.5, 32);
-const windowMaterial = new THREE.MeshStandardMaterial({
-  color: "orange",
-  emissive: "orange",
-  emissiveIntensity: 0.8,
-  toneMapped: false,
-});
+
 
 // Posiciones de las ventanas
 const windowPositions = [
-  [0.94, 0.25, -0.05],   // ADELANTE DERECHA
-  [-0.94, 0.25, -0.05],  // ADELANTE IZQUIERDA
-  [0.94, 0.25, -1.923],  // ATRAS DERECHA
-  [-0.94, 0.25, -1.923]  // ATRAS IZQUIERDA
+  [0.94, 0.09, -0.05],   // ADELANTE DERECHA
+  [-0.94, 0.09, -0.05],  // ADELANTE IZQUIERDA
+  [0.94, 0.09, -1.923],  // ATRAS DERECHA
+  [-0.94, 0.09, -1.923]  // ATRAS IZQUIERDA
 ];
 
 export function Luces() {
@@ -62,13 +55,22 @@ export function Luces() {
 
     {/* Mapeo de las ventanas para crear los meshes */}
     {windowPositions.map((position, i) => (
-      <mesh
-        key={i}
-        geometry={windowGeometry}
-        material={windowMaterial}
-        position={position}
-        scale={[0.30, 0.4, 0.35]}
+      <mesh key={i} position={position} rotation={[-Math.PI / 2, 0, 0]}>
+        <circleGeometry args={[0.16, 32]} />
+        <meshStandardMaterial
+          color={"orange"}
+          emissive={"orange"}
+          emissiveIntensity={0.5}
+          toneMapped={false}
+        />
+        <pointLight
+        color="orange"
+        intensity={1}
+        distance={5}
+        position={[0, 0, 0.2]} // La luz apunta hacia arriba
       />
+      </mesh>
+      
     ))}
 
     {/* CIRCULO DE LUZ */}

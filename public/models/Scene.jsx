@@ -122,7 +122,7 @@ function Scene() {
 
       {/* LUCES BASE */}
       <spotLight
-        color={[1, 0.25, 0.7]}
+        color={[0.14, 0.5, 1]}
         intensity={10.5}
         angle={0.6}
         penumbra={0.5}
@@ -155,7 +155,7 @@ function Scene() {
         position={[10, 5, -30]}
         castShadow
         shadow-bias={-0.0001}
-      />
+      /> */}
       <spotLight
         color={[0.14, 0.5, 1]}
         intensity={1000}
@@ -164,7 +164,7 @@ function Scene() {
         position={[0, 5, 30]}
         castShadow
         shadow-bias={-0.0001}
-      /> */}
+      />
       
     </Canvas>
   );

@@ -41,7 +41,7 @@ export function Luces() {
     </mesh> */}
 
     {/* RECTANGULO HORIZONTAL */}
-    <mesh
+    {/* <mesh
          position={[0, -0.2, -0.15]}
     >
       <boxGeometry args={[2.4, 0.35, 0.5]} />
@@ -51,7 +51,7 @@ export function Luces() {
         emissiveIntensity={0.7}
         toneMapped={true}
         />
-    </mesh>
+    </mesh> */}
 
     {/* Mapeo de las ventanas para crear los meshes */}
     {windowPositions.map((position, i) => (
@@ -60,13 +60,13 @@ export function Luces() {
         <meshStandardMaterial
           color={"orange"}
           emissive={"orange"}
-          emissiveIntensity={0.5}
+          emissiveIntensity={0.8}
           toneMapped={false}
         />
         <pointLight
         color="orange"
-        intensity={1}
-        distance={5}
+        intensity={0.2}
+        distance={1}
         position={[0, 0, 0.2]} // La luz apunta hacia arriba
       />
       </mesh>

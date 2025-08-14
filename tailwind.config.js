@@ -1,9 +1,7 @@
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -25,7 +23,10 @@ module.exports = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
-      }
+      },
+      fontFamily: {
+        title: ['Cinzel', 'serif'],
+      },
     },
   },
   plugins: [addVariablesForColors],

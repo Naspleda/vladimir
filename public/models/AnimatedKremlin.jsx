@@ -2,11 +2,14 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
+import useSceneControls from "../../src/store/useSceneControls";
 
 export function AnimatedKremlin() {
     const gltf = useLoader(GLTFLoader, "/models/kremlin.glb");
     const modelRef = useRef();
     const clock = useRef(new THREE.Clock());
+    const { setKremlinAnimationFinished } = useSceneControls();
+    const animationCompletedRef = useRef(false);
 
     // Almacena los datos de transformación inicial y final para cada malla
     const animationData = useMemo(() => {
@@ -101,9 +104,11 @@ export function AnimatedKremlin() {
             });
         }
         
-        // Detener la animación después de que termine para ahorrar rendimiento
-        if (progress >= 1) {
+        // Detener la animación y actualizar el estado cuando termine
+        if (progress >= 1 && !animationCompletedRef.current) {
             clock.current.stop();
+            setKremlinAnimationFinished(true);
+            animationCompletedRef.current = true; // Marcar como completado
         }
     });
 

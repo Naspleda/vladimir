@@ -26,6 +26,11 @@ const useSceneControls = create((set) => ({
   toggleSpotlight: () => set((state) => ({ isSpotlightOn: !state.isSpotlightOn })),
   toggleAnimations: () => set((state) => ({ animationsEnabled: !state.animationsEnabled })),
   setAnimationSpeed: (speed) => set({ animationSpeed: speed }),
+  triggerCameraAnimation: (target) => set({ cameraAnimationTrigger: { target, timestamp: Date.now() } }),
+
+  // Estado para el texto
+  textVisible: false,
+  toggleText: () => set((state) => ({ textVisible: !state.textVisible })),
 }));
 
 export default useSceneControls;

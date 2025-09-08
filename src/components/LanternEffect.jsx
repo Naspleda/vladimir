@@ -1,5 +1,4 @@
 import React from 'react';
-import './LanternEffect.css';
 
 const LanternEffect = ({x, y, children}) => {
     const lanternStyle = {

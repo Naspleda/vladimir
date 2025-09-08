@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { animate } from "motion";
 
-import Typewriter from "./Typewriter";
-
 export function Hero() {
   useEffect(() => {
     const controls = animate(

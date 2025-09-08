@@ -9,6 +9,9 @@ import GradientBackground from '../../src/components/GradientBackground';
 import { AnimatedKremlin } from "./AnimatedKremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 import { Luces } from "../../src/components/Luces";
+import ArrowButton from "../../src/components/ArrowButton";
+import useSceneControls from "../../src/store/useSceneControls";
+import Text from "../../src/components/Text";
 
 // --- UI de cámara (panel flotante) ---
 function CameraController({ controlsRef, camRef }) {
@@ -202,6 +205,16 @@ function CameraTransitioner({ controlsRef, camRef }) {
     return a + diff * t;
   };
 
+  const { cameraAnimationTrigger } = useSceneControls();
+
+  useEffect(() => {
+    if (cameraAnimationTrigger) {
+      setTarget(cameraAnimationTrigger.target);
+      setDuration(2); // 2 segundos de transición
+      animateToTargets();
+    }
+  }, [cameraAnimationTrigger]);
+
   const stop = () => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     animatingRef.current = false;
@@ -360,6 +373,7 @@ function Scene() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const controlsRef = useRef(null);
   const camRef = useRef(null);
+  const { toggleText } = useSceneControls();
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -442,6 +456,11 @@ function Scene() {
 
       {/* NUEVO: panel con transición de 5s */}
     <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
+      <Text />
+      <div className="absolute inset-0 flex items-center justify-between p-4" style={{ zIndex: 20 }}>
+        <ArrowButton direction="left" onClick={toggleText} />
+        <ArrowButton direction="right" onClick={toggleText} />
+      </div>
     </div>
   );
 }

@@ -2,8 +2,7 @@ import React from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
-
-
+import useSceneControls from '../store/useSceneControls';
 
 // Posiciones de las ventanas
 const windowPositions = [
@@ -15,43 +14,11 @@ const windowPositions = [
 
 export function Luces() {
   const meshRef = useRef();
+  const { kremlinAnimationFinished } = useSceneControls();
 
-//   useFrame(() => {
-//     if (meshRef.current) {
-//       meshRef.current.rotation.x += 0.01;
-//       meshRef.current.rotation.y += 0.01;
-//     }
-//   });
 
   return (
     <>
-
-    {/* LUZ DE TECHO */}
-    {/* <mesh ref={meshRef}
-         position={[0, 0.71, -0.99]}
-         scale={[0.30, 0.4, 0.30]}
-    >
-      <cylinderGeometry args={[1.47, 1.47, 0.55, 32]} />
-      <meshStandardMaterial 
-        color={"orange"} 
-        emissive={"orange"} 
-        emissiveIntensity={0.7}
-        toneMapped={true}
-        />
-    </mesh> */}
-
-    {/* RECTANGULO HORIZONTAL */}
-    {/* <mesh
-         position={[0, -0.2, -0.15]}
-    >
-      <boxGeometry args={[2.4, 0.35, 0.5]} />
-      <meshStandardMaterial 
-        color={"orange"} 
-        emissive={"orange"} 
-        emissiveIntensity={0.7}
-        toneMapped={true}
-        />
-    </mesh> */}
 
     {/* Mapeo de las ventanas para crear los meshes */}
     {windowPositions.map((position, i) => (
@@ -60,12 +27,12 @@ export function Luces() {
         <meshStandardMaterial
           color={"orange"}
           emissive={"orange"}
-          emissiveIntensity={0.8}
+          emissiveIntensity={kremlinAnimationFinished ? 0.8 : 0}
           toneMapped={false}
         />
         <pointLight
         color="orange"
-        intensity={0.2}
+        intensity={kremlinAnimationFinished ? 0.2 : 0}
         distance={1}
         position={[0, 0, 0.2]} // La luz apunta hacia arriba
       />
@@ -79,12 +46,12 @@ export function Luces() {
       <meshStandardMaterial
         color={"orange"}
         emissive={"orange"}
-        emissiveIntensity={0.8}
+        emissiveIntensity={kremlinAnimationFinished ? 0.8 : 0}
         toneMapped={false}
       />
       <pointLight
         color="orange"
-        intensity={1}
+        intensity={kremlinAnimationFinished ? 1 : 0}
         distance={5}
         position={[0, 0, 0.2]} // La luz apunta hacia arriba
       />

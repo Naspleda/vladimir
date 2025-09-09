@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ButtonBorder } from "../buttonBorder";
 import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
+import { Effect } from "../animate-ui/primitives/effects/effect";
 
 function Home() {
     
@@ -12,11 +13,22 @@ function Home() {
     <div className="text-[red] absolute top-4 left-4 z-20">
     <div className="text-white">lorem
         <>
+          <Effect
+      delay={1500}
+      blur
+      slide
+      fade
+      zoom
+      className="px-6 py-4 bg-red-500"
+    >
+      
+   
             {[...Array(3)].map((_, index) => (
                 <p key={index} className="mb-2 text-sm leading-relaxed">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             ))}
+             </Effect>
         </>
     </div>
 

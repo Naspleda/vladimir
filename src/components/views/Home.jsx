@@ -7,20 +7,33 @@ function Home() {
     
 
     return (
-        <div className="relative h-screen w-full min-h-screen
-        ">
-            {/* <MouseMoveEffect /> */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <div className="h-[100%] w-full mx-auto  flex flex-col lg:flex-row md:flex-row justify-between gap-4 bg-gradient-to-b from-[#00011e] to-[#000000]"> 
-                        <Scene />
-                    {/* <div className="h-[80%] w-full flex items-end justify-center text-center px-4 pb-12 z-[60]">
-                        <ButtonBorder title="Enter" />
-                    </div> */}
-                </div>
-            </div>
-            <div className="absolute bottom-4 inset-x-0 flex justify-center">
-            </div>
-        </div>
+<div className="absolute inset-0 z-10 flex items-center justify-center">
+  <div className="h-[100%] w-full mx-auto flex flex-col lg:flex-row md:flex-row justify-between gap-4 bg-gradient-to-b from-[#00011e] to-[#000000] relative"> 
+    <div className="text-[red] absolute top-4 left-4 z-20">
+    <div className="text-white">lorem
+        <>
+            {[...Array(3)].map((_, index) => (
+                <p key={index} className="mb-2 text-sm leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            ))}
+        </>
+    </div>
+
+    </div>
+    
+    {/* Contenedor de la Scene con máscara */}
+    <div className="relative w-full h-full">
+      <Scene />
+      
+      {/* Overlay con gradiente para fusionar bordes */}
+      {/* <div className="pointer-events-none absolute inset-0 
+        bg-gradient-to-r from-[#000000] via-transparent to-[#00011e]">
+      </div> */}
+    </div>
+  </div>
+</div>
+
     )
 }
 

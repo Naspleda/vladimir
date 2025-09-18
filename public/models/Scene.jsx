@@ -385,7 +385,7 @@ function Scene() {
 
   return (
     <div style={{position:"relative", width:"100%", height:"100vh"}}>
-      <Canvas shadows>
+      <Canvas shadows gl={{ alpha: true }} style={{ background: "transparent" }}>
 
         <OrbitControls
           ref={controlsRef}
@@ -397,7 +397,7 @@ function Scene() {
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
 
-        <color args={[0, 0, 0]} attach="background" />
+        {/* <color args={[0, 0, 0]} attach="background" /> */}
 
         <CubeCamera resolution={256} frames={Infinity} >
           {(texture) => (
@@ -414,7 +414,7 @@ function Scene() {
           <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.1} intensity={0.5} />
         </EffectComposer>
 
-        <Ground />
+        {/* <Ground /> */}
         <FloatingGrid />
 
         {/* LUCES BASE */}

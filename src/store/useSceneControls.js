@@ -1,3 +1,4 @@
+import { button } from 'leva';
 import { create } from 'zustand';
 
 const useSceneControls = create((set) => ({
@@ -43,6 +44,14 @@ const useSceneControls = create((set) => ({
   // Estado para el texto
   textVisible: false,
   toggleText: () => set((state) => ({ textVisible: !state.textVisible })),
+
+  // Estado de botones
+  button1Visible: true,
+  button2Visible: true,
+  button3Visible: true,
+  showButton1: () => set(state => ({ button1Visible: !state.button1Visible })),
+  showButton2: () => set(state => ({ button2Visible: !state.button2Visible })),
+  showButton3: () => set(state => ({ button3Visible: !state.button3Visible })),
 }));
 
 export default useSceneControls;

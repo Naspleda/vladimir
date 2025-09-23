@@ -183,7 +183,8 @@ function CameraTransitioner({ controlsRef, camRef }) {
     setRadius,
     setTarget,
   } = useSceneControls();
-  const [duration, setDuration] = useState(5); // segundos
+  // const [duration, setDuration] = useState(5); // segundos
+  const { duration } = useSceneControls();
 
   const rafRef = useRef(null);
   const animatingRef = useRef(false);
@@ -222,7 +223,7 @@ function CameraTransitioner({ controlsRef, camRef }) {
   useEffect(() => {
     if (cameraAnimationTrigger) {
       setTarget(cameraAnimationTrigger.target);
-      setDuration(2); // 2 segundos de transición
+      // setDuration(2); // 2 segundos de transición
       animateToTargets();
     }
   }, [cameraAnimationTrigger]);
@@ -383,7 +384,7 @@ function Scene() {
       </Canvas>
 
       {/* Un solo componente de control de cámara */}
-      <CameraController controlsRef={controlsRef} camRef={camRef} />
+      <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
     </div>
   );
 }

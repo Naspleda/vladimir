@@ -9,21 +9,39 @@ import useSceneControls from "../../store/useSceneControls";
 
 function Home() {
 
-  const { setFov, setAzimuthDeg, setPolarDeg, setRadius, setTarget, setDuration } = useSceneControls();
+  const { setFov, setAzimuthDeg, setPolarDeg, setRadius, setTarget, setCameraPosition, setCameraTarget, setDuration, triggerCameraAnimation } = useSceneControls();
 
   const showButton1 = useSceneControls(s => s.showButton1);
   const button1Visible = useSceneControls(s => s.button1Visible);
 
   const moveCamera = () => {
+    console.log("Move Camera");
+
     setFov(50); //FOV
     setAzimuthDeg(45); //Azimuth
     setPolarDeg(75); //Polar
     setRadius(5); //Distancia de la cámara
     setTarget({ x: 1, y: 0.35, z: 0 }); //Position
     setDuration(3); //Duración de la animación
+    triggerCameraAnimation({ x:1, y: 0.35, z:0 });
 
     showButton1();
   };
+
+  const moveCameraInitial = () => {
+    console.log("Move Camera Initial");
+
+    setFov(50);
+    setAzimuthDeg(0);
+    setPolarDeg(75);
+    setRadius(5);
+    setTarget({ x: 0, y: 0.35, z: 0 });
+    setCameraPosition([0, 2, 5]);
+    setCameraTarget([0, 0, 0]);
+    triggerCameraAnimation({ x:0, y: 0.35, z:0 });
+
+    showButton1();
+  }
 
   const containerStyle = {
     backgroundImage: `url(${LocalImage})`, // Using template literals for dynamic URL
@@ -35,7 +53,7 @@ function Home() {
 
   const prueba = "inline-flex items-center justify-center px-8 md:px-10 py-3.5 md:py-4 rounded-2xl font-semibold tracking-wide text-white bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 ring-1 ring-white/10 shadow-lg transition-colors duration-200 hover:ring-white/20 hover:shadow-xl active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400/60"
 
-  const prueba1 = "transition inline-flex items-center justify-center px-8 md:px-10 py-3.5 md:py-4 rounded-2xl font-semibold tracking-wide text-white bg-[radial-gradient(120%_160%_at_50%_-20%,#0B2540_0%,#071A30_55%,#061426_100%)] ring-1 ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,120,255,0.35)] transition-all duration-200 hover:ring-white/20 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_14px_38px_-12px_rgba(0,120,255,0.45)] active:scale-[0.98]"
+  const prueba1 = "transition inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold tracking-wide text-white bg-[radial-gradient(120%_160%_at_50%_-20%,#0B2540_0%,#071A30_55%,#061426_100%)] ring-1 ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,120,255,0.35)] transition-all duration-200 hover:ring-white/20 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_14px_38px_-12px_rgba(0,120,255,0.45)] active:scale-[0.18]"
 
   const buttonClass = "pointer-events-auto transform rounded-3xl border border-white/20 bg-white/20 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
 
@@ -74,7 +92,7 @@ function Home() {
               {button1Visible && (
                 <button
                   onClick={moveCamera}
-                  className={buttonClass}
+                  className={prueba1}
                   style={{ position: 'absolute', top: '35%', left: '55%' }}
                 >
                   Home
@@ -85,17 +103,17 @@ function Home() {
             <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
               <button
                 onClick={moveCamera}
-                className={buttonClass}
+                className={prueba1}
                 style={{ position: 'absolute', top: '55%', left: '30%' } }
               >
-                Comenzar
+                About
               </button>
             </div>
 
             <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
               <button
                 onClick={moveCamera}
-                className={buttonClass}
+                className={prueba1}
                 style={{ position: 'absolute', top: '65%', left: '62%' }}
               >
                 Boton 3
@@ -103,14 +121,16 @@ function Home() {
             </div>
 
             {/* <!-- Contenedor con “borde” degradado y leve glow --> */}
-<div class="absolute inline-block p-[2px] rounded-2xl bg-gradient-to-br from-sky-300/20 via-cyan-400/10 to-blue-500/20 shadow-[0_0_25px_0_rgba(0,120,255,0.1)] top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
+<div className="absolute inline-block p-[2px] rounded-2xl bg-gradient-to-br from-sky-300/20 via-cyan-400/10 to-blue-500/20 shadow-[0_0_25px_0_rgba(0,120,255,0.1)] top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
   {/* <!-- Botón --> */}
   <button
-    className={prueba1}>
+    className={prueba1}
+    onClick={moveCameraInitial}
+    >
     Comenzar
   </button>
 
-  <ButtonBorder title="Comenzar"  />
+  {/* <ButtonBorder title="Comenzar"  /> */}
 </div>
 
         </div>

@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { ButtonBorder } from "../buttonBorder";
 import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
 import { Effect } from "../animate-ui/primitives/effects/effect";
-import LocalImage from "../../assets/images/blue_bg.png";
+import LocalImage from "../../assets/images/blue_bg_hd.png";
 import useSceneControls from "../../store/useSceneControls";
 // import { Mouse } from "lucide-react";
 
@@ -55,17 +54,14 @@ function Home() {
 
   const prueba1 = "transition inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold tracking-wide text-white bg-[radial-gradient(120%_160%_at_50%_-20%,#0B2540_0%,#071A30_55%,#061426_100%)] ring-1 ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,120,255,0.35)] transition-all duration-200 hover:ring-white/20 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_14px_38px_-12px_rgba(0,120,255,0.45)] active:scale-[0.18]"
 
-  const buttonClass = "pointer-events-auto transform rounded-3xl border border-white/20 bg-white/20 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
+  const buttonClass = "pointer-events-none transform rounded-md border border-white/20 bg-white/5 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
 
 
   return (
     <div className="absolute inset-0 z-10 flex items-center justify-center">
-      <div style={containerStyle} className="h-[100%] w-full mx-auto flex flex-col lg:flex-row md:flex-row justify-between gap-4 bg-gradient-to-b from-[#00011e] to-[#000000] relative">
-        <div className="text-[red] absolute top-4 left-4 z-20">
+      <div style={containerStyle} className="h-[100%] mx-auto flex flex-col lg:flex-row md:flex-row justify-between gap-4 relative">
+        <div className="absolute bottom-4 left-4 z-20 bg-black/20 backdrop-blur-2xl border border-blue-950 rounded-xl">
           {/* <MouseMoveEffect /> */}
-          <div  className="">
-
-          </div>
           <Effect
             delay={1500}
             blur
@@ -73,7 +69,7 @@ function Home() {
             fade
             zoom
           >
-            <div className="text-white bg-black/10 backdrop-blur rounded-lg border border-white/20 p-6 max-w-[600px]">
+            <div className="text-white rounded-xl p-6 max-w-[600px]">
             <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
             <h3 className="text-4xl pb-2">Estrategias de Traders para Traders</h3>
               <div className="text-md leading-6">
@@ -87,20 +83,17 @@ function Home() {
         <div className="relative w-full h-full">
           <Scene />
 
-            {/* Overlay para el botón */}
-            {/* <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"> */}
+            {/* Buttons */}
               {button1Visible && (
                 <button
                   onClick={moveCamera}
-                  className={prueba1}
+                  className={prueba}
                   style={{ position: 'absolute', top: '35%', left: '55%' }}
                 >
                   Home
                 </button>
               )}
-            {/* </div> */}
 
-            <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
               <button
                 onClick={moveCamera}
                 className={prueba1}
@@ -108,17 +101,14 @@ function Home() {
               >
                 About
               </button>
-            </div>
 
-            <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
               <button
                 onClick={moveCamera}
-                className={prueba1}
+                className={buttonClass}
                 style={{ position: 'absolute', top: '65%', left: '62%' }}
               >
                 Boton 3
               </button>
-            </div>
 
             {/* <!-- Contenedor con “borde” degradado y leve glow --> */}
 <div className="absolute inline-block p-[2px] rounded-2xl bg-gradient-to-br from-sky-300/20 via-cyan-400/10 to-blue-500/20 shadow-[0_0_25px_0_rgba(0,120,255,0.1)] top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto">

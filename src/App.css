@@ -1,0 +1,75 @@
+:root{
+  --w: 600px;   /* grid size */
+  --s: 5s;      /* speed */
+}
+
+/* fondo */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(#123 30%, #667);
+  overflow: hidden;
+}
+
+/* gradientes de "nieve" (posiciones y tamaños fijos para CSS puro) */
+:root{
+  --snow-gradients:
+    radial-gradient(2px 2px at 30px 80px, rgba(255,255,255,0.95) 50%, transparent 51%),
+    radial-gradient(3px 3px at 120px 40px, rgba(255,255,255,0.85) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 210px 130px, rgba(255,255,255,0.7) 50%, transparent 51%),
+    radial-gradient(2.5px 2.5px at 340px 30px, rgba(255,255,255,0.95) 50%, transparent 51%),
+    radial-gradient(2px 2px at 460px 200px, rgba(255,255,255,0.8) 50%, transparent 51%),
+    radial-gradient(4px 4px at 80px 260px, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(2px 2px at 260px 320px, rgba(255,255,255,0.9) 50%, transparent 51%),
+    radial-gradient(3px 3px at 380px 410px, rgba(255,255,255,0.75) 50%, transparent 51%),
+    radial-gradient(2px 2px at 520px 90px, rgba(255,255,255,0.8) 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 420px 500px, rgba(255,255,255,0.65) 50%, transparent 51%),
+    radial-gradient(2.6px 2.6px at 180px 470px, rgba(255,255,255,0.7) 50%, transparent 51%),
+    radial-gradient(3px 3px at 540px 360px, rgba(255,255,255,0.8) 50%, transparent 51%);
+}
+
+/* elemento que crea el efecto de nieve (3 capas para parallax/blur) */
+.snow,
+.snow::before,
+.snow::after{
+  position: absolute;
+  top: calc(-1 * var(--w));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--snow-gradients);
+  background-size: var(--w) var(--w);
+  animation: snow var(--s) linear infinite;
+  content: "";
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* capa de profundidad media */
+.snow::after{
+  margin-left: calc(-1 * var(--w) / 3);
+  opacity: 0.4;
+  animation-duration: calc(var(--s) * 2);
+  animation-direction: reverse;
+  filter: blur(3px);
+}
+
+/* capa cercana */
+.snow::before{
+  margin-left: calc(-1 * var(--w) / 2);
+  opacity: 0.65;
+  animation-duration: calc(var(--s) * 3);
+  animation-direction: reverse;
+  filter: blur(1.5px);
+}
+
+/* animación que mueve el patrón hacia abajo */
+@keyframes snow{
+  to {
+    transform: translateY(calc(var(--w)));
+  }
+}
+
+/* utility para forzar transparencia si hace falta */
+canvas { background: transparent !important; }
+/* ...existing code... */

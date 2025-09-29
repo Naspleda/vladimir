@@ -3,6 +3,7 @@ import Scene from "../../../public/models/Scene";
 import MouseMoveEffect from "../mouseMoveEffect";
 import { Effect } from "../animate-ui/primitives/effects/effect";
 import LocalImage from "../../assets/images/blue_bg_hd.png";
+import Logo from "../../assets/images/logo1.png";
 import useSceneControls from "../../store/useSceneControls";
 // import { Mouse } from "lucide-react";
 
@@ -21,7 +22,7 @@ function Home() {
     setPolarDeg(75); //Polar
     setRadius(5); //Distancia de la cámara
     setTarget({ x: 1, y: 0.35, z: 0 }); //Position
-    setDuration(3); //Duración de la animación
+    setDuration(1); //Duración de la animación
     triggerCameraAnimation({ x:1, y: 0.35, z:0 });
 
     showButton1();
@@ -35,6 +36,7 @@ function Home() {
     setPolarDeg(75);
     setRadius(5);
     setTarget({ x: 0, y: 0.35, z: 0 });
+    setDuration(1); //Duración de la animación
     setCameraPosition([0, 2, 5]);
     setCameraTarget([0, 0, 0]);
     triggerCameraAnimation({ x:0, y: 0.35, z:0 });
@@ -57,77 +59,118 @@ function Home() {
   const buttonClass = "pointer-events-none transform rounded-md border border-white/20 bg-white/5 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
 
 
-  return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center">
-      <div style={containerStyle} className="h-[100%] mx-auto flex flex-col lg:flex-row md:flex-row justify-between gap-4 relative">
-        <div className="absolute bottom-4 left-4 z-20 bg-black/20 backdrop-blur-2xl border border-blue-950 rounded-xl">
-          {/* <MouseMoveEffect /> */}
-          <Effect
-            delay={1500}
-            blur
-            slide
-            fade
-            zoom
-          >
-            <div className="text-white rounded-xl p-6 max-w-[600px]">
-            <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
-            <h3 className="text-4xl pb-2">Estrategias de Traders para Traders</h3>
-              <div className="text-md leading-6">
-                Usamos profesionales altamente calificados que han sido entrenados con nuestros procesos para maximizar los rendimientos en Crypto
+return (
+  <div className="absolute inset-0">
+    <div className="relative h-full w-full">
+      {/* Fondo */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${LocalImage})` }}
+      />
+
+      {/* Blur general */}
+      <div aria-hidden className="snow absolute inset-0 z-10 pointer-events-none backdrop-blur-2xl bg-black/25" />
+
+      {/* Contenido */}
+      <div className="relative z-20 h-full">
+
+        {/* Header: logo (izq) + menú (centrado) */}
+        <header className="absolute top-0 inset-x-0 h-16">
+          <div className="relative h-full flex items-center justify-center">
+            {/* Logo */}
+            <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
+              <div className="px-3 py-1 rounded-full text-white/90 backdrop-blur text-center">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">Kremlin Trading</h1>
+                <h1 className="text-2xl">Science Division</h1>
               </div>
             </div>
-          </Effect>
-        </div>
 
-        {/* Contenedor de la Scene con máscara */}
+            <div className="absolute right-6 top-4">
+              <img src={Logo} alt="Logo" className="h-12 w-auto" />
+            </div>
+
+            {/* Menú centrado */}
+            {/* <nav className="rounded-full bg-white/10 border border-white/20 backdrop-blur px-4 py-2">
+              <ul className="flex items-center gap-48 text-sm text-white/90">
+                <li><button className="hover:text-white transition">Home</button></li>
+                <li><button className="hover:text-white transition">Servicios</button></li>
+                <li><button className="hover:text-white transition">Sobre Nosotros</button></li>
+                <li><button className="hover:text-white transition">Contacto</button></li>
+              </ul>
+            </nav> */}
+          </div>
+        </header>
+
+        {/* Escena (edificio) como elemento principal */}
         <div className="relative w-full h-full">
           <Scene />
 
-            {/* Buttons */}
-              {button1Visible && (
-                <button
-                  onClick={moveCamera}
-                  className={prueba}
-                  style={{ position: 'absolute', top: '35%', left: '55%' }}
-                >
-                  Home
-                </button>
-              )}
+          {/* Título + descripción debajo del edificio */}
+          {/* <div className="absolute left-1/2 top-[80%] -translate-x-1/2 w-full max-w-3xl text-center px-6">
+            <h2 className="text-white md:text-4xl font-bold leading-tight">
+              Maximiza tus Inversiones en Cripto
+            </h2>
+            <p className="mt-3 text-white/80 text-base md:text-lg">
+              Ofrecemos estrategias de trading de alta precisión desarrolladas por expertos.
+            </p> */}
 
+            {/* CTA principal dorado */}
+            {/* <div className="mt-6">
               <button
-                onClick={moveCamera}
-                className={prueba1}
-                style={{ position: 'absolute', top: '55%', left: '30%' } }
+                onClick={moveCameraInitial}
+                className="inline-flex items-center justify-center px-8 py-3 rounded-2xl font-semibold tracking-wide text-slate-900 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 ring-1 ring-amber-200/70 shadow-[0_10px_30px_-10px_rgba(245,158,11,0.6)] transition-transform active:scale-95 hover:shadow-[0_14px_38px_-12px_rgba(245,158,11,0.75)]"
               >
-                About
+                Comenzar Ahora
               </button>
+            </div>
+          </div> */}
 
-              <button
-                onClick={moveCamera}
-                className={buttonClass}
-                style={{ position: 'absolute', top: '65%', left: '62%' }}
-              >
-                Boton 3
-              </button>
+          {/* Panel flotante inferior izquierdo */}
+          {/* <div className="absolute bottom-6 left-6 max-w-md">
+            <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-5 text-white">
+            <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
+              <h3 className="text-lg font-semibold">Nuestra Metodología</h3>
+              <p className="mt-1 text-white/80">
+                Enfoque científico y data-driven para tus inversiones.
+              </p>
+            </div>
+          </div> */}
 
-            {/* <!-- Contenedor con “borde” degradado y leve glow --> */}
-<div className="absolute inline-block p-[2px] rounded-2xl bg-gradient-to-br from-sky-300/20 via-cyan-400/10 to-blue-500/20 shadow-[0_0_25px_0_rgba(0,120,255,0.1)] top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
-  {/* <!-- Botón --> */}
-  <button
-    className={prueba1}
-    onClick={moveCameraInitial}
-    >
-    Comenzar
-  </button>
+          {/* Botón flotante inferior derecho */}
+          <div className="absolute bottom-[60%] right-[42%]">
+            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+            </button>
+          </div>
 
-  {/* <ButtonBorder title="Comenzar"  /> */}
-</div>
+          <div className="absolute bottom-[40%] right-[65%]">
+            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+            </button>
+          </div>
+
+          <div className="absolute bottom-[28%] right-[37%]">
+            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
+              </svg>
+              <span class="sr-only">Icon description</span>
+            </button>
+          </div>
+
 
         </div>
       </div>
     </div>
-
-  )
+  </div>
+);
 }
 
 export default Home;

@@ -58,6 +58,9 @@ function Home() {
 
   const buttonClass = "pointer-events-none transform rounded-md border border-white/20 bg-white/5 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
 
+  const text1 = "Nuestro núcleo reservado, el ScienceDivision, es una célula de analistas, matemáticos y traders que desarrollan tácticas propias, probadas en escenarios reales.";
+
+  const text2 = "No explicamos teorías: activamos estrategias que combinan estadística avanzada, trading algorítmico y experiencia de campo. Aquí la matemática se convierte en poder, y tu rol es decidir cuándo ser parte.";
 
 return (
   <div className="absolute inset-0">
@@ -127,15 +130,19 @@ return (
           </div> */}
 
           {/* Panel flotante inferior izquierdo */}
-          {/* <div className="absolute bottom-6 left-6 max-w-md">
+           <div className="absolute bottom-6 left-6 max-w-md">
             <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-5 text-white">
             <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
-              <h3 className="text-lg font-semibold">Nuestra Metodología</h3>
+              <h3 className="text-4xl font-semibold">El cerebro detrás de la máquina</h3>
               <p className="mt-1 text-white/80">
-                Enfoque científico y data-driven para tus inversiones.
+                {text1}
+              </p>
+              <br />
+              <p className="mt-1 text-white/80">
+                {text2}
               </p>
             </div>
-          </div> */}
+          </div>
 
           {/* Botón flotante inferior derecho */}
           <div className="absolute bottom-[60%] right-[42%]">

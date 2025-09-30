@@ -85,7 +85,7 @@ return (
             <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
               <div className="px-3 py-1 rounded-full text-white/90 backdrop-blur text-center">
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">Kremlin Trading</h1>
-                <h1 className="text-2xl">Science Division</h1>
+                <h1 className="text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold">Science Division</h1>
               </div>
             </div>
 
@@ -133,7 +133,7 @@ return (
            <div className="absolute bottom-6 left-6 max-w-md">
             <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-5 text-white">
             <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
-              <h3 className="text-4xl font-semibold">El cerebro detrás de la máquina</h3>
+              <h3 className="text-4xl font-semibold bg-white text-transparent inline-block bg-clip-text">El cerebro detrás de la máquina</h3>
               <p className="mt-1 text-white/80">
                 {text1}
               </p>

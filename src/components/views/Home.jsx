@@ -84,8 +84,8 @@ return (
             {/* Logo */}
             <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
               <div className="px-3 py-1 rounded-full text-white/90 backdrop-blur text-center">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">Kremlin Trading</h1>
-                <h1 className="text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold">Science Division</h1>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">KremlinTrading</h1>
+                <h1 className="text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold">ScienceDivision</h1>
               </div>
             </div>
 
@@ -130,19 +130,34 @@ return (
           </div> */}
 
           {/* Panel flotante inferior izquierdo */}
-           <div className="absolute bottom-6 left-6 max-w-md">
-            <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-5 text-white">
-            <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-1xl py-2">Science Division</h1>
-              <h3 className="text-4xl font-semibold bg-white text-transparent inline-block bg-clip-text">El cerebro detrás de la máquina</h3>
-              <p className="mt-1 text-white/80">
-                {text1}
-              </p>
-              <br />
-              <p className="mt-1 text-white/80">
-                {text2}
-              </p>
-            </div>
-          </div>
+          <div className="absolute bottom-6 left-6 max-w-5xl m-4">
+  <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-[5rem] text-white">
+    <div className="grid grid-cols-2 gap-4 items-center">
+      {/* Columna izquierda - Texto */}
+      <div className="space-y-2">
+        <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-2xl py-2">
+          ScienceDivision
+        </h1>
+        <h3 className="text-5xl font-semibold bg-white text-transparent inline-block bg-clip-text">
+          El cerebro detrás de la máquina
+        </h3>
+        <p className="text-xl text-white/80">
+          {text1}
+        </p>
+        <p className="text-xl text-white/80">
+          {text2}
+        </p>
+      </div>
+      
+      {/* Columna derecha - Imagen */}
+      <div className="flex justify-center items-center">
+        <img 
+          src={LocalImage}
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
           {/* Botón flotante inferior derecho */}
           <div className="absolute bottom-[60%] right-[42%]">

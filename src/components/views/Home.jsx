@@ -5,6 +5,7 @@ import { Effect } from "../animate-ui/primitives/effects/effect";
 import LocalImage from "../../assets/images/blue_bg_hd.png";
 import Logo from "../../assets/images/logo1.png";
 import useSceneControls from "../../store/useSceneControls";
+import ContextCard from "../ui/ContextCard";
 // import { Mouse } from "lucide-react";
 
 function Home() {
@@ -131,33 +132,14 @@ return (
 
           {/* Panel flotante inferior izquierdo */}
           <div className="absolute bottom-6 left-6 max-w-5xl m-4">
-  <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-[5rem] text-white">
-    <div className="grid grid-cols-2 gap-4 items-center">
-      {/* Columna izquierda - Texto */}
-      <div className="space-y-2">
-        <h1 className="bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold text-2xl py-2">
-          ScienceDivision
-        </h1>
-        <h3 className="text-5xl font-semibold bg-white text-transparent inline-block bg-clip-text">
-          El cerebro detrás de la máquina
-        </h3>
-        <p className="text-xl text-white/80">
-          {text1}
-        </p>
-        <p className="text-xl text-white/80">
-          {text2}
-        </p>
-      </div>
-      
-      {/* Columna derecha - Imagen */}
-      <div className="flex justify-center items-center">
-        <img 
-          src={LocalImage}
-        />
-      </div>
-    </div>
-  </div>
-</div>
+            <ContextCard
+              title="ScienceDivision"
+              subtitle="El cerebro detrás de la máquina"
+              text={text1}
+              text2={text2}
+              imageUrl={LocalImage}
+            />
+          </div>
 
           {/* Botón flotante inferior derecho */}
           <div className="absolute bottom-[60%] right-[42%]">

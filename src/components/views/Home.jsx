@@ -15,14 +15,28 @@ function Home() {
   const showButton1 = useSceneControls(s => s.showButton1);
   const button1Visible = useSceneControls(s => s.button1Visible);
 
-  const moveCamera = () => {
-    console.log("Move Camera");
+  const moveCameraRight = () => {
+    console.log("Move Camera Right");
 
     setFov(50); //FOV
     setAzimuthDeg(45); //Azimuth
     setPolarDeg(75); //Polar
     setRadius(5); //Distancia de la cámara
-    setTarget({ x: 1, y: 0.35, z: 0 }); //Position
+    setTarget({ x: -1.8, y: 0.05, z: 0.8 }); //Position
+    setDuration(1); //Duración de la animación
+    triggerCameraAnimation({ x:1, y: 0.35, z:0 });
+
+    showButton1();
+  };
+
+  const moveCameraLeft = () => {
+    console.log("Move Camera Left");
+
+    setFov(50); //FOV
+    setAzimuthDeg(15); //Azimuth
+    setPolarDeg(75); //Polar
+    setRadius(5); //Distancia de la cámara
+    setTarget({ x: 1.8, y: 0.05, z: 5.8 }); //Position
     setDuration(1); //Duración de la animación
     triggerCameraAnimation({ x:1, y: 0.35, z:0 });
 
@@ -110,26 +124,6 @@ return (
         <div className="relative w-full h-full">
           <Scene />
 
-          {/* Título + descripción debajo del edificio */}
-          {/* <div className="absolute left-1/2 top-[80%] -translate-x-1/2 w-full max-w-3xl text-center px-6">
-            <h2 className="text-white md:text-4xl font-bold leading-tight">
-              Maximiza tus Inversiones en Cripto
-            </h2>
-            <p className="mt-3 text-white/80 text-base md:text-lg">
-              Ofrecemos estrategias de trading de alta precisión desarrolladas por expertos.
-            </p> */}
-
-            {/* CTA principal dorado */}
-            {/* <div className="mt-6">
-              <button
-                onClick={moveCameraInitial}
-                className="inline-flex items-center justify-center px-8 py-3 rounded-2xl font-semibold tracking-wide text-slate-900 bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 ring-1 ring-amber-200/70 shadow-[0_10px_30px_-10px_rgba(245,158,11,0.6)] transition-transform active:scale-95 hover:shadow-[0_14px_38px_-12px_rgba(245,158,11,0.75)]"
-              >
-                Comenzar Ahora
-              </button>
-            </div>
-          </div> */}
-
           {/* Panel flotante inferior izquierdo */}
           <div className="absolute bottom-6 left-6 max-w-5xl m-4">
             <ContextCard
@@ -143,29 +137,38 @@ return (
 
           {/* Botón flotante inferior derecho */}
           <div className="absolute bottom-[60%] right-[42%]">
-            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+            <button 
+              type="button"
+              onClick={moveCameraInitial}  
+              className="text-red-500 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
               </svg>
-              <span class="sr-only">Icon description</span>
+              <span className="sr-only">Icon description</span>
             </button>
           </div>
 
           <div className="absolute bottom-[40%] right-[65%]">
-            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+            <button 
+              type="button"
+              onClick={moveCameraRight} 
+              className="text-yellow-500 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
               </svg>
-              <span class="sr-only">Icon description</span>
+              <span className="sr-only">Icon description</span>
             </button>
           </div>
 
           <div className="absolute bottom-[28%] right-[37%]">
-            <button type="button" class="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+            <button 
+              type="button" 
+              onClick={moveCameraLeft}
+              className="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
               </svg>
-              <span class="sr-only">Icon description</span>
+              <span className="sr-only">Icon description</span>
             </button>
           </div>
 

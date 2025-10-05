@@ -1,6 +1,6 @@
 const ContextCard = ({ title, subtitle, text, text2, imageUrl }) => {
   return (
-    <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-[5rem] text-white">
+    <div className="bg-black/30 backdrop-blur-2xl border border-white/15 rounded-2xl p-[5rem] text-white" style={{ display: 'none' }}>
         <div className="grid grid-cols-2 gap-4 items-center">
           {/* Columna izquierda - Texto */}
           <div className="space-y-2">

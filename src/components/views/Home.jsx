@@ -10,7 +10,7 @@ import ContextCard from "../ui/ContextCard";
 
 function Home() {
 
-  const { setFov, setAzimuthDeg, setPolarDeg, setRadius, setTarget, setCameraPosition, setCameraTarget, setDuration, triggerCameraAnimation } = useSceneControls();
+  const { setFov, setAzimuthDeg, setPolarDeg, setRadius, setTarget, setCameraPosition, setCameraTarget, setDuration, setActiveCard, activeCard, triggerCameraAnimation, toggleText, textVisible } = useSceneControls();
 
   const showButton1 = useSceneControls(s => s.showButton1);
   const button1Visible = useSceneControls(s => s.button1Visible);
@@ -27,6 +27,7 @@ function Home() {
     triggerCameraAnimation({ x:1, y: 0.35, z:0 });
 
     showButton1();
+    toggleText();
   };
 
   const moveCameraLeft = () => {
@@ -41,6 +42,7 @@ function Home() {
     triggerCameraAnimation({ x:1, y: 0.35, z:0 });
 
     showButton1();
+    // toggleText();
   };
 
   const moveCameraInitial = () => {
@@ -57,7 +59,52 @@ function Home() {
     triggerCameraAnimation({ x:0, y: 0.35, z:0 });
 
     showButton1();
+    // toggleText();
   }
+
+  // Reemplaza moveCameraRight, moveCameraLeft, moveCameraInitial por:
+const handleButtonClick = (cardId, cameraConfig) => {
+  console.log(`Move Camera to ${cardId}`);
+  
+  setFov(cameraConfig.fov);
+  setAzimuthDeg(cameraConfig.azimuth);
+  setPolarDeg(cameraConfig.polar);
+  setRadius(cameraConfig.radius);
+  setTarget(cameraConfig.target);
+  setDuration(1);
+  triggerCameraAnimation(cameraConfig.animationTarget);
+  
+  // Toggle: si la card activa es la misma, la ocultamos; sino, mostramos la nueva
+  setActiveCard(activeCard === cardId ? null : cardId);
+};
+
+// Configuraciones de cámara
+const cameraConfigs = {
+  initial: {
+    fov: 50,
+    azimuth: 0,
+    polar: 75,
+    radius: 5,
+    target: { x: 0, y: 0.35, z: 0 },
+    animationTarget: { x: 0, y: 0.35, z: 0 }
+  },
+  right: {
+    fov: 50,
+    azimuth: 45,
+    polar: 75,
+    radius: 5,
+    target: { x: -1.8, y: 0.05, z: 0.8 },
+    animationTarget: { x: 1, y: 0.35, z: 0 }
+  },
+  left: {
+    fov: 50,
+    azimuth: 15,
+    polar: 75,
+    radius: 5,
+    target: { x: 1.8, y: 0.05, z: 5.8 },
+    animationTarget: { x: 1, y: 0.35, z: 0 }
+  }
+};
 
   const containerStyle = {
     backgroundImage: `url(${LocalImage})`, // Using template literals for dynamic URL
@@ -125,15 +172,30 @@ return (
           <Scene />
 
           {/* Panel flotante inferior izquierdo */}
-          <div className="absolute bottom-6 left-6 max-w-5xl m-4">
-            <ContextCard
-              title="ScienceDivision"
-              subtitle="El cerebro detrás de la máquina"
-              text={text1}
-              text2={text2}
-              imageUrl={LocalImage}
-            />
-          </div>
+          {textVisible && (
+            <div className="absolute bottom-6 left-6 max-w-5xl m-4">
+              <ContextCard
+                title="ScienceDivision"
+                subtitle="El cerebro detrás de la máquina"
+                text={text1}
+                text2={text2}
+                imageUrl={LocalImage}
+              />
+            </div>
+          )}
+
+          { textVisible && (
+            <div className="absolute bottom-6 left-6 max-w-5xl m-4">
+              <ContextCard
+                title="ScienceDivision 2"
+                subtitle="El cerebro detrás de la máquina 2"
+                text={text1}
+                text2={text2}
+                imageUrl={LocalImage}
+              />
+            </div>
+          )}
+          
 
           {/* Botón flotante inferior derecho */}
           <div className="absolute bottom-[60%] right-[42%]">
@@ -151,7 +213,7 @@ return (
           <div className="absolute bottom-[40%] right-[65%]">
             <button 
               type="button"
-              onClick={moveCameraRight} 
+              onClick={() => handleButtonClick('card1', cameraConfigs.initial)} 
               className="text-yellow-500 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
               <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>

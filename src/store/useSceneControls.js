@@ -45,6 +45,10 @@ const useSceneControls = create((set) => ({
   textVisible: false,
   toggleText: () => set((state) => ({ textVisible: !state.textVisible })),
 
+  // Reemplaza el estado de texto por uno para manejar múltiples cards
+  activeCard: null, // 'card1', 'card2', 'card3' o null
+  setActiveCard: (cardId) => set({ activeCard: cardId }),
+
   // Estado de botones
   button1Visible: true,
   button2Visible: true,

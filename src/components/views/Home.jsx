@@ -1,245 +1,177 @@
-import { ButtonBorder } from "../buttonBorder";
-import Scene from "../../../public/models/Scene";
-import MouseMoveEffect from "../mouseMoveEffect";
-import { Effect } from "../animate-ui/primitives/effects/effect";
-import LocalImage from "../../assets/images/blue_bg_hd.png";
-import Logo from "../../assets/images/logo1.png";
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
-// import { Mouse } from "lucide-react";
+import Scene from "../../../public/models/Scene";
+import LocalImage from "../../assets/images/blue_bg_hd.png";
+import Logo from "../../assets/images/logo1.png";
+
+// 1. Estructura de datos centralizada para los puntos de interés
+const pointsOfInterest = [
+  {
+    id: 'point1',
+    buttonPosition: "bottom-[40%] right-[65%]",
+    cameraConfig: {
+      fov: 50,
+      azimuth: 15,
+      polar: 80,
+      radius: 4,
+      target: { x: 1.5, y: 0.5, z: 1 },
+      duration: 1.5,
+    },
+    cardContent: {
+      title: "Estrategia y Análisis",
+      subtitle: "El Núcleo de la Operación",
+      text: "Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales, combinando estadística avanzada y trading algorítmico.",
+      text2: "Aquí la matemática se convierte en poder de mercado.",
+      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+    }
+  },
+  {
+    id: 'point2',
+    buttonPosition: "bottom-[60%] right-[42%]",
+    cameraConfig: {
+      fov: 50,
+      azimuth: -30,
+      polar: 75,
+      radius: 5,
+      target: { x: -1, y: 0.8, z: 0.5 },
+      duration: 1.5,
+    },
+    cardContent: {
+      title: "Tecnología Propietaria",
+      subtitle: "La Ventaja Algorítmica",
+      text: "Utilizamos sistemas de ejecución automática y análisis de datos en tiempo real para capitalizar oportunidades antes que el resto.",
+      text2: "La velocidad y la precisión son nuestra firma.",
+      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+    }
+  },
+  {
+    id: 'point3',
+    buttonPosition: "bottom-[28%] right-[37%]",
+    cameraConfig: {
+      fov: 40,
+      azimuth: 90,
+      polar: 85,
+      radius: 6,
+      target: { x: 0, y: 0.2, z: -1.5 },
+      duration: 1.5,
+    },
+    cardContent: {
+      title: "Acceso al Mercado Global",
+      subtitle: "Oportunidades sin Fronteras",
+      text: "Nuestra infraestructura nos permite operar en los principales mercados financieros del mundo, 24/7.",
+      text2: "Tu rol es decidir cuándo y dónde ser parte del juego.",
+      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+    }
+  }
+];
+
 
 function Home() {
+  const {
+    setFov,
+    setAzimuthDeg,
+    setPolarDeg,
+    setRadius,
+    setTarget,
+    setDuration,
+    activeCard,
+    setActiveCard,
+  } = useSceneControls();
 
-  const { setFov, setAzimuthDeg, setPolarDeg, setRadius, setTarget, setCameraPosition, setCameraTarget, setDuration, setActiveCard, activeCard, triggerCameraAnimation, toggleText, textVisible } = useSceneControls();
+  // 2. Única función para manejar clics en los botones
+  const handlePointClick = (point) => {
+    const { cameraConfig, id } = point;
+    
+    // Si la card activa es la misma que la clickeada, la cerramos. Si no, activamos la nueva.
+    const nextActiveCard = activeCard === id ? null : id;
+    
+    setActiveCard(nextActiveCard);
 
-  const showButton1 = useSceneControls(s => s.showButton1);
-  const button1Visible = useSceneControls(s => s.button1Visible);
-
-  const moveCameraRight = () => {
-    console.log("Move Camera Right");
-
-    setFov(50); //FOV
-    setAzimuthDeg(45); //Azimuth
-    setPolarDeg(75); //Polar
-    setRadius(5); //Distancia de la cámara
-    setTarget({ x: -1.8, y: 0.05, z: 0.8 }); //Position
-    setDuration(1); //Duración de la animación
-    triggerCameraAnimation({ x:1, y: 0.35, z:0 });
-
-    showButton1();
-    toggleText();
+    if (nextActiveCard) {
+      // Movemos la cámara a la posición del punto de interés
+      setFov(cameraConfig.fov);
+      setAzimuthDeg(cameraConfig.azimuth);
+      setPolarDeg(cameraConfig.polar);
+      setRadius(cameraConfig.radius);
+      setTarget(cameraConfig.target);
+      setDuration(cameraConfig.duration);
+    } else {
+      // Opcional: Volver a la posición inicial cuando se cierra una card
+      setFov(50);
+      setAzimuthDeg(0);
+      setPolarDeg(75);
+      setRadius(5);
+      setTarget({ x: 0, y: 0.35, z: 0 });
+      setDuration(1.5);
+    }
   };
 
-  const moveCameraLeft = () => {
-    console.log("Move Camera Left");
+  // 3. Encontrar el contenido de la card activa
+  const activePointData = pointsOfInterest.find(p => p.id === activeCard);
 
-    setFov(50); //FOV
-    setAzimuthDeg(15); //Azimuth
-    setPolarDeg(75); //Polar
-    setRadius(5); //Distancia de la cámara
-    setTarget({ x: 1.8, y: 0.05, z: 5.8 }); //Position
-    setDuration(1); //Duración de la animación
-    triggerCameraAnimation({ x:1, y: 0.35, z:0 });
+  return (
+    <div className="absolute inset-0">
+      <div className="relative h-full w-full">
+        {/* Fondo y Blur */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${LocalImage})` }}
+        />
+        <div aria-hidden className="absolute inset-0 z-10 pointer-events-none backdrop-blur-2xl bg-black/25" />
 
-    showButton1();
-    // toggleText();
-  };
-
-  const moveCameraInitial = () => {
-    console.log("Move Camera Initial");
-
-    setFov(50);
-    setAzimuthDeg(0);
-    setPolarDeg(75);
-    setRadius(5);
-    setTarget({ x: 0, y: 0.35, z: 0 });
-    setDuration(1); //Duración de la animación
-    setCameraPosition([0, 2, 5]);
-    setCameraTarget([0, 0, 0]);
-    triggerCameraAnimation({ x:0, y: 0.35, z:0 });
-
-    showButton1();
-    // toggleText();
-  }
-
-  // Reemplaza moveCameraRight, moveCameraLeft, moveCameraInitial por:
-const handleButtonClick = (cardId, cameraConfig) => {
-  console.log(`Move Camera to ${cardId}`);
-  
-  setFov(cameraConfig.fov);
-  setAzimuthDeg(cameraConfig.azimuth);
-  setPolarDeg(cameraConfig.polar);
-  setRadius(cameraConfig.radius);
-  setTarget(cameraConfig.target);
-  setDuration(1);
-  triggerCameraAnimation(cameraConfig.animationTarget);
-  
-  // Toggle: si la card activa es la misma, la ocultamos; sino, mostramos la nueva
-  setActiveCard(activeCard === cardId ? null : cardId);
-};
-
-// Configuraciones de cámara
-const cameraConfigs = {
-  initial: {
-    fov: 50,
-    azimuth: 0,
-    polar: 75,
-    radius: 5,
-    target: { x: 0, y: 0.35, z: 0 },
-    animationTarget: { x: 0, y: 0.35, z: 0 }
-  },
-  right: {
-    fov: 50,
-    azimuth: 45,
-    polar: 75,
-    radius: 5,
-    target: { x: -1.8, y: 0.05, z: 0.8 },
-    animationTarget: { x: 1, y: 0.35, z: 0 }
-  },
-  left: {
-    fov: 50,
-    azimuth: 15,
-    polar: 75,
-    radius: 5,
-    target: { x: 1.8, y: 0.05, z: 5.8 },
-    animationTarget: { x: 1, y: 0.35, z: 0 }
-  }
-};
-
-  const containerStyle = {
-    backgroundImage: `url(${LocalImage})`, // Using template literals for dynamic URL
-    backgroundSize: 'cover', // Adjust as needed
-    backgroundPosition: 'center', // Adjust as needed
-    height: '100vh', // Example: full viewport height
-    width: '100vw', // Example: full viewport width
-  };
-
-  const prueba = "inline-flex items-center justify-center px-8 md:px-10 py-3.5 md:py-4 rounded-2xl font-semibold tracking-wide text-white bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 ring-1 ring-white/10 shadow-lg transition-colors duration-200 hover:ring-white/20 hover:shadow-xl active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400/60"
-
-  const prueba1 = "transition inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold tracking-wide text-white bg-[radial-gradient(120%_160%_at_50%_-20%,#0B2540_0%,#071A30_55%,#061426_100%)] ring-1 ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_10px_30px_-10px_rgba(0,120,255,0.35)] transition-all duration-200 hover:ring-white/20 hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_14px_38px_-12px_rgba(0,120,255,0.45)] active:scale-[0.18]"
-
-  const buttonClass = "pointer-events-none transform rounded-md border border-white/20 bg-white/5 backdrop-blur px-5 py-1 text-white hover:bg-white/30 transition"
-
-  const text1 = "Nuestro núcleo reservado, el ScienceDivision, es una célula de analistas, matemáticos y traders que desarrollan tácticas propias, probadas en escenarios reales.";
-
-  const text2 = "No explicamos teorías: activamos estrategias que combinan estadística avanzada, trading algorítmico y experiencia de campo. Aquí la matemática se convierte en poder, y tu rol es decidir cuándo ser parte.";
-
-return (
-  <div className="absolute inset-0">
-    <div className="relative h-full w-full">
-      {/* Fondo */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${LocalImage})` }}
-      />
-
-      {/* Blur general */}
-      <div aria-hidden className="snow absolute inset-0 z-10 pointer-events-none backdrop-blur-2xl bg-black/25" />
-
-      {/* Contenido */}
-      <div className="relative z-20 h-full">
-
-        {/* Header: logo (izq) + menú (centrado) */}
-        <header className="absolute top-0 inset-x-0 h-16">
-          <div className="relative h-full flex items-center justify-center">
-            {/* Logo */}
-            <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
-              <div className="px-3 py-1 rounded-full text-white/90 backdrop-blur text-center">
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">KremlinTrading</h1>
-                <h1 className="text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold">ScienceDivision</h1>
+        {/* Contenido */}
+        <div className="relative z-20 h-full w-full">
+          {/* Header */}
+          <header className="absolute top-0 inset-x-0 h-16">
+            <div className="relative h-full flex items-center justify-center">
+              <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
+                <div className="px-3 py-1 rounded-full text-white/90 backdrop-blur text-center">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-100 to-yellow-500 bg-clip-text text-transparent">KremlinTrading</h1>
+                  <h1 className="text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent inline-block bg-clip-text font-extrabold">ScienceDivision</h1>
+                </div>
+              </div>
+              <div className="absolute right-6 top-4">
+                <img src={Logo} alt="Logo" className="h-12 w-auto" />
               </div>
             </div>
+          </header>
 
-            <div className="absolute right-6 top-4">
-              <img src={Logo} alt="Logo" className="h-12 w-auto" />
-            </div>
-
-            {/* Menú centrado */}
-            {/* <nav className="rounded-full bg-white/10 border border-white/20 backdrop-blur px-4 py-2">
-              <ul className="flex items-center gap-48 text-sm text-white/90">
-                <li><button className="hover:text-white transition">Home</button></li>
-                <li><button className="hover:text-white transition">Servicios</button></li>
-                <li><button className="hover:text-white transition">Sobre Nosotros</button></li>
-                <li><button className="hover:text-white transition">Contacto</button></li>
-              </ul>
-            </nav> */}
-          </div>
-        </header>
-
-        {/* Escena (edificio) como elemento principal */}
-        <div className="relative w-full h-full">
+          {/* Escena 3D */}
           <Scene />
 
-          {/* Panel flotante inferior izquierdo */}
-          {textVisible && (
+          {/* 4. Renderizar la ContextCard si hay un punto activo */}
+          {activePointData && (
             <div className="absolute bottom-6 left-6 max-w-5xl m-4">
               <ContextCard
-                title="ScienceDivision"
-                subtitle="El cerebro detrás de la máquina"
-                text={text1}
-                text2={text2}
-                imageUrl={LocalImage}
+                title={activePointData.cardContent.title}
+                subtitle={activePointData.cardContent.subtitle}
+                text={activePointData.cardContent.text}
+                text2={activePointData.cardContent.text2}
+                imageUrl={activePointData.cardContent.imageUrl}
               />
             </div>
           )}
 
-          { textVisible && (
-            <div className="absolute bottom-6 left-6 max-w-5xl m-4">
-              <ContextCard
-                title="ScienceDivision 2"
-                subtitle="El cerebro detrás de la máquina 2"
-                text={text1}
-                text2={text2}
-                imageUrl={LocalImage}
-              />
+          {/* 5. Renderizar los botones dinámicamente */}
+          {pointsOfInterest.map((point) => (
+            <div key={point.id} className={`absolute ${point.buttonPosition}`}>
+              <button
+                type="button"
+                onClick={() => handlePointClick(point)}
+                className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
+              >
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                  <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
+                </svg>
+                <span className="sr-only">Botón para {point.cardContent.title}</span>
+              </button>
             </div>
-          )}
-          
-
-          {/* Botón flotante inferior derecho */}
-          <div className="absolute bottom-[60%] right-[42%]">
-            <button 
-              type="button"
-              onClick={moveCameraInitial}  
-              className="text-red-500 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
-              </svg>
-              <span className="sr-only">Icon description</span>
-            </button>
-          </div>
-
-          <div className="absolute bottom-[40%] right-[65%]">
-            <button 
-              type="button"
-              onClick={() => handleButtonClick('card1', cameraConfigs.initial)} 
-              className="text-yellow-500 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
-              </svg>
-              <span className="sr-only">Icon description</span>
-            </button>
-          </div>
-
-          <div className="absolute bottom-[28%] right-[37%]">
-            <button 
-              type="button" 
-              onClick={moveCameraLeft}
-              className="text-blue-300 border-2 border-blue-300 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
-              <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-              <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
-              </svg>
-              <span className="sr-only">Icon description</span>
-            </button>
-          </div>
-
-
+          ))}
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Home;

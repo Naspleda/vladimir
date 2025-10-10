@@ -11,10 +11,10 @@ const pointsOfInterest = [
     buttonPosition: "bottom-[40%] right-[65%]",
     cameraConfig: {
       fov: 50,
-      azimuth: 15,
-      polar: 80,
-      radius: 4,
-      target: { x: 1.5, y: 0.5, z: 1 },
+      azimuth: 45,
+      polar: 75,
+      radius: 5,
+      target: { x: -1.8, y: 0.05, z: 0.8 },
       duration: 1.5,
     },
     cardContent: {
@@ -30,10 +30,10 @@ const pointsOfInterest = [
     buttonPosition: "bottom-[60%] right-[42%]",
     cameraConfig: {
       fov: 50,
-      azimuth: -30,
+      azimuth: 0,
       polar: 75,
       radius: 5,
-      target: { x: -1, y: 0.8, z: 0.5 },
+      target: { x: 0, y: 0.35, z: 0 },
       duration: 1.5,
     },
     cardContent: {
@@ -48,11 +48,11 @@ const pointsOfInterest = [
     id: 'point3',
     buttonPosition: "bottom-[28%] right-[37%]",
     cameraConfig: {
-      fov: 40,
-      azimuth: 90,
-      polar: 85,
-      radius: 6,
-      target: { x: 0, y: 0.2, z: -1.5 },
+      fov: 50,
+      azimuth: 15,
+      polar: 75,
+      radius: 5,
+      target: { x: 1.8, y: 0.35, z: 0 },
       duration: 1.5,
     },
     cardContent: {

@@ -76,6 +76,7 @@ function Home() {
     setDuration,
     activeCard,
     setActiveCard,
+    triggerCameraAnimation, // Añadir trigger
   } = useSceneControls();
 
   // 2. Única función para manejar clics en los botones
@@ -95,6 +96,8 @@ function Home() {
       setRadius(cameraConfig.radius);
       setTarget(cameraConfig.target);
       setDuration(cameraConfig.duration);
+      // ¡Disparamos la animación!
+      triggerCameraAnimation({ target: cameraConfig.target, timestamp: Date.now() });
     } else {
       // Opcional: Volver a la posición inicial cuando se cierra una card
       setFov(50);

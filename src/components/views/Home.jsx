@@ -3,6 +3,9 @@ import ContextCard from "../ui/ContextCard";
 import Scene from "../../../public/models/Scene";
 import LocalImage from "../../assets/images/blue_bg_hd.png";
 import Logo from "../../assets/images/logo1.png";
+import BinanceLogo from "../../assets/images/binancelogo.png";
+import BingxLogo from "../../assets/images/bingxlogo.png";
+import BitgetLogo from "../../assets/images/bitgetlogo.png";
 
 // 1. Estructura de datos centralizada para los puntos de interés
 const pointsOfInterest = [
@@ -171,6 +174,13 @@ function Home() {
               </button>
             </div>
           ))}
+
+          {/* Footer con logos */}
+          <div className="absolute bottom-0 inset-x-0 h-16 flex items-center justify-center space-x-32 ">
+            <img src={BinanceLogo} alt="Binance Logo" className="h-6 w-auto text-shadow-lg" />
+            <img src={BingxLogo} alt="BingX Logo" className="h-6 w-auto" />
+            <img src={BitgetLogo} alt="Bitget Logo" className="h-6 w-auto" />
+          </div>
         </div>
       </div>
     </div>

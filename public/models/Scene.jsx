@@ -323,7 +323,7 @@ function Scene() {
 
         <OrbitControls
           ref={controlsRef}
-          target={[0, 0.35, 0]}
+          target={[0, -0.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
           dampingFactor={0.08}

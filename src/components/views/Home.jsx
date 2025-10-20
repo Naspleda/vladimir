@@ -11,13 +11,15 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 const pointsOfInterest = [
   {
     id: 'point1',
-    buttonPosition: "bottom-[40%] right-[65%]",
+    buttonPosition: "bottom-[55%] right-[65%]",
+    cardPosition: "bottom-[8rem] left-0 lg:bottom-12 lg:left-6",
+    cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
       azimuth: 45,
       polar: 75,
       radius: 5,
-      target: { x: -1.8, y: 0.05, z: 0.8 },
+      target: { x: -1.8, y: -0.05, z: 0.8 },
       duration: 1.5,
     },
     cardContent: {
@@ -30,13 +32,15 @@ const pointsOfInterest = [
   },
   {
     id: 'point2',
-    buttonPosition: "bottom-[60%] right-[42%]",
+    buttonPosition: "bottom-[70%] right-[42%]",
+    cardPosition: "bottom-12 left-6",
+    cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
       azimuth: 0,
       polar: 75,
       radius: 5,
-      target: { x: 0, y: 0.35, z: 0 },
+      target: { x: 0, y: -0.25, z: 0 },
       duration: 1.5,
     },
     cardContent: {
@@ -49,13 +53,15 @@ const pointsOfInterest = [
   },
   {
     id: 'point3',
-    buttonPosition: "bottom-[28%] right-[37%]",
+    buttonPosition: "bottom-[38%] right-[37%]",
+    cardPosition: "bottom-12 right-6",
+    cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
       azimuth: 15,
       polar: 75,
       radius: 5,
-      target: { x: 1.8, y: 0.35, z: 0 },
+      target: { x: 3.8, y: 0.35, z: 1 },
       duration: 1.5,
     },
     cardContent: {
@@ -148,13 +154,14 @@ function Home() {
 
           {/* 4. Renderizar la ContextCard si hay un punto activo */}
           {activePointData && (
-            <div className="absolute bottom-6 left-6 max-w-5xl m-4">
+            <div className={`absolute ${activePointData.cardPosition} max-w-5xl m-4`}>
               <ContextCard
                 title={activePointData.cardContent.title}
                 subtitle={activePointData.cardContent.subtitle}
                 text={activePointData.cardContent.text}
                 text2={activePointData.cardContent.text2}
                 imageUrl={activePointData.cardContent.imageUrl}
+                className={activePointData.cardClassName}
               />
             </div>
           )}

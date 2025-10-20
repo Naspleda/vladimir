@@ -9,20 +9,25 @@ import GradientBackground from '../../src/components/GradientBackground';
 import { AnimatedKremlin } from "./AnimatedKremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 import { Luces } from "../../src/components/Luces";
-import ArrowButton from "../../src/components/ArrowButton";
 import useSceneControls from "../../src/store/useSceneControls";
-import Text from "../../src/components/Text";
 
 // --- UI de cámara (panel flotante) ---
 function CameraController({ controlsRef, camRef }) {
   const [open, setOpen] = useState(false);
 
-  // Estados controlables
-  const [fov, setFov] = useState(50);
-  const [azimuthDeg, setAzimuthDeg] = useState(0);     // -180..180
-  const [polarDeg, setPolarDeg] = useState(75);        // 5..175
-  const [radius, setRadius] = useState(5);             // 1..50
-  const [target, setTarget] = useState({ x: 0, y: 0.35, z: 0 });
+  // Estados controlables desde el store
+  const {
+    fov,
+    azimuthDeg,
+    polarDeg,
+    radius,
+    target,
+    setFov,
+    setAzimuthDeg,
+    setPolarDeg,
+    setRadius,
+    setTarget,
+  } = useSceneControls();
 
   // Inicializar sliders con el estado real de la escena cuando ya montó todo
   useEffect(() => {
@@ -165,13 +170,21 @@ CameraController.propTypes = {
 function CameraTransitioner({ controlsRef, camRef }) {
   const [open, setOpen] = useState(false);
 
-  // Valores objetivo (no se aplican hasta "Animar")
-  const [fov, setFov] = useState(50);
-  const [azimuthDeg, setAzimuthDeg] = useState(0);
-  const [polarDeg, setPolarDeg] = useState(75);
-  const [radius, setRadius] = useState(5);
-  const [target, setTarget] = useState({ x: 0, y: 0.35, z: 0 });
-  const [duration, setDuration] = useState(5); // segundos
+  // Valores objetivo desde el store
+  const {
+    fov,
+    azimuthDeg,
+    polarDeg,
+    radius,
+    target,
+    setFov,
+    setAzimuthDeg,
+    setPolarDeg,
+    setRadius,
+    setTarget,
+  } = useSceneControls();
+  // const [duration, setDuration] = useState(5); // segundos
+  const { duration } = useSceneControls();
 
   const rafRef = useRef(null);
   const animatingRef = useRef(false);
@@ -210,7 +223,7 @@ function CameraTransitioner({ controlsRef, camRef }) {
   useEffect(() => {
     if (cameraAnimationTrigger) {
       setTarget(cameraAnimationTrigger.target);
-      setDuration(2); // 2 segundos de transición
+      // setDuration(2); // 2 segundos de transición
       animateToTargets();
     }
   }, [cameraAnimationTrigger]);
@@ -279,87 +292,6 @@ function CameraTransitioner({ controlsRef, camRef }) {
     rafRef.current = requestAnimationFrame(tick);
   };
 
-  return (
-    <>
-      {/* Botón flotante, colocado "al lado" del primero */}
-      <button
-        onClick={() => setOpen(o => !o)}
-        style={{
-          position: "absolute",
-          left: 120,            // <- desplazado respecto del primero
-          bottom: 16,
-          zIndex: 20,
-          padding: "10px 14px",
-          borderRadius: 12,
-          border: "1px solid #333",
-          background: "#111",
-          color: "#fff",
-          cursor: "pointer",
-          boxShadow: "0 6px 20px rgba(0,0,0,0.35)"
-        }}
-        title="Abrir transición de cámara"
-      >
-        ⏩ Transición
-      </button>
-
-      {open && (
-        <div
-          style={{
-            position: "absolute",
-            left: 120,
-            bottom: 60,
-            zIndex: 20,
-            width: 280,
-            padding: 14,
-            borderRadius: 16,
-            border: "1px solid #2a2a2a",
-            background: "rgba(15,15,15,0.95)",
-            color: "#eaeaea",
-            backdropFilter: "blur(6px)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.45)"
-          }}
-        >
-          <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8}}>
-            <strong>Transición de Cámara</strong>
-            <div style={{ display:"flex", gap:8 }}>
-              <button onClick={animateToTargets} style={{background:"#1a1a1a", color:"#fff", border:"1px solid #333", borderRadius:8, padding:"6px 10px", cursor:"pointer"}}>Animar</button>
-              <button onClick={stop} style={{background:"transparent", color:"#aaa", border:"none", cursor:"pointer"}} title="Detener">Detener</button>
-            </div>
-          </div>
-
-          <label style={{display:"block", fontSize:12, marginTop:6}}>Duración (s)</label>
-          <input type="number" min="0.1" step="0.1" value={duration} onChange={e => setDuration(e.target.value)} style={{width:"100%", background:"#0f0f0f", color:"#fff", border:"1px solid #333", borderRadius:8, padding:"6px 8px"}} />
-
-          <label style={{display:"block", fontSize:12, marginTop:8}}>FOV: {Number(fov).toFixed(0)}°</label>
-          <input type="range" min="20" max="100" value={fov} onChange={e => setFov(Number(e.target.value))} style={{width:"100%"}} />
-
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Azimut: {Number(azimuthDeg).toFixed(0)}°</label>
-          <input type="range" min="-180" max="180" value={azimuthDeg} onChange={e => setAzimuthDeg(Number(e.target.value))} style={{width:"100%"}} />
-
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Polar: {Number(polarDeg).toFixed(0)}°</label>
-          <input type="range" min="5" max="175" value={polarDeg} onChange={e => setPolarDeg(Number(e.target.value))} style={{width:"100%"}} />
-
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Distancia: {Number(radius).toFixed(2)}</label>
-          <input type="range" min="1" max="50" step="0.1" value={radius} onChange={e => setRadius(Number(e.target.value))} style={{width:"100%"}} />
-
-          <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:8, marginTop:10}}>
-            {["x","y","z"].map(axis => (
-              <div key={axis}>
-                <label style={{display:"block", fontSize:12}}>Target {axis.toUpperCase()}</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={target[axis]}
-                  onChange={e => setTarget(prev => ({...prev, [axis]: Number(e.target.value)}))}
-                  style={{width:"100%", background:"#0f0f0f", color:"#fff", border:"1px solid #333", borderRadius:8, padding:"6px 8px"}}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
-  );
 }
 
 CameraTransitioner.propTypes = {
@@ -387,11 +319,11 @@ function Scene() {
 
   return (
     <div style={{position:"relative", width:"100%", height:"100vh"}}>
-      <Canvas shadows>
+      <Canvas shadows gl={{ alpha: true }} style={{ background: "transparent" }}>
 
         <OrbitControls
           ref={controlsRef}
-          target={[0, 0.35, 0]}
+          target={[0, -0.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
           dampingFactor={0.08}
@@ -399,7 +331,7 @@ function Scene() {
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
 
-        <color args={[0, 0, 0]} attach="background" />
+        {/* <color args={[0, 0, 0]} attach="background" /> */}
 
         <CubeCamera resolution={256} frames={Infinity} >
           {(texture) => (
@@ -416,7 +348,7 @@ function Scene() {
           <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.1} intensity={0.5} />
         </EffectComposer>
 
-        <Ground />
+        {/* <Ground /> */}
         <FloatingGrid />
 
         {/* LUCES BASE */}
@@ -451,16 +383,8 @@ function Scene() {
         />
       </Canvas>
 
-      {/* Panel/control superpuesto al Canvas */}
-      <CameraController controlsRef={controlsRef} camRef={camRef} />
-
-      {/* NUEVO: panel con transición de 5s */}
-    <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
-      <Text />
-      <div className="absolute inset-0 flex items-center justify-between p-4" style={{ zIndex: 20 }}>
-        <ArrowButton direction="left" onClick={toggleText} />
-        <ArrowButton direction="right" onClick={toggleText} />
-      </div>
+      {/* Un solo componente de control de cámara */}
+      <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
     </div>
   );
 }

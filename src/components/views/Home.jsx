@@ -11,8 +11,8 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 const pointsOfInterest = [
   {
     id: 'point1',
-    buttonPosition: "bottom-[55%] right-[65%]",
-    cardPosition: "bottom-[8rem] left-0 lg:bottom-12 lg:left-6",
+    buttonPosition: "bottom-[55%] right-[65%] z-0",
+    cardPosition: "bottom-[0%] left-0 lg:bottom-12 lg:left-6 z-10",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -183,10 +183,10 @@ function Home() {
           ))}
 
           {/* Footer con logos */}
-          <div className="absolute bottom-0 inset-x-0 h-16 flex items-center justify-center space-x-32 ">
-            <img src={BinanceLogo} alt="Binance Logo" className="h-6 w-auto text-shadow-lg" />
-            <img src={BingxLogo} alt="BingX Logo" className="h-6 w-auto" />
-            <img src={BitgetLogo} alt="Bitget Logo" className="h-6 w-auto" />
+          <div className="absolute bottom-0 inset-x-0 h-8 lg:h-16 flex items-center justify-center space-x-8 lg:space-x-32 ">
+            <img src={BinanceLogo} alt="Binance Logo" className="h-4 lg:h-6 w-auto text-shadow-lg" />
+            <img src={BingxLogo} alt="BingX Logo" className="h-4 lg:h-6 w-auto" />
+            <img src={BitgetLogo} alt="Bitget Logo" className="h-4 lg:h-6 w-auto" />
           </div>
         </div>
       </div>

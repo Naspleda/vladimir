@@ -12,7 +12,7 @@ const pointsOfInterest = [
   {
     id: 'point1',
     buttonPosition: "bottom-[55%] right-[65%] z-0",
-    cardPosition: "bottom-[0%] left-0 lg:bottom-12 lg:left-6 z-10",
+    cardPosition: "md:bottom-12 md:left-6 z-10",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -33,7 +33,7 @@ const pointsOfInterest = [
   {
     id: 'point2',
     buttonPosition: "bottom-[70%] right-[42%]",
-    cardPosition: "bottom-12 left-6",
+    cardPosition: "md:bottom-12 md:left-6",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -54,7 +54,7 @@ const pointsOfInterest = [
   {
     id: 'point3',
     buttonPosition: "bottom-[38%] right-[37%]",
-    cardPosition: "bottom-12 right-6",
+    cardPosition: "md:bottom-12 md:right-6",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -154,7 +154,7 @@ function Home() {
 
           {/* 4. Renderizar la ContextCard si hay un punto activo */}
           {activePointData && (
-            <div className={`absolute ${activePointData.cardPosition} max-w-5xl m-4`}>
+            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-5xl m-4`}>
               <ContextCard
                 title={activePointData.cardContent.title}
                 subtitle={activePointData.cardContent.subtitle}
@@ -183,10 +183,10 @@ function Home() {
           ))}
 
           {/* Footer con logos */}
-          <div className="absolute bottom-0 inset-x-0 h-8 lg:h-16 flex items-center justify-center space-x-8 lg:space-x-32 ">
-            <img src={BinanceLogo} alt="Binance Logo" className="h-4 lg:h-6 w-auto text-shadow-lg" />
-            <img src={BingxLogo} alt="BingX Logo" className="h-4 lg:h-6 w-auto" />
-            <img src={BitgetLogo} alt="Bitget Logo" className="h-4 lg:h-6 w-auto" />
+          <div className="absolute bottom-0 inset-x-0 h-8 md:h-16 flex items-center justify-center space-x-8 md:space-x-32 ">
+            <img src={BinanceLogo} alt="Binance Logo" className="h-4 md:h-6 w-auto text-shadow-lg" />
+            <img src={BingxLogo} alt="BingX Logo" className="h-4 md:h-6 w-auto" />
+            <img src={BitgetLogo} alt="Bitget Logo" className="h-4 md:h-6 w-auto" />
           </div>
         </div>
       </div>

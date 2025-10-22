@@ -11,8 +11,8 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 const pointsOfInterest = [
   {
     id: 'point1',
-    buttonPosition: "md:bottom-[55%] md:right-[65%] z-[90]",
-    cardPosition: "md:bottom-12 md:left-6 z-10",
+    buttonPosition: "md:bottom-[55%] md:right-[65%] z-0",
+    cardPosition: "md:bottom-12 md:left-6 z-0",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -32,8 +32,8 @@ const pointsOfInterest = [
   },
   {
     id: 'point2',
-    buttonPosition: "bottom-[70%] right-[42%]",
-    cardPosition: "md:bottom-12 md:left-6",
+    buttonPosition: "md:bottom-[70%] md:right-[42%] z-0",
+    cardPosition: "md:bottom-12 md:left-6 z-0",
     cardClassName: "w-full",
     cameraConfig: {
       fov: 50,
@@ -53,7 +53,7 @@ const pointsOfInterest = [
   },
   {
     id: 'point3',
-    buttonPosition: "bottom-[38%] right-[37%]",
+    buttonPosition: "md:bottom-[38%] md:right-[37%] z-0",
     cardPosition: "md:bottom-12 md:right-6",
     cardClassName: "w-full",
     cameraConfig: {
@@ -148,6 +148,23 @@ function Home() {
               </div>
             </div>
           </header>
+
+          {/* Botones Mobile - En fila debajo del título */}
+          <div className="absolute top-28 inset-x-0 flex justify-center gap-4 z-30 md:hidden">
+            {pointsOfInterest.map((point) => (
+              <button
+                key={point.id}
+                type="button"
+                onClick={() => handlePointClick(point)}
+                className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
+              >
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                  <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
+                </svg>
+                <span className="sr-only">Botón para {point.cardContent.title}</span>
+              </button>
+            ))}
+          </div>
 
           {/* Escena 3D */}
           <Scene />

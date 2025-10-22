@@ -11,7 +11,7 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 const pointsOfInterest = [
   {
     id: 'point1',
-    buttonPosition: "bottom-[55%] right-[65%] z-0",
+    buttonPosition: "md:bottom-[55%] md:right-[65%] z-[90]",
     cardPosition: "md:bottom-12 md:left-6 z-10",
     cardClassName: "w-full",
     cameraConfig: {

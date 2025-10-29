@@ -30,7 +30,10 @@ const pointsOfInterest = [
       text: "Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales, combinando estadística avanzada y trading algorítmico.",
       text2: "Aquí la matemática se convierte en poder de mercado.",
       imageUrl: RefImage, // Reemplazar con imagen específica si se desea
-      backgroundClass: "context-card-gradient-1" // Azul Morado
+      gradientColors: {
+        primary: 'bg-purple-700',
+        secondary: 'bg-blue-600'
+      }
     }
   },
   {
@@ -52,7 +55,10 @@ const pointsOfInterest = [
       text: "Utilizamos sistemas de ejecución automática y análisis de datos en tiempo real para capitalizar oportunidades antes que el resto.",
       text2: "La velocidad y la precisión son nuestra firma.",
       imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
-      backgroundClass: "context-card-gradient-2" // Verde/Cian
+      gradientColors: {
+        primary: 'bg-emerald-600',
+        secondary: 'bg-cyan-500'
+      }
     }
   },
   {
@@ -74,7 +80,10 @@ const pointsOfInterest = [
       text: "Nuestra infraestructura nos permite operar en los principales mercados financieros del mundo, 24/7.",
       text2: "Tu rol es decidir cuándo y dónde ser parte del juego.",
       imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
-      backgroundClass: "context-card-gradient-3" // Naranja/Rojo
+      gradientColors: {
+        primary: 'bg-orange-600',
+        secondary: 'bg-red-500'
+      }
     }
   }
 ];
@@ -172,7 +181,7 @@ function Home() {
                 text2={activePointData.cardContent.text2}
                 imageUrl={activePointData.cardContent.imageUrl}
                 className={activePointData.cardClassName}
-                backgroundClass={activePointData.cardContent.backgroundClass}
+                gradientColors={activePointData.cardContent.gradientColors}
               />
             </div>
           )}

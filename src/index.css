@@ -79,7 +79,8 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Bitcount Prop Single Ink', monospace;
+  /* font-family: 'Bitcount Prop Single Ink', monospace; */
+  font-family: 'Sansation', sans-serif;
 }
 p {
   font-size: large;

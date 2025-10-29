@@ -8,7 +8,7 @@ export function Navbar(){
                     <div className="flex items-center justify-between md:justify-between">
                         {/* Mobile: Título centrado */}
                         <div className="flex-1 flex justify-start md:hidden">
-                            <a aria-current="page" className="text-2xl font-bold tracking-wide text-cyan-300 [text-shadow:_0_0_10px_#0ff]" href="/">
+                            <a aria-current="page" className="text-xs font-bold tracking-wide text-cyan-300 [text-shadow:_0_0_10px_#0ff]" href="/">
                                 <p>Kremlin Trading</p>
                             </a>
                         </div>

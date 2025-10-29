@@ -6,6 +6,7 @@ import Logo from "../../assets/images/logo1.png";
 import BinanceLogo from "../../assets/images/binancelogo.png";
 import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
+import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
 
 // 1. Estructura de datos centralizada para los puntos de interés
@@ -28,7 +29,8 @@ const pointsOfInterest = [
       subtitle: "El Núcleo de la Operación",
       text: "Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales, combinando estadística avanzada y trading algorítmico.",
       text2: "Aquí la matemática se convierte en poder de mercado.",
-      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+      imageUrl: RefImage, // Reemplazar con imagen específica si se desea
+      backgroundClass: "context-card-gradient-1" // Azul Morado
     }
   },
   {
@@ -50,6 +52,7 @@ const pointsOfInterest = [
       text: "Utilizamos sistemas de ejecución automática y análisis de datos en tiempo real para capitalizar oportunidades antes que el resto.",
       text2: "La velocidad y la precisión son nuestra firma.",
       imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+      backgroundClass: "context-card-gradient-2" // Verde/Cian
     }
   },
   {
@@ -71,6 +74,7 @@ const pointsOfInterest = [
       text: "Nuestra infraestructura nos permite operar en los principales mercados financieros del mundo, 24/7.",
       text2: "Tu rol es decidir cuándo y dónde ser parte del juego.",
       imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+      backgroundClass: "context-card-gradient-3" // Naranja/Rojo
     }
   }
 ];
@@ -160,7 +164,7 @@ function Home() {
 
           {/* 4. Renderizar la ContextCard si hay un punto activo */}
           {activePointData && (
-            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-5xl m-4`}>
+            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4`}>
               <ContextCard
                 title={activePointData.cardContent.title}
                 subtitle={activePointData.cardContent.subtitle}
@@ -168,6 +172,7 @@ function Home() {
                 text2={activePointData.cardContent.text2}
                 imageUrl={activePointData.cardContent.imageUrl}
                 className={activePointData.cardClassName}
+                backgroundClass={activePointData.cardContent.backgroundClass}
               />
             </div>
           )}

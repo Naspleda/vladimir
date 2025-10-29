@@ -87,7 +87,26 @@ p {
   font-family: 'Sansation', sans-serif;
 }
 
+/* Gradient para Card 1 - Azul/Morado */
+.context-card-gradient-1 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(59, 130, 246, 0.45), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(147, 51, 234, 0.5), transparent 60%), 
+              linear-gradient(180deg, #1e1b4b 0%, #0f0f23 1%);
+}
 
+/* Gradient para Card 2 - Verde/Cian */
+.context-card-gradient-2 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(34, 186, 197, 0.4), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(20, 132, 184, 0.5), transparent 60%), 
+              linear-gradient(180deg, #064e3b 0%, #0a0a0a 1%);
+}
+
+/* Gradient para Card 3 - Naranja/Rojo */
+.context-card-gradient-3 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(255, 255, 255, 0.267), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(255, 255, 255, 0.5), transparent 60%), 
+              linear-gradient(180deg, #6e6e6ef1 0%, #0c0a09 1%);
+}
 
 
 

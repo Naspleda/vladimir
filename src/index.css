@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -78,13 +80,20 @@
     }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  /* font-family: 'Bitcount Prop Single Ink', monospace; */
-  font-family: 'Sansation', sans-serif;
+/* Fuente por defecto para toda la aplicación */
+body {
+  font-family: 'Inter', 'Sansation', sans-serif;
 }
+
+/* Títulos usando Sansation como fuente principal */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', 'Sansation', sans-serif;
+}
+
+/* Párrafos usando Inter como fuente principal */
 p {
   font-size: large;
-  font-family: 'Sansation', sans-serif;
+  font-family: 'Inter', 'Sansation', sans-serif;
 }
 
 /* Gradient para Card 1 - Azul/Morado */

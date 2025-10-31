@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single+Ink:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -78,15 +80,42 @@
     }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Bitcount Prop Single Ink', monospace;
+/* Fuente por defecto para toda la aplicación */
+body {
+  font-family: 'Inter', 'Sansation', sans-serif;
 }
+
+/* Títulos usando Sansation como fuente principal */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', 'Sansation', sans-serif;
+}
+
+/* Párrafos usando Inter como fuente principal */
 p {
   font-size: large;
-  font-family: 'Sansation', sans-serif;
+  font-family: 'Inter', 'Sansation', sans-serif;
 }
 
+/* Gradient para Card 1 - Azul/Morado */
+.context-card-gradient-1 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(59, 130, 246, 0.45), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(147, 51, 234, 0.5), transparent 60%), 
+              linear-gradient(180deg, #1e1b4b 0%, #0f0f23 1%);
+}
 
+/* Gradient para Card 2 - Verde/Cian */
+.context-card-gradient-2 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(34, 186, 197, 0.4), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(20, 132, 184, 0.5), transparent 60%), 
+              linear-gradient(180deg, #064e3b 0%, #0a0a0a 1%);
+}
+
+/* Gradient para Card 3 - Naranja/Rojo */
+.context-card-gradient-3 {
+  background: radial-gradient(120% 90% at 0% 100%, rgba(255, 255, 255, 0.267), transparent 60%), 
+              radial-gradient(80% 80% at 100% 40%, rgba(255, 255, 255, 0.5), transparent 60%), 
+              linear-gradient(180deg, #6e6e6ef1 0%, #0c0a09 1%);
+}
 
 
 

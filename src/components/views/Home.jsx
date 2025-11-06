@@ -138,14 +138,9 @@ function Home() {
 
   return (
     <div className="absolute inset-0">
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full bg-black/60">
         {/* Fondo y Blur */}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${BImage})` }}
-        />
-        <div aria-hidden className="absolute inset-0 z-10 pointer-events-none backdrop-blur-md bg-black/25" />
+        <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">

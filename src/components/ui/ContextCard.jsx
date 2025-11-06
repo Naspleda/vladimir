@@ -12,6 +12,8 @@ const ContextCard = ({
 }) => {
   return (
     <div className={`
+      backdrop-blur-md
+      bg-black/10
         relative overflow-hidden
         border border-white/15 rounded-2xl p-4 md:p-8 h-[550px] md:max-h-none text-white ${className}`}>
       

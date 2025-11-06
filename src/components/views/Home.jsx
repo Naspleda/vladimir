@@ -2,6 +2,7 @@ import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
 import Scene from "../../../public/models/Scene";
 import LocalImage from "../../assets/images/blue_bg_hd.png";
+import BImage from "../../assets/images/blackcircle.png";
 import Logo from "../../assets/images/logo1.png";
 import BinanceLogo from "../../assets/images/binancelogo.png";
 import BingxLogo from "../../assets/images/bingxlogo.png";
@@ -142,9 +143,9 @@ function Home() {
         <div
           aria-hidden
           className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${LocalImage})` }}
+          style={{ backgroundImage: `url(${BImage})` }}
         />
-        <div aria-hidden className="absolute inset-0 z-10 pointer-events-none backdrop-blur-2xl bg-black/25" />
+        <div aria-hidden className="absolute inset-0 z-10 pointer-events-none backdrop-blur-md bg-black/25" />
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">

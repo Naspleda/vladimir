@@ -1,4 +1,5 @@
 import Logo from "../assets/images/logo1.png";
+import LogoKt from "../assets/images/logokt.png";
 
 const Header = () => {
     return (  
@@ -12,7 +13,7 @@ const Header = () => {
                         </div>
                     </div>
                     <div className="absolute right-6 top-4">
-                        <img src={Logo} alt="Logo" className="h-12 w-auto" />
+                        <img src={LogoKt} alt="Logo" className="h-12 w-auto" />
                     </div>
                 </div>
             </header>

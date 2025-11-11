@@ -7,6 +7,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
 import { AnimatedKremlin } from "./AnimatedKremlin";
+import { Kremlin } from "./Kremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 import { Luces } from "../../src/components/Luces";
 import useSceneControls from "../../src/store/useSceneControls";
@@ -337,7 +338,7 @@ function Scene() {
           {(texture) => (
             <>
               <Environment map={texture} />
-              <AnimatedKremlin />
+              <Kremlin />
             </>
           )}
         </CubeCamera>

@@ -10,6 +10,7 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
 
+import { Effect } from "../animate-ui/primitives/effects/effect";
 // 1. Estructura de datos centralizada para los puntos de interés
 const pointsOfInterest = [
   {
@@ -30,7 +31,7 @@ const pointsOfInterest = [
       subtitle: "El Núcleo de la Operación",
       text: "Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales, combinando estadística avanzada y trading algorítmico.",
       text2: "Aquí la matemática se convierte en poder de mercado.",
-      imageUrl: RefImage, // Reemplazar con imagen específica si se desea
+      imageUrl: RefImage,
       gradientColors: {
         primary: 'bg-purple-700',
         secondary: 'bg-blue-600'
@@ -55,7 +56,7 @@ const pointsOfInterest = [
       subtitle: "La Ventaja Algorítmica",
       text: "Utilizamos sistemas de ejecución automática y análisis de datos en tiempo real para capitalizar oportunidades antes que el resto.",
       text2: "La velocidad y la precisión son nuestra firma.",
-      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+      imageUrl: LocalImage,
       gradientColors: {
         primary: 'bg-emerald-600',
         secondary: 'bg-cyan-500'
@@ -80,7 +81,7 @@ const pointsOfInterest = [
       subtitle: "Oportunidades sin Fronteras",
       text: "Nuestra infraestructura nos permite operar en los principales mercados financieros del mundo, 24/7.",
       text2: "Tu rol es decidir cuándo y dónde ser parte del juego.",
-      imageUrl: LocalImage, // Reemplazar con imagen específica si se desea
+      imageUrl: LocalImage,
       gradientColors: {
         primary: 'bg-orange-600',
         secondary: 'bg-red-500'
@@ -100,30 +101,27 @@ function Home() {
     setDuration,
     activeCard,
     setActiveCard,
-    triggerCameraAnimation, // Añadir trigger
+    triggerCameraAnimation,
+    kremlinAnimationFinished, // Importar el estado de la animación
   } = useSceneControls();
 
   // 2. Única función para manejar clics en los botones
   const handlePointClick = (point) => {
     const { cameraConfig, id } = point;
     
-    // Si la card activa es la misma que la clickeada, la cerramos. Si no, activamos la nueva.
     const nextActiveCard = activeCard === id ? null : id;
     
     setActiveCard(nextActiveCard);
 
     if (nextActiveCard) {
-      // Movemos la cámara a la posición del punto de interés
       setFov(cameraConfig.fov);
       setAzimuthDeg(cameraConfig.azimuth);
       setPolarDeg(cameraConfig.polar);
       setRadius(cameraConfig.radius);
       setTarget(cameraConfig.target);
       setDuration(cameraConfig.duration);
-      // ¡Disparamos la animación!
       triggerCameraAnimation({ target: cameraConfig.target, timestamp: Date.now() });
     } else {
-      // Opcional: Volver a la posición inicial cuando se cierra una card
       setFov(50);
       setAzimuthDeg(0);
       setPolarDeg(75);
@@ -144,16 +142,27 @@ function Home() {
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
-          {/* Header */}
-          <Header />
+          {/* Header - Con animación fade-in */}
+          <Effect 
+            fade={{ initialOpacity: 0, opacity: 1 }}
+            slide={{ direction: 'up', offset: 50 }}
+            zoom={{ initialScale: 0.8, scale: 1 }}
+            inView={kremlinAnimationFinished} 
+            inViewOnce={true}
+            delay={2500}
+            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+          >
+            <Header />
+          </Effect>
 
-          {/* Botones Mobile - En fila debajo del título */}
-          <div className="absolute top-28 inset-x-0 flex justify-center gap-4 z-30 md:hidden">
+          {/* Botones Mobile - Con animación fade-in */}
+          <div className={`absolute top-28 inset-x-0 flex justify-center gap-4 z-30 md:hidden transition-opacity duration-1000 delay-300 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}>
             {pointsOfInterest.map((point) => (
               <button
                 key={point.id}
                 type="button"
                 onClick={() => handlePointClick(point)}
+                disabled={!kremlinAnimationFinished}
                 className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
               >
                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
@@ -167,9 +176,9 @@ function Home() {
           {/* Escena 3D */}
           <Scene />
 
-          {/* 4. Renderizar la ContextCard si hay un punto activo */}
-          {activePointData && (
-            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4`}>
+          {/* 4. ContextCard con animación */}
+          {activePointData && kremlinAnimationFinished && (
+            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4 animate-fade-in`}>
               <ContextCard
                 title={activePointData.cardContent.title}
                 subtitle={activePointData.cardContent.subtitle}
@@ -182,12 +191,17 @@ function Home() {
             </div>
           )}
 
-          {/* 5. Renderizar los botones dinámicamente */}
-          {pointsOfInterest.map((point) => (
-            <div key={point.id} className={`absolute ${point.buttonPosition}`}>
+          {/* 5. Botones desktop - Con animación fade-in escalonada */}
+          {pointsOfInterest.map((point, index) => (
+            <div 
+              key={point.id} 
+              className={`absolute ${point.buttonPosition} transition-opacity duration-1000 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}
+              style={{ transitionDelay: `${(index + 1) * 200}ms` }}
+            >
               <button
                 type="button"
                 onClick={() => handlePointClick(point)}
+                disabled={!kremlinAnimationFinished}
                 className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
               >
                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
@@ -198,12 +212,23 @@ function Home() {
             </div>
           ))}
 
-          {/* Footer con logos */}
-          <div className="absolute bottom-0 inset-x-0 h-8 md:h-16 flex items-center justify-center space-x-8 md:space-x-32 ">
-            <img src={BinanceLogo} alt="Binance Logo" className="h-4 md:h-6 w-auto text-shadow-lg" />
-            <img src={BingxLogo} alt="BingX Logo" className="h-4 md:h-6 w-auto" />
-            <img src={BitgetLogo} alt="Bitget Logo" className="h-4 md:h-6 w-auto" />
-          </div>
+          {/* Footer con logos - Con animación fade-in */}
+          <Effect 
+            fade={{ initialOpacity: 0, opacity: 1 }}
+            slide={{ direction: 'down', offset: 50 }}
+            zoom={{ initialScale: 0.8, scale: 1 }}
+            inView={kremlinAnimationFinished} 
+            inViewOnce={true}
+            delay={2500}
+            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+          >
+            <div className={`absolute bottom-0 inset-x-0 h-8 md:h-16 flex items-center justify-center space-x-8 md:space-x-32 transition-opacity duration-1000 delay-500 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}>
+              <img src={BinanceLogo} alt="Binance Logo" className="h-4 md:h-6 w-auto text-shadow-lg" />
+              <img src={BingxLogo} alt="BingX Logo" className="h-4 md:h-6 w-auto" />
+              <img src={BitgetLogo} alt="Bitget Logo" className="h-4 md:h-6 w-auto" />
+            </div>
+          </Effect>
+          
         </div>
       </div>
     </div>

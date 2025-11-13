@@ -7,6 +7,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Ground from "../../src/components/Ground";
 import GradientBackground from '../../src/components/GradientBackground';
 import { AnimatedKremlin } from "./AnimatedKremlin";
+import { Kremlin } from "./Kremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 import { Luces } from "../../src/components/Luces";
 import useSceneControls from "../../src/store/useSceneControls";
@@ -305,7 +306,7 @@ function Scene() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const controlsRef = useRef(null);
   const camRef = useRef(null);
-  const { toggleText } = useSceneControls();
+  const { kremlinAnimationFinished } = useSceneControls();
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -331,59 +332,57 @@ function Scene() {
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
 
-        {/* <color args={[0, 0, 0]} attach="background" /> */}
-
         <CubeCamera resolution={256} frames={Infinity} >
           {(texture) => (
             <>
               <Environment map={texture} />
-              <AnimatedKremlin />
+              <Kremlin />
             </>
           )}
         </CubeCamera>
-
-        <Luces />
 
         <EffectComposer>
           <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.1} intensity={0.5} />
         </EffectComposer>
 
-        {/* <Ground /> */}
         <FloatingGrid />
 
-        {/* LUCES BASE */}
-        <spotLight
-          color={[0.14, 0.5, 1]}
-          intensity={10.5}
-          angle={0.6}
-          penumbra={0.5}
-          position={[5, 5, 0]}
-          castShadow
-          shadow-bias={-0.0001}
-        />
-        <spotLight
-          color={[0.14, 0.5, 1]}
-          intensity={20}
-          angle={0.6}
-          penumbra={0.5}
-          position={[-5, 5, 3]}
-          castShadow
-          shadow-bias={-0.0001}
-        />
-        <hemisphereLight position={[0, -1, 0]} skyColor="white" groundColor="black" intensity={1} />
-
-        <spotLight
-          color={[0.14, 0.5, 1]}
-          intensity={1000}
-          angle={0.8}
-          penumbra={0.5}
-          position={[0, 5, 30]}
-          castShadow
-          shadow-bias={-0.0001}
-        />
+        {/* LUCES BASE - Solo se renderizan cuando la animación del Kremlin termina */}
+        {kremlinAnimationFinished && (
+          <>
+            <Luces />
+            <spotLight
+              color={[0.14, 0.5, 1]}
+              intensity={10.5}
+              angle={0.6}
+              penumbra={0.5}
+              position={[5, 5, 0]}
+              castShadow
+              shadow-bias={-0.0001}
+            />
+            <spotLight
+              color={[0.14, 0.5, 1]}
+              intensity={20}
+              angle={0.6}
+              penumbra={0.5}
+              position={[-5, 5, 3]}
+              castShadow
+              shadow-bias={-0.0001}
+            />
+            <hemisphereLight position={[0, -1, 0]} skyColor="white" groundColor="black" intensity={1} />
+            <spotLight
+              color={[0.14, 0.5, 1]}
+              intensity={1000}
+              angle={0.8}
+              penumbra={0.5}
+              position={[0, 5, 30]}
+              castShadow
+              shadow-bias={-0.0001}
+            />
+          </>
+        )}
       </Canvas>
 
-      {/* Un solo componente de control de cámara */}
       <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
     </div>
   );

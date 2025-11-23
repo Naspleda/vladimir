@@ -151,16 +151,17 @@ function RadialNav({
   size = 480,
   items = ITEMS,
   menuButtonConfig,
-  defaultActiveId,
+  activeId,
   onActiveChange
 }) {
   const orbitRadius = size / 2 - 0.5;
-  const [activeId, setActiveId] = React.useState(defaultActiveId ?? null);
+  // const [activeId, setActiveId] = React.useState(defaultActiveId ?? null);
 
   const handleActivate = React.useCallback((id) => {
-    setActiveId(id);
+    // SIMPLIFICADO: Solo notifica al componente padre qué ID se ha clicado.
+    // La lógica de si se abre o se cierra la manejará el padre.
     onActiveChange?.(id);
-  }, [onActiveChange]);
+  }, [onActiveChange]); // La dependencia ahora es solo onActiveChange
 
   const baseAngle =
     (items.find((it) => it.id === activeId)?.angle ?? 0) + POINTER_BASE_DEG;

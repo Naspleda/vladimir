@@ -12,13 +12,15 @@ import Header from "../Header";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
 import { RadialNav } from "../animate-ui/components/community/radial-nav";
+
+// Importa los iconos para el RadialNav
+import { BrainCircuit, Bot, Globe } from 'lucide-react';
+
 // 1. Estructura de datos centralizada para los puntos de interés
 const pointsOfInterest = [
   {
     id: 'point1',
-    buttonPosition: "md:bottom-[55%] md:right-[65%] z-0",
-    cardPosition: "md:bottom-12 md:left-6 z-0",
-    cardClassName: "w-full",
+    // ... (buttonPosition y cardPosition ya no son necesarios para los botones)
     cameraConfig: {
       fov: 50,
       azimuth: 45,
@@ -37,13 +39,17 @@ const pointsOfInterest = [
         primary: 'bg-purple-700',
         secondary: 'bg-blue-600'
       }
+    },
+    // Propiedades para RadialNav
+    navItem: {
+      icon: BrainCircuit,
+      label: 'Estrategia',
+      angle: 115,
     }
   },
   {
     id: 'point2',
-    buttonPosition: "md:bottom-[70%] md:right-[42%] z-0",
-    cardPosition: "md:bottom-12 md:left-6 z-0",
-    cardClassName: "w-full",
+    // ...
     cameraConfig: {
       fov: 50,
       azimuth: 0,
@@ -62,13 +68,17 @@ const pointsOfInterest = [
         primary: 'bg-emerald-600',
         secondary: 'bg-cyan-500'
       }
+    },
+    // Propiedades para RadialNav
+    navItem: {
+      icon: Bot,
+      label: 'Tecnología',
+      angle: 0,
     }
   },
   {
     id: 'point3',
-    buttonPosition: "md:bottom-[38%] md:right-[37%] z-0",
-    cardPosition: "md:bottom-12 md:right-6",
-    cardClassName: "w-full",
+    // ...
     cameraConfig: {
       fov: 50,
       azimuth: 15,
@@ -87,6 +97,12 @@ const pointsOfInterest = [
         primary: 'bg-orange-600',
         secondary: 'bg-red-500'
       }
+    },
+    // Propiedades para RadialNav
+    navItem: {
+      icon: Globe,
+      label: 'Mercados',
+      angle: -115,
     }
   }
 ];
@@ -106,15 +122,12 @@ function Home() {
     kremlinAnimationFinished, // Importar el estado de la animación
   } = useSceneControls();
 
-  // 2. Única función para manejar clics en los botones
-  const handlePointClick = (point) => {
-    const { cameraConfig, id } = point;
-    
-    const nextActiveCard = activeCard === id ? null : id;
-    
-    setActiveCard(nextActiveCard);
-
-    if (nextActiveCard) {
+  // La función handlePointClick ahora solo se encarga de aplicar los cambios
+  const applyCameraAndCardState = (point) => {
+    if (point) {
+      // Abrir o cambiar a una nueva card
+      const { cameraConfig, id } = point;
+      setActiveCard(id);
       setFov(cameraConfig.fov);
       setAzimuthDeg(cameraConfig.azimuth);
       setPolarDeg(cameraConfig.polar);
@@ -123,6 +136,8 @@ function Home() {
       setDuration(cameraConfig.duration);
       triggerCameraAnimation({ target: cameraConfig.target, timestamp: Date.now() });
     } else {
+      // Cerrar todo y volver al estado inicial
+      setActiveCard(null);
       setFov(50);
       setAzimuthDeg(0);
       setPolarDeg(75);
@@ -131,6 +146,24 @@ function Home() {
       setDuration(1.5);
     }
   };
+
+  // handleNavChange ahora contiene la lógica de toggle
+  const handleNavChange = (id) => {
+    // Si se clica el botón ya activo, se cierra.
+    if (id === activeCard) {
+      applyCameraAndCardState(null);
+    } else {
+      // Si se clica un botón nuevo (o el primero), se busca y se abre.
+      const point = pointsOfInterest.find(p => p.id === id);
+      applyCameraAndCardState(point);
+    }
+  };
+
+  // Transforma los datos para el RadialNav
+  const navItems = pointsOfInterest.map(p => ({
+    id: p.id,
+    ...p.navItem
+  }));
 
   // 3. Encontrar el contenido de la card activa
   const activePointData = pointsOfInterest.find(p => p.id === activeCard);
@@ -142,7 +175,11 @@ function Home() {
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
         {/* Contenedor para centrar RadialNav */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-          <RadialNav />
+          <RadialNav 
+            items={navItems}
+            onActiveChange={handleNavChange}
+            defaultActiveId={activeCard}
+          />
         </div>
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">

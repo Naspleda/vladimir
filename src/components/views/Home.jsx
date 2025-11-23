@@ -9,6 +9,7 @@ import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
+import Footer from "../layout/Footer";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
 import { RadialNav } from "../animate-ui/components/community/radial-nav";
@@ -173,6 +174,7 @@ function Home() {
       <div className="relative h-full w-full bg-black/60">
         {/* Fondo y Blur */}
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
+
         {/* Contenedor para centrar RadialNav */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
           <RadialNav 
@@ -181,43 +183,16 @@ function Home() {
             defaultActiveId={activeCard}
           />
         </div>
+
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Effect 
-            fade={{ initialOpacity: 0, opacity: 1 }}
-            slide={{ direction: 'up', offset: 50 }}
-            zoom={{ initialScale: 0.8, scale: 1 }}
-            inView={kremlinAnimationFinished} 
-            inViewOnce={true}
-            delay={2500}
-            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-          >
-            <Header />
-          </Effect>
-
-          {/* Botones Mobile - Con animación fade-in */}
-          <div className={`absolute top-28 inset-x-0 flex justify-center gap-4 z-30 md:hidden transition-opacity duration-1000 delay-300 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}>
-            {pointsOfInterest.map((point) => (
-              <button
-                key={point.id}
-                type="button"
-                onClick={() => handlePointClick(point)}
-                disabled={!kremlinAnimationFinished}
-                className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
-              >
-                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                  <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
-                </svg>
-                <span className="sr-only">Botón para {point.cardContent.title}</span>
-              </button>
-            ))}
-          </div>
+          <Header kremlinAnimationFinished={kremlinAnimationFinished} />
 
           {/* Escena 3D */}
           <Scene />
 
-          {/* 4. ContextCard con animación */}
+          {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
             <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4 animate-fade-in`}>
               <ContextCard
@@ -232,43 +207,9 @@ function Home() {
             </div>
           )}
 
-          {/* 5. Botones desktop - Con animación fade-in escalonada */}
-          {pointsOfInterest.map((point, index) => (
-            <div 
-              key={point.id} 
-              className={`absolute ${point.buttonPosition} transition-opacity duration-1000 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}
-              style={{ transitionDelay: `${(index + 1) * 200}ms` }}
-            >
-              <button
-                type="button"
-                onClick={() => handlePointClick(point)}
-                disabled={!kremlinAnimationFinished}
-                className={`border-2 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center transition-all duration-300 ${activeCard === point.id ? 'bg-blue-800 text-white border-blue-300' : 'text-blue-300 border-blue-300'}`}
-              >
-                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                  <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z" />
-                </svg>
-                <span className="sr-only">Botón para {point.cardContent.title}</span>
-              </button>
-            </div>
-          ))}
 
           {/* Footer con logos - Con animación fade-in */}
-          <Effect 
-            fade={{ initialOpacity: 0, opacity: 1 }}
-            slide={{ direction: 'down', offset: 50 }}
-            zoom={{ initialScale: 0.8, scale: 1 }}
-            inView={kremlinAnimationFinished} 
-            inViewOnce={true}
-            delay={2500}
-            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-          >
-            <div className={`absolute bottom-0 inset-x-0 h-8 md:h-16 flex items-center justify-center space-x-8 md:space-x-32 transition-opacity duration-1000 delay-500 ${kremlinAnimationFinished ? 'opacity-100' : 'opacity-0'}`}>
-              <img src={BinanceLogo} alt="Binance Logo" className="h-4 md:h-6 w-auto text-shadow-lg" />
-              <img src={BingxLogo} alt="BingX Logo" className="h-4 md:h-6 w-auto" />
-              <img src={BitgetLogo} alt="Bitget Logo" className="h-4 md:h-6 w-auto" />
-            </div>
-          </Effect>
+          <Footer kremlinAnimationFinished={kremlinAnimationFinished} />
           
         </div>
       </div>

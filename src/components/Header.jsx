@@ -1,9 +1,17 @@
-import Logo from "../assets/images/logo1.png";
 import LogoKt from "../assets/images/logokt.png";
+import { Effect } from './animate-ui/primitives/effects/effect';
 
-const Header = () => {
-    return (  
-        <>
+const Header = ({ kremlinAnimationFinished }) => {
+    return (
+        <Effect
+            fade={{ initialOpacity: 0, opacity: 1 }}
+            slide={{ direction: 'up', offset: 50 }}
+            zoom={{ initialScale: 0.8, scale: 1 }}
+            inView={kremlinAnimationFinished}
+            inViewOnce={true}
+            delay={2500}
+            transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+        >
             <header className="absolute top-0 inset-x-0 md:h-16">
                 <div className="relative h-full flex items-center justify-center">
                     <div className="absolute left-6 top-[3.5rem] -translate-y-1/2">
@@ -17,7 +25,7 @@ const Header = () => {
                     </div>
                 </div>
             </header>
-        </>
+        </Effect>
     );
 }
 export default Header;

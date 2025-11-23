@@ -8,7 +8,8 @@ const ContextCard = ({
   gradientColors = {
     primary: 'bg-purple-700',
     secondary: 'bg-blue-600'
-  }
+  },
+  buttonText = "Lo quiero"
 }) => {
   return (
     <div className={`
@@ -30,7 +31,8 @@ const ContextCard = ({
       <div className="absolute inset-0 bg-black/30 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl"></div>
       
       {/* Contenido existente */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col h-full">
+        {/* Contenido principal (Grid) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center">
           {/* Columna izquierda - Texto */}
           <div className="space-y-2 md:space-y-4 order-1 md:order-1">
@@ -47,6 +49,16 @@ const ContextCard = ({
               <p className="text-sm md:text-base text-white/80 leading-relaxed">
                 {text2 || 'Texto adicional'}
               </p>
+            </div>
+            <div className="mt-auto pt-6 flex justify-center">
+                <a 
+                  href="https://t.me/KremlinTrading_bot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+                  >
+                  {buttonText}
+                  </a>
             </div>
           </div>
           

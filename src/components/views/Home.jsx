@@ -11,6 +11,7 @@ import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
+import { RadialNav } from "../animate-ui/components/community/radial-nav";
 // 1. Estructura de datos centralizada para los puntos de interés
 const pointsOfInterest = [
   {
@@ -139,7 +140,10 @@ function Home() {
       <div className="relative h-full w-full bg-black/60">
         {/* Fondo y Blur */}
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
-
+        {/* Contenedor para centrar RadialNav */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+          <RadialNav />
+        </div>
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}

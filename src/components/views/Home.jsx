@@ -53,7 +53,7 @@ const pointsOfInterest = [
     id: 'point2',
     // ...
     cameraConfig: {
-      fov: 50,
+      fov: 30,
       azimuth: 0,
       polar: 75,
       radius: 5,
@@ -72,7 +72,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
-    cardPosition: 'top-4 right-4', // Posición para desktop
+    cardPosition: 'top-[50%] left-[20%]', // Posición para desktop
     navItem: {
       icon: Bot,
       label: 'Tecnología',

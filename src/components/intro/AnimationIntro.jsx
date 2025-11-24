@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimate, stagger } from 'framer-motion';
-import KremlinLogo from '../../assets/images/KremlinLogo.png';
+import KremlinLogo from '../../assets/images/Kremlinpng.png';
 
 const AnimationIntro = ({ onComplete }) => {
     const [scope, animate] = useAnimate();

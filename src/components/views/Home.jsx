@@ -42,7 +42,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
-    cardPosition: 'top-4 left-4', // Posición para desktop
+    cardPosition: 'md:top-4 md:left-4', // Posición para desktop
     navItem: {
       icon: BrainCircuit,
       label: 'Estrategia',
@@ -72,7 +72,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
-    cardPosition: 'top-[50%] left-[20%]', // Posición para desktop
+    cardPosition: 'md:top-[50%] md:left-[20%]', // Posición para desktop
     navItem: {
       icon: Bot,
       label: 'Tecnología',
@@ -102,7 +102,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
-    cardPosition: 'top-4 right-4', // Posición para desktop
+    cardPosition: 'md:top-4 md:right-4', // Posición para desktop
     navItem: {
       icon: Globe,
       label: 'Mercados',

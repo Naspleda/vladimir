@@ -42,6 +42,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
+    cardPosition: 'top-4 left-4', // Posición para desktop
     navItem: {
       icon: BrainCircuit,
       label: 'Estrategia',
@@ -71,6 +72,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
+    cardPosition: 'top-4 right-4', // Posición para desktop
     navItem: {
       icon: Bot,
       label: 'Tecnología',
@@ -82,10 +84,10 @@ const pointsOfInterest = [
     // ...
     cameraConfig: {
       fov: 50,
-      azimuth: 15,
+      azimuth: -45,
       polar: 75,
       radius: 5,
-      target: { x: 3.8, y: 0.35, z: 1 },
+      target: { x: 2.8, y: -0.05, z: 0.8 },
       duration: 1.5,
     },
     cardContent: {
@@ -100,6 +102,7 @@ const pointsOfInterest = [
       }
     },
     // Propiedades para RadialNav
+    cardPosition: 'top-4 right-4', // Posición para desktop
     navItem: {
       icon: Globe,
       label: 'Mercados',

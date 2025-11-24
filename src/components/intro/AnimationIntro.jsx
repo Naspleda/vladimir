@@ -5,6 +5,7 @@ const AnimationIntro = ({ onComplete }) => {
     const [scope, animate] = useAnimate();
     const [count, setCount] = useState(0);
     const [text, setText] = useState("100%");
+    const [textClass, setTextClass] = useState("text-white");
     const [isSplit, setIsSplit] = useState(false);
 
     // Generate some random candle data
@@ -67,12 +68,15 @@ const AnimationIntro = ({ onComplete }) => {
 
                 // 5. Change text and unblur
                 setText("Kremlin Trading");
+                setTextClass("bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-700 bg-clip-text text-transparent");
+
                 // Reset scale for the new text if needed, or keep it large. 
                 // "Kremlin Trading" is longer, so maybe scale down a bit or keep it.
                 // Let's set scale to 1.5 for the title.
 
                 // We need to set the properties immediately before animating in
-                animate(".intro-text", { scale: 1.5, color: "#ffffff" }, { duration: 0 });
+                // Important: Set color to transparent so the background gradient shows through
+                animate(".intro-text", { scale: 1.5, color: "transparent" }, { duration: 0 });
 
                 await animate(
                     ".intro-text",
@@ -124,7 +128,7 @@ const AnimationIntro = ({ onComplete }) => {
             {/* Top Panel */}
             <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
-                    <motion.div className="intro-text text-white font-bold text-4xl">
+                    <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
                         {text === "100%" ? `${count}%` : text}
                     </motion.div>
                 </div>
@@ -133,7 +137,7 @@ const AnimationIntro = ({ onComplete }) => {
             {/* Bottom Panel */}
             <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
-                    <motion.div className="intro-text text-white font-bold text-4xl">
+                    <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
                         {text === "100%" ? `${count}%` : text}
                     </motion.div>
                 </div>

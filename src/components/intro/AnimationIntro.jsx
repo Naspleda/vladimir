@@ -108,7 +108,7 @@ const AnimationIntro = ({ onComplete }) => {
         <div ref={scope} className="fixed inset-0 z-50 pointer-events-none flex flex-col">
 
             {/* Candles Layer - z-30 */}
-            <div className="candles-container absolute inset-0 flex items-center justify-center gap-2 z-30 pointer-events-none">
+            <div className="candles-container absolute inset-0 flex items-center justify-center gap-2 z-30 pointer-events-none translate-y-32">
                 {candles.map((candle) => (
                     <div
                         key={candle.id}
@@ -128,18 +128,22 @@ const AnimationIntro = ({ onComplete }) => {
             {/* Top Panel */}
             <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
-                    <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                        {text === "100%" ? `${count}%` : text}
-                    </motion.div>
+                    <div className="-translate-y-12">
+                        <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
+                            {text === "100%" ? `${count}%` : text}
+                        </motion.div>
+                    </div>
                 </div>
             </div>
 
             {/* Bottom Panel */}
             <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
-                    <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                        {text === "100%" ? `${count}%` : text}
-                    </motion.div>
+                    <div className="-translate-y-12">
+                        <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
+                            {text === "100%" ? `${count}%` : text}
+                        </motion.div>
+                    </div>
                 </div>
             </div>
 

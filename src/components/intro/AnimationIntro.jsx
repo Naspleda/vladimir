@@ -127,19 +127,20 @@ const AnimationIntro = ({ onComplete }) => {
             {/* Top Panel */}
             <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
-                    <div className="-translate-y-12">
-                        {!showLogo ? (
-                            <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                                {text === "100%" ? `${count}%` : text}
-                            </motion.div>
-                        ) : (
-                            <motion.img
-                                src={KremlinLogo}
-                                alt="Kremlin Trading"
-                                className="intro-logo w-[48rem] h-auto object-contain"
-                                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-                            />
-                        )}
+                    <div className="-translate-y-12 relative flex items-center justify-center w-full">
+                        <motion.div
+                            className={`intro-text font-bold text-4xl ${textClass} absolute`}
+                            animate={{ opacity: showLogo ? 0 : 1 }}
+                        >
+                            {text === "100%" ? `${count}%` : text}
+                        </motion.div>
+                        <motion.img
+                            src={KremlinLogo}
+                            alt="Kremlin Trading"
+                            className="intro-logo w-[48rem] h-auto object-contain"
+                            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                            animate={showLogo ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, pointerEvents: "none" }}
+                        />
                     </div>
                 </div>
             </div>
@@ -147,19 +148,20 @@ const AnimationIntro = ({ onComplete }) => {
             {/* Bottom Panel */}
             <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
-                    <div className="-translate-y-12">
-                        {!showLogo ? (
-                            <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                                {text === "100%" ? `${count}%` : text}
-                            </motion.div>
-                        ) : (
-                            <motion.img
-                                src={KremlinLogo}
-                                alt="Kremlin Trading"
-                                className="intro-logo w-[48rem] h-auto object-contain"
-                                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-                            />
-                        )}
+                    <div className="-translate-y-12 relative flex items-center justify-center w-full">
+                        <motion.div
+                            className={`intro-text font-bold text-4xl ${textClass} absolute`}
+                            animate={{ opacity: showLogo ? 0 : 1 }}
+                        >
+                            {text === "100%" ? `${count}%` : text}
+                        </motion.div>
+                        <motion.img
+                            src={KremlinLogo}
+                            alt="Kremlin Trading"
+                            className="intro-logo w-[48rem] h-auto object-contain"
+                            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                            animate={showLogo ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, pointerEvents: "none" }}
+                        />
                     </div>
                 </div>
             </div>

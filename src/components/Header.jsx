@@ -1,13 +1,13 @@
 import LogoKt from "../assets/images/logokt.png";
 import { Effect } from './animate-ui/primitives/effects/effect';
 
-const Header = ({ kremlinAnimationFinished }) => {
+const Header = () => {
     return (
         <Effect
             fade={{ initialOpacity: 0, opacity: 1 }}
             slide={{ direction: 'up', offset: 50 }}
             zoom={{ initialScale: 0.8, scale: 1 }}
-            inView={kremlinAnimationFinished}
+            inView={true}
             inViewOnce={true}
             delay={2500}
             transition={{ type: 'spring', stiffness: 100, damping: 15 }}

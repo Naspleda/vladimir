@@ -191,7 +191,7 @@ function Home() {
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Header kremlinAnimationFinished={kremlinAnimationFinished} />
+          <Header />
 
           {/* Escena 3D */}
           <Suspense fallback={null}>
@@ -215,7 +215,7 @@ function Home() {
 
 
           {/* Footer con logos - Con animación fade-in */}
-          <Footer kremlinAnimationFinished={kremlinAnimationFinished} />
+          <Footer />
 
         </div>
       </div>

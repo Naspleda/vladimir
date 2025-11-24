@@ -4,9 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import PropTypes from 'prop-types';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import Ground from "../../src/components/Ground";
-import GradientBackground from '../../src/components/GradientBackground';
-import { AnimatedKremlin } from "./AnimatedKremlin";
 import { Kremlin } from "./Kremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 import { Luces } from "../../src/components/Luces";
@@ -124,35 +121,35 @@ function CameraController({ controlsRef, camRef }) {
             boxShadow: "0 10px 30px rgba(0,0,0,0.45)"
           }}
         >
-          <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8}}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
             <strong>Controles de Cámara</strong>
-            <button onClick={reset} style={{background:"transparent", color:"#aaa", border:"none", cursor:"pointer"}} title="Reset">
+            <button onClick={reset} style={{ background: "transparent", color: "#aaa", border: "none", cursor: "pointer" }} title="Reset">
               Reiniciar
             </button>
           </div>
 
-          <label style={{display:"block", fontSize:12, marginTop:8}}>FOV: {fov.toFixed(0)}°</label>
-          <input type="range" min="20" max="100" value={fov} onChange={e => setFov(Number(e.target.value))} style={{width:"100%"}} />
+          <label style={{ display: "block", fontSize: 12, marginTop: 8 }}>FOV: {fov.toFixed(0)}°</label>
+          <input type="range" min="20" max="100" value={fov} onChange={e => setFov(Number(e.target.value))} style={{ width: "100%" }} />
 
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Azimut: {azimuthDeg.toFixed(0)}°</label>
-          <input type="range" min="-180" max="180" value={azimuthDeg} onChange={e => setAzimuthDeg(Number(e.target.value))} style={{width:"100%"}} />
+          <label style={{ display: "block", fontSize: 12, marginTop: 8 }}>Azimut: {azimuthDeg.toFixed(0)}°</label>
+          <input type="range" min="-180" max="180" value={azimuthDeg} onChange={e => setAzimuthDeg(Number(e.target.value))} style={{ width: "100%" }} />
 
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Polar: {polarDeg.toFixed(0)}°</label>
-          <input type="range" min="5" max="175" value={polarDeg} onChange={e => setPolarDeg(Number(e.target.value))} style={{width:"100%"}} />
+          <label style={{ display: "block", fontSize: 12, marginTop: 8 }}>Polar: {polarDeg.toFixed(0)}°</label>
+          <input type="range" min="5" max="175" value={polarDeg} onChange={e => setPolarDeg(Number(e.target.value))} style={{ width: "100%" }} />
 
-          <label style={{display:"block", fontSize:12, marginTop:8}}>Distancia: {radius.toFixed(2)}</label>
-          <input type="range" min="1" max="50" step="0.1" value={radius} onChange={e => setRadius(Number(e.target.value))} style={{width:"100%"}} />
+          <label style={{ display: "block", fontSize: 12, marginTop: 8 }}>Distancia: {radius.toFixed(2)}</label>
+          <input type="range" min="1" max="50" step="0.1" value={radius} onChange={e => setRadius(Number(e.target.value))} style={{ width: "100%" }} />
 
-          <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:8, marginTop:10}}>
-            {["x","y","z"].map(axis => (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginTop: 10 }}>
+            {["x", "y", "z"].map(axis => (
               <div key={axis}>
-                <label style={{display:"block", fontSize:12}}>Target {axis.toUpperCase()}</label>
+                <label style={{ display: "block", fontSize: 12 }}>Target {axis.toUpperCase()}</label>
                 <input
                   type="number"
                   step="0.1"
                   value={target[axis]}
-                  onChange={e => setTarget(prev => ({...prev, [axis]: Number(e.target.value)}))}
-                  style={{width:"100%", background:"#0f0f0f", color:"#fff", border:"1px solid #333", borderRadius:8, padding:"6px 8px"}}
+                  onChange={e => setTarget(prev => ({ ...prev, [axis]: Number(e.target.value) }))}
+                  style={{ width: "100%", background: "#0f0f0f", color: "#fff", border: "1px solid #333", borderRadius: 8, padding: "6px 8px" }}
                 />
               </div>
             ))}
@@ -319,7 +316,7 @@ function Scene() {
   }, []);
 
   return (
-    <div style={{position:"relative", width:"100%", height:"100vh"}}>
+    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
       <Canvas shadows gl={{ alpha: true }} style={{ background: "transparent" }}>
 
         <OrbitControls

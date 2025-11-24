@@ -328,6 +328,7 @@ function Scene() {
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
           dampingFactor={0.08}
+          enabled={false}
         />
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css'
 import LanternEffect from './components/LanternEffect';
 import Navbar from './components/navbar/Navbar';
-import IntroVideo from './components/intro/IntroVideo';
+import AnimationIntro from './components/intro/AnimationIntro';
 
 import Layout from './components/layout/Layout';
 
@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      {/* {showIntro && <IntroVideo onComplete={() => setShowIntro(false)} />} */}
+      {showIntro && <AnimationIntro onComplete={() => setShowIntro(false)} />}
       <Layout />
     </>
   )

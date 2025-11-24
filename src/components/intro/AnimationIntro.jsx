@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimate, stagger } from 'framer-motion';
+import KremlinLogo from '../../assets/images/KremlinLogo.png';
 
 const AnimationIntro = ({ onComplete }) => {
     const [scope, animate] = useAnimate();
     const [count, setCount] = useState(0);
     const [text, setText] = useState("100%");
     const [textClass, setTextClass] = useState("text-white");
+    const [showLogo, setShowLogo] = useState(false);
     const [isSplit, setIsSplit] = useState(false);
 
     // Generate some random candle data
@@ -66,21 +68,18 @@ const AnimationIntro = ({ onComplete }) => {
                     { duration: 1 } // 1s blur out
                 );
 
-                // 5. Change text and unblur
-                setText("Kremlin Trading");
-                setTextClass("bg-gradient-to-r from-sky-500 via-sky-400 to-cyan-700 bg-clip-text text-transparent");
+                // 5. Change to Logo and unblur
+                setShowLogo(true);
 
-                // Reset scale for the new text if needed, or keep it large. 
-                // "Kremlin Trading" is longer, so maybe scale down a bit or keep it.
-                // Let's set scale to 1.5 for the title.
+                // Wait a tick for React to render the logo
+                await new Promise(resolve => setTimeout(resolve, 50));
 
-                // We need to set the properties immediately before animating in
-                // Important: Set color to transparent so the background gradient shows through
-                animate(".intro-text", { scale: 1.5, color: "transparent" }, { duration: 0 });
-
+                // Animate Logo in
+                // We target the logo class. Set initial state in JSX or here if needed.
+                // But since we just mounted it, it will have the initial styles from JSX (opacity 0, blur).
                 await animate(
-                    ".intro-text",
-                    { filter: "blur(0px)", opacity: 1 },
+                    ".intro-logo",
+                    { filter: "blur(0px)", opacity: 1, scale: 1 },
                     { duration: 1 } // 1s blur in
                 );
 
@@ -129,9 +128,18 @@ const AnimationIntro = ({ onComplete }) => {
             <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
                     <div className="-translate-y-12">
-                        <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                            {text === "100%" ? `${count}%` : text}
-                        </motion.div>
+                        {!showLogo ? (
+                            <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
+                                {text === "100%" ? `${count}%` : text}
+                            </motion.div>
+                        ) : (
+                            <motion.img
+                                src={KremlinLogo}
+                                alt="Kremlin Trading"
+                                className="intro-logo w-[48rem] h-auto object-contain"
+                                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -140,9 +148,18 @@ const AnimationIntro = ({ onComplete }) => {
             <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
                     <div className="-translate-y-12">
-                        <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
-                            {text === "100%" ? `${count}%` : text}
-                        </motion.div>
+                        {!showLogo ? (
+                            <motion.div className={`intro-text font-bold text-4xl ${textClass}`}>
+                                {text === "100%" ? `${count}%` : text}
+                            </motion.div>
+                        ) : (
+                            <motion.img
+                                src={KremlinLogo}
+                                alt="Kremlin Trading"
+                                className="intro-logo w-[48rem] h-auto object-contain"
+                                initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

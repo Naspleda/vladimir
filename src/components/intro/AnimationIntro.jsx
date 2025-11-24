@@ -122,18 +122,18 @@ const AnimationIntro = ({ onComplete }) => {
             {/* We use absolute positioning for panels to ensure they cover the screen */}
 
             {/* Top Panel */}
-            <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden border-b border-gray-800/0">
+            <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
-                    <motion.div className="intro-text text-white font-bold font-mono text-4xl">
+                    <motion.div className="intro-text text-white font-bold text-4xl">
                         {text === "100%" ? `${count}%` : text}
                     </motion.div>
                 </div>
             </div>
 
             {/* Bottom Panel */}
-            <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden border-t border-gray-800/0">
+            <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
                 <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
-                    <motion.div className="intro-text text-white font-bold font-mono text-4xl">
+                    <motion.div className="intro-text text-white font-bold text-4xl">
                         {text === "100%" ? `${count}%` : text}
                     </motion.div>
                 </div>

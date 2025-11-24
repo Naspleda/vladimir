@@ -1,6 +1,7 @@
+import { Suspense, lazy } from 'react';
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
-import Scene from "../../../public/models/Scene";
+const Scene = lazy(() => import("../../../public/models/Scene"));
 import LocalImage from "../../assets/images/blue_bg_hd.png";
 import BImage from "../../assets/images/blackcircle.png";
 import Logo from "../../assets/images/logo1.png";
@@ -180,7 +181,7 @@ function Home() {
 
         {/* Contenedor para centrar RadialNav */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-          <RadialNav 
+          <RadialNav
             items={navItems}
             onActiveChange={handleNavChange}
             defaultActiveId={activeCard}
@@ -193,7 +194,9 @@ function Home() {
           <Header kremlinAnimationFinished={kremlinAnimationFinished} />
 
           {/* Escena 3D */}
-          <Scene />
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
@@ -213,7 +216,7 @@ function Home() {
 
           {/* Footer con logos - Con animación fade-in */}
           <Footer kremlinAnimationFinished={kremlinAnimationFinished} />
-          
+
         </div>
       </div>
     </div>

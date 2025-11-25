@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useLoader, useFrame } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
 import { Mesh } from "three";
 import useSceneControls from "../../src/store/useSceneControls";
 
 export function Kremlin() {
-    const gltf = useLoader(GLTFLoader, "/models/CustomKremlin.glb");
+    const gltf = useGLTF("/models/CustomKremlin.glb");
     const groupRef = useRef();
     const animationProgress = useRef(0);
     const hasCompleted = useRef(false);
@@ -45,3 +45,5 @@ export function Kremlin() {
 
     return <primitive ref={groupRef} object={gltf.scene} />;
 }
+
+useGLTF.preload("/models/CustomKremlin.glb");

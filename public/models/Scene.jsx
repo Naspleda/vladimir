@@ -167,7 +167,7 @@ function Scene() {
         <ambientLight intensity={0.5} />
 
         {/* Environment reemplaza a CubeCamera para reflejos más baratos */}
-        <Environment preset="night" />
+        {/* <Environment preset="night" /> */}
 
         <OrbitControls
           ref={controlsRef}
@@ -198,26 +198,26 @@ function Scene() {
         {kremlinAnimationFinished && (
           <>
             {/* EN LUGAR DE CASTSHADOW EN CADA LUZ: */}
-            {/* <ContactShadows
+            <ContactShadows
               resolution={512}
               scale={20}
               blur={2}
               opacity={0.5}
               far={10}
               color="#000000"
-            /> */}
+            />
 
             {/* Luces de acento (SIN castShadow) */}
             {/* La intensidad en R3F a veces requiere ajustes si no usas toneMapping correcto. 
                 Si usas valores como 1000, asumo que no tienes toneMapping. */}
-            <spotLight
+            {/* <spotLight
               color={[0.14, 0.5, 1]}
               intensity={5} // Bajamos intensidad relativa
               angle={0.6}
               penumbra={1} // Penumbra 1 suaviza los bordes "gratis"
               position={[5, 5, 0]}
             // castShadow={false} -> Default
-            />
+            /> */}
 
             <spotLight
               color={[0.14, 0.5, 1]}
@@ -226,12 +226,12 @@ function Scene() {
             />
 
             {/* Luz Principal (Rim Light) */}
-            <spotLight
+            {/* <spotLight
               color={[0.14, 0.5, 1]}
               intensity={15}
               angle={0.8}
               position={[0, 5, 10]}
-            />
+            /> */}
           </>
         )}
       </Canvas>

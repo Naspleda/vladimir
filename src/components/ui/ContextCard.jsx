@@ -16,7 +16,7 @@ const ContextCard = ({
       backdrop-blur-md
       bg-black/10
         relative overflow-hidden
-        border border-white/15 rounded-2xl p-4 md:p-8 h-[550px] md:max-h-none text-white ${className}`}>
+        border border-white/15 rounded-2xl p-4 md:p-8 h-full md:h-[550px] md:max-h-none text-white ${className}`}>
 
       {/* Efecto de fondo granular - Con colores personalizables */}
       <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/4">

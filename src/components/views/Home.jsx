@@ -206,16 +206,18 @@ function Home() {
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
-            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4 animate-fade-in`}>
-              <ContextCard
-                title={activePointData.cardContent.title}
-                subtitle={activePointData.cardContent.subtitle}
-                text={activePointData.cardContent.text}
-                text2={activePointData.cardContent.text2}
-                imageUrl={activePointData.cardContent.imageUrl}
-                className={activePointData.cardClassName}
-                gradientColors={activePointData.cardContent.gradientColors}
-              />
+            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 md:static md:inset-auto md:w-auto md:h-auto`}>
+              <div className={`w-full h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
+                <ContextCard
+                  title={activePointData.cardContent.title}
+                  subtitle={activePointData.cardContent.subtitle}
+                  text={activePointData.cardContent.text}
+                  text2={activePointData.cardContent.text2}
+                  imageUrl={activePointData.cardContent.imageUrl}
+                  className={activePointData.cardClassName}
+                  gradientColors={activePointData.cardContent.gradientColors}
+                />
+              </div>
             </div>
           )}
 

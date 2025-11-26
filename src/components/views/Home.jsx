@@ -113,6 +113,8 @@ const pointsOfInterest = [
 ];
 
 
+import { useMediaQuery } from "../../hooks/use-media-query";
+
 function Home() {
   const {
     setFov,
@@ -126,6 +128,9 @@ function Home() {
     triggerCameraAnimation,
     kremlinAnimationFinished, // Importar el estado de la animación
   } = useSceneControls();
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const radialSize = isMobile ? 300 : 480;
 
   // La función handlePointClick ahora solo se encarga de aplicar los cambios
   const applyCameraAndCardState = (point) => {
@@ -180,13 +185,14 @@ function Home() {
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
 
         {/* Contenedor para centrar RadialNav */}
-        {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
           <RadialNav
             items={navItems}
             onActiveChange={handleNavChange}
             defaultActiveId={activeCard}
+            size={radialSize}
           />
-        </div> */}
+        </div>
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">

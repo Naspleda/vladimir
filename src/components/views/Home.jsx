@@ -206,7 +206,7 @@ function Home() {
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
-            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4 animate-fade-in`}>
+            <div className={`absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-h-[85vh] md:top-auto md:left-auto md:translate-x-0 md:translate-y-0 md:w-auto md:max-h-none md:${activePointData.cardPosition} max-w-6xl m-0 md:m-4 animate-fade-in z-40`}>
               <ContextCard
                 title={activePointData.cardContent.title}
                 subtitle={activePointData.cardContent.subtitle}

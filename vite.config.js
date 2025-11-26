@@ -10,4 +10,18 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
+          'animation-vendor': ['framer-motion', 'motion'],
+        },
+      },
+    },
+  },
+  server: {
+    host: true,
+  }
 })

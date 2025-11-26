@@ -1,6 +1,7 @@
+import { Suspense, lazy } from 'react';
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
-import Scene from "../../../public/models/Scene";
+const Scene = lazy(() => import("../../../public/models/Scene"));
 import LocalImage from "../../assets/images/blue_bg_hd.png";
 import BImage from "../../assets/images/blackcircle.png";
 import Logo from "../../assets/images/logo1.png";
@@ -112,6 +113,18 @@ const pointsOfInterest = [
 ];
 
 
+import { useMediaQuery } from "../../hooks/use-media-query";
+
+// 2. Configuración inicial de la cámara
+const INITIAL_CAMERA_CONFIG = {
+  fov: 50,
+  azimuth: 0,
+  polar: 75,
+  radius: 5,
+  target: { x: 0, y: 0.35, z: 0 },
+  duration: 1.5,
+};
+
 function Home() {
   const {
     setFov,
@@ -125,6 +138,9 @@ function Home() {
     triggerCameraAnimation,
     kremlinAnimationFinished, // Importar el estado de la animación
   } = useSceneControls();
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const radialSize = isMobile ? 300 : 480;
 
   // La función handlePointClick ahora solo se encarga de aplicar los cambios
   const applyCameraAndCardState = (point) => {
@@ -142,12 +158,14 @@ function Home() {
     } else {
       // Cerrar todo y volver al estado inicial
       setActiveCard(null);
-      setFov(50);
-      setAzimuthDeg(0);
-      setPolarDeg(75);
-      setRadius(5);
-      setTarget({ x: 0, y: 0.35, z: 0 });
-      setDuration(1.5);
+      setFov(INITIAL_CAMERA_CONFIG.fov);
+      setAzimuthDeg(INITIAL_CAMERA_CONFIG.azimuth);
+      setPolarDeg(INITIAL_CAMERA_CONFIG.polar);
+      setRadius(INITIAL_CAMERA_CONFIG.radius);
+      setTarget(INITIAL_CAMERA_CONFIG.target);
+      setDuration(INITIAL_CAMERA_CONFIG.duration);
+      // Trigger animation to initial state
+      triggerCameraAnimation({ target: INITIAL_CAMERA_CONFIG.target, timestamp: Date.now() });
     }
   };
 
@@ -180,40 +198,45 @@ function Home() {
 
         {/* Contenedor para centrar RadialNav */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-          <RadialNav 
+          <RadialNav
             items={navItems}
             onActiveChange={handleNavChange}
             defaultActiveId={activeCard}
+            size={radialSize}
           />
         </div>
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Header kremlinAnimationFinished={kremlinAnimationFinished} />
+          <Header onLogoClick={() => applyCameraAndCardState(null)} />
 
           {/* Escena 3D */}
-          <Scene />
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
-            <div className={`absolute translate-y-[-120%] md:${activePointData.cardPosition} max-w-6xl m-4 animate-fade-in`}>
-              <ContextCard
-                title={activePointData.cardContent.title}
-                subtitle={activePointData.cardContent.subtitle}
-                text={activePointData.cardContent.text}
-                text2={activePointData.cardContent.text2}
-                imageUrl={activePointData.cardContent.imageUrl}
-                className={activePointData.cardClassName}
-                gradientColors={activePointData.cardContent.gradientColors}
-              />
+            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 md:static md:inset-auto md:w-auto md:h-auto`}>
+              <div className={`w-full h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
+                <ContextCard
+                  title={activePointData.cardContent.title}
+                  subtitle={activePointData.cardContent.subtitle}
+                  text={activePointData.cardContent.text}
+                  text2={activePointData.cardContent.text2}
+                  imageUrl={activePointData.cardContent.imageUrl}
+                  className={activePointData.cardClassName}
+                  gradientColors={activePointData.cardContent.gradientColors}
+                />
+              </div>
             </div>
           )}
 
 
           {/* Footer con logos - Con animación fade-in */}
-          <Footer kremlinAnimationFinished={kremlinAnimationFinished} />
-          
+          <Footer />
+
         </div>
       </div>
     </div>

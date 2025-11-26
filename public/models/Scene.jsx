@@ -164,7 +164,7 @@ function Scene() {
       >
 
         {/* Luces Ambientales (Baratas) */}
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={1} />
 
         {/* Environment reemplaza a CubeCamera para reflejos más baratos */}
         {/* <Environment preset="night" /> */}
@@ -174,7 +174,7 @@ function Scene() {
           target={[0, -0.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
-          enabled={true}
+          enabled={false} // Enabled para pruebas
         />
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />

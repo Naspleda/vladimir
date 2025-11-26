@@ -1,7 +1,7 @@
 import LogoKt from "../assets/images/logokt.png";
 import { Effect } from './animate-ui/primitives/effects/effect';
 
-const Header = () => {
+const Header = ({ onLogoClick }) => {
     return (
         <Effect
             fade={{ initialOpacity: 0, opacity: 1 }}
@@ -21,7 +21,12 @@ const Header = () => {
                         </div>
                     </div>
                     <div className="absolute right-6 top-4">
-                        <img src={LogoKt} alt="Logo" className="h-12 w-auto" />
+                        <img
+                            src={LogoKt}
+                            alt="Logo"
+                            className="h-12 w-auto cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={onLogoClick}
+                        />
                     </div>
                 </div>
             </header>

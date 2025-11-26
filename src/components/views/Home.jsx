@@ -115,6 +115,16 @@ const pointsOfInterest = [
 
 import { useMediaQuery } from "../../hooks/use-media-query";
 
+// 2. Configuración inicial de la cámara
+const INITIAL_CAMERA_CONFIG = {
+  fov: 50,
+  azimuth: 0,
+  polar: 75,
+  radius: 5,
+  target: { x: 0, y: 0.35, z: 0 },
+  duration: 1.5,
+};
+
 function Home() {
   const {
     setFov,
@@ -148,12 +158,14 @@ function Home() {
     } else {
       // Cerrar todo y volver al estado inicial
       setActiveCard(null);
-      setFov(50);
-      setAzimuthDeg(0);
-      setPolarDeg(75);
-      setRadius(5);
-      setTarget({ x: 0, y: 0.35, z: 0 });
-      setDuration(1.5);
+      setFov(INITIAL_CAMERA_CONFIG.fov);
+      setAzimuthDeg(INITIAL_CAMERA_CONFIG.azimuth);
+      setPolarDeg(INITIAL_CAMERA_CONFIG.polar);
+      setRadius(INITIAL_CAMERA_CONFIG.radius);
+      setTarget(INITIAL_CAMERA_CONFIG.target);
+      setDuration(INITIAL_CAMERA_CONFIG.duration);
+      // Trigger animation to initial state
+      triggerCameraAnimation({ target: INITIAL_CAMERA_CONFIG.target, timestamp: Date.now() });
     }
   };
 
@@ -197,7 +209,7 @@ function Home() {
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Header />
+          <Header onLogoClick={() => applyCameraAndCardState(null)} />
 
           {/* Escena 3D */}
           <Suspense fallback={null}>

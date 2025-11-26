@@ -1,12 +1,12 @@
 import { Canvas } from "@react-three/fiber";
-import { CubeCamera, Environment, OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { useEffect, useState, useRef } from "react";
+import { Environment, OrbitControls, PerspectiveCamera, ContactShadows } from "@react-three/drei"; // Agregamos ContactShadows
+import { useEffect, useState, useRef, useMemo } from "react";
 import * as THREE from "three";
 import PropTypes from 'prop-types';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Kremlin } from "./Kremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
-import { Luces } from "../../src/components/Luces";
+// import { Luces } from "../../src/components/Luces"; // Vamos a reemplazar esto por luces más eficientes aquí mismo
 import useSceneControls from "../../src/store/useSceneControls";
 
 // --- Controlador con transición (botón y panel) ---
@@ -145,82 +145,92 @@ CameraTransitioner.propTypes = {
 
 // --- Escena ---
 function Scene() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const controlsRef = useRef(null);
   const camRef = useRef(null);
   const { kremlinAnimationFinished } = useSceneControls();
 
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      const x = (event.clientX / window.innerWidth) * 2 - 1;
-      const y = -(event.clientY / window.innerHeight) * 2 + 1;
-      setMousePosition({ x: x * 20, y: y * 20 });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  // Optimización de Performance para móviles
+  // Detectar si es móvil para bajar calidad si es necesario (opcional)
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-      <Canvas shadows gl={{ alpha: true }} style={{ background: "transparent" }}>
+      <Canvas
+        // 1. OPTIMIZACIÓN CRÍTICA: Pixel Ratio
+        dpr={[1, isMobile ? 1.5 : 2]}
+        // Desactivamos sombras por defecto (shadows={false}) porque usaremos ContactShadows
+        gl={{ powerPreference: "high-performance", antialias: false }}
+        style={{ background: "transparent" }}
+      >
+
+        {/* Luces Ambientales (Baratas) */}
+        <ambientLight intensity={0.5} />
+
+        {/* Environment reemplaza a CubeCamera para reflejos más baratos */}
+        <Environment preset="night" />
 
         <OrbitControls
           ref={controlsRef}
           target={[0, -0.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
-          dampingFactor={0.08}
           enabled={false}
         />
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
 
-        <CubeCamera resolution={256} frames={1} >
-          {(texture) => (
-            <>
-              <Environment map={texture} />
-              <Kremlin />
-            </>
-          )}
-        </CubeCamera>
+        {/* Renderizado del Modelo */}
+        <Kremlin />
 
-        <EffectComposer>
-          <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.1} intensity={0.5} />
+        {/* 2. OPTIMIZACIÓN: Bloom Selectivo */}
+        {/* disableNormalPass ahorra recursos si no usas efectos que requieran normales */}
+        <EffectComposer disableNormalPass multisampling={0}>
+          <Bloom
+            luminanceThreshold={1} // Subimos esto para que solo brillen cosas MUY brillantes
+            mipmapBlur // Hace que el bloom sea mas suave y a veces más performante que el kernel estándar
+            intensity={0.5}
+          />
         </EffectComposer>
 
         <FloatingGrid />
 
-        {/* LUCES BASE - Solo se renderizan cuando la animación del Kremlin termina */}
+        {/* Lógica de luces optimizada */}
         {kremlinAnimationFinished && (
           <>
-            <Luces />
+            {/* EN LUGAR DE CASTSHADOW EN CADA LUZ: */}
+            {/* <ContactShadows
+              resolution={512}
+              scale={20}
+              blur={2}
+              opacity={0.5}
+              far={10}
+              color="#000000"
+            /> */}
+
+            {/* Luces de acento (SIN castShadow) */}
+            {/* La intensidad en R3F a veces requiere ajustes si no usas toneMapping correcto. 
+                Si usas valores como 1000, asumo que no tienes toneMapping. */}
             <spotLight
               color={[0.14, 0.5, 1]}
-              intensity={10.5}
+              intensity={5} // Bajamos intensidad relativa
               angle={0.6}
-              penumbra={0.5}
+              penumbra={1} // Penumbra 1 suaviza los bordes "gratis"
               position={[5, 5, 0]}
-              castShadow
-              shadow-bias={-0.0001}
+            // castShadow={false} -> Default
             />
+
             <spotLight
               color={[0.14, 0.5, 1]}
-              intensity={20}
-              angle={0.6}
-              penumbra={0.5}
+              intensity={8}
               position={[-5, 5, 3]}
-              castShadow
-              shadow-bias={-0.0001}
             />
-            <hemisphereLight position={[0, -1, 0]} skyColor="white" groundColor="black" intensity={1} />
+
+            {/* Luz Principal (Rim Light) */}
             <spotLight
               color={[0.14, 0.5, 1]}
-              intensity={1000}
+              intensity={15}
               angle={0.8}
-              penumbra={0.5}
-              position={[0, 5, 30]}
-              castShadow
-              shadow-bias={-0.0001}
+              position={[0, 5, 10]}
             />
           </>
         )}

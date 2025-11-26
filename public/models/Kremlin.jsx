@@ -5,7 +5,7 @@ import { Mesh } from "three";
 import useSceneControls from "../../src/store/useSceneControls";
 
 export function Kremlin() {
-    const gltf = useGLTF("/models/CustomKremlin.glb");
+    const gltf = useGLTF("/models/PruebaKremlin.glb");
     const groupRef = useRef();
     const animationProgress = useRef(0);
     const hasCompleted = useRef(false);

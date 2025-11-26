@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimate, stagger } from 'framer-motion';
-import KremlinLogo from '../../assets/images/Kremlinpng.png';
+import KremlinLogo from '../../assets/images/logokt.jpg';
 
 const AnimationIntro = ({ onComplete }) => {
     const [scope, animate] = useAnimate();
@@ -86,15 +86,9 @@ const AnimationIntro = ({ onComplete }) => {
                 // Wait a moment to read the text
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // 6. Split screen
-                // We trigger the split state or animate manually
-                setIsSplit(true);
-
-                // Animate panels
-                await Promise.all([
-                    animate("#top-panel", { y: "-100%" }, { duration: 1.5, ease: [0.22, 1, 0.36, 1] }),
-                    animate("#bottom-panel", { y: "100%" }, { duration: 1.5, ease: [0.22, 1, 0.36, 1] })
-                ]);
+                // 6. Curtain up
+                // Animate the single curtain panel up
+                await animate("#intro-curtain", { y: "-100%" }, { duration: 1, ease: [0.22, 1, 0.36, 1] });
 
                 // Complete
                 onComplete && onComplete();
@@ -121,48 +115,22 @@ const AnimationIntro = ({ onComplete }) => {
                 ))}
             </div>
 
-            {/* Split Panels Container - z-20 */}
-            {/* We use absolute positioning for panels to ensure they cover the screen */}
-
-            {/* Top Panel */}
-            <div id="top-panel" className="absolute top-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
-                <div className="absolute bottom-0 left-0 right-0 w-full h-screen flex items-center justify-center translate-y-1/2">
-                    <div className="-translate-y-12 relative flex items-center justify-center w-full">
-                        <motion.div
-                            className={`intro-text font-bold text-4xl ${textClass} absolute`}
-                            animate={{ opacity: showLogo ? 0 : 1 }}
-                        >
-                            {text === "100%" ? `${count}%` : text}
-                        </motion.div>
-                        <motion.img
-                            src={KremlinLogo}
-                            alt="Kremlin Trading"
-                            className="intro-logo w-[48rem] h-auto object-contain"
-                            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-                            animate={showLogo ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, pointerEvents: "none" }}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Bottom Panel */}
-            <div id="bottom-panel" className="absolute bottom-0 left-0 right-0 h-1/2 bg-black z-20 overflow-hidden ">
-                <div className="absolute top-0 left-0 right-0 w-full h-screen flex items-center justify-center -translate-y-1/2">
-                    <div className="-translate-y-12 relative flex items-center justify-center w-full">
-                        <motion.div
-                            className={`intro-text font-bold text-4xl ${textClass} absolute`}
-                            animate={{ opacity: showLogo ? 0 : 1 }}
-                        >
-                            {text === "100%" ? `${count}%` : text}
-                        </motion.div>
-                        <motion.img
-                            src={KremlinLogo}
-                            alt="Kremlin Trading"
-                            className="intro-logo w-[48rem] h-auto object-contain"
-                            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-                            animate={showLogo ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, pointerEvents: "none" }}
-                        />
-                    </div>
+            {/* Curtain Container - z-20 */}
+            <div id="intro-curtain" className="absolute inset-0 bg-black z-20 overflow-hidden flex items-center justify-center">
+                <div className="relative flex items-center justify-center w-full">
+                    <motion.div
+                        className={`intro-text font-bold text-4xl ${textClass} absolute`}
+                        animate={{ opacity: showLogo ? 0 : 1 }}
+                    >
+                        {text === "100%" ? `${count}%` : text}
+                    </motion.div>
+                    <motion.img
+                        src={KremlinLogo}
+                        alt="Kremlin Trading"
+                        className="intro-logo w-[24rem] h-auto object-contain"
+                        initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+                        animate={showLogo ? { opacity: 1, filter: "blur(0px)", scale: 1 } : { opacity: 0, pointerEvents: "none" }}
+                    />
                 </div>
             </div>
 

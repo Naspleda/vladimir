@@ -209,7 +209,7 @@ function Home() {
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Header onLogoClick={() => applyCameraAndCardState(null)} />
+          {kremlinAnimationFinished && <Header onLogoClick={() => applyCameraAndCardState(null)} />}
 
           {/* Escena 3D */}
           <Suspense fallback={null}>
@@ -235,7 +235,7 @@ function Home() {
 
 
           {/* Footer con logos - Con animación fade-in */}
-          <Footer />
+          {kremlinAnimationFinished && <Footer />}
 
         </div>
       </div>

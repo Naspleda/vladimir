@@ -9,7 +9,7 @@ const Header = ({ onLogoClick }) => {
             zoom={{ initialScale: 0.8, scale: 1 }}
             inView={true}
             inViewOnce={true}
-            delay={2500}
+            delay={0}
             transition={{ type: 'spring', stiffness: 100, damping: 15 }}
         >
             <header className="absolute top-0 inset-x-0 md:h-16">

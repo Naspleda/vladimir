@@ -10,7 +10,7 @@ import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
-import Footer from "../layout/Footer";
+import Footer2 from "../layout/Footer2";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
 import { RadialNav } from "../animate-ui/components/community/radial-nav";
@@ -235,7 +235,7 @@ function Home() {
 
 
           {/* Footer con logos - Con animación fade-in */}
-          {kremlinAnimationFinished && <Footer />}
+          {kremlinAnimationFinished && <Footer2 />}
 
         </div>
       </div>

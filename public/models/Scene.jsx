@@ -5,6 +5,7 @@ import * as THREE from "three";
 import PropTypes from 'prop-types';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Kremlin } from "./Kremlin";
+import { MetallicKremlin } from "./MetallicKremlin";
 import { FloatingGrid } from "../../src/components/FloatingGrid";
 // import { Luces } from "../../src/components/Luces"; // Vamos a reemplazar esto por luces más eficientes aquí mismo
 import useSceneControls from "../../src/store/useSceneControls";
@@ -167,30 +168,31 @@ function Scene() {
         <ambientLight intensity={1} />
 
         {/* Environment reemplaza a CubeCamera para reflejos más baratos */}
-        {/* <Environment preset="night" /> */}
+        <Environment preset="night" />
 
         <OrbitControls
           ref={controlsRef}
           target={[0, -0.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
-          enabled={false} // Enabled para pruebas
+          enabled={true} // Enabled para pruebas
         />
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
 
         {/* Renderizado del Modelo */}
-        <Kremlin />
+        {/* <Kremlin /> */}
+        <MetallicKremlin />
 
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo */}
         {/* disableNormalPass ahorra recursos si no usas efectos que requieran normales */}
-        {/* <EffectComposer disableNormalPass multisampling={0}>
+        <EffectComposer disableNormalPass multisampling={0}>
           <Bloom
             luminanceThreshold={1} // Subimos esto para que solo brillen cosas MUY brillantes
             mipmapBlur // Hace que el bloom sea mas suave y a veces más performante que el kernel estándar
             intensity={0.5}
           />
-        </EffectComposer> */}
+        </EffectComposer>
 
         {/* <FloatingGrid /> */}
 

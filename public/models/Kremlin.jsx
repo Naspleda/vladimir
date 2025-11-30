@@ -5,7 +5,7 @@ import { Mesh } from "three";
 
 
 export function Kremlin() {
-    const gltf = useGLTF("/models/MetallicKremlin.glb");
+    const gltf = useGLTF("/models/PruebaSol.glb");
     const groupRef = useRef();
 
     useEffect(() => {

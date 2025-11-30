@@ -10,10 +10,38 @@ import { SkeletonUtils } from 'three-stdlib'
 import { useControls } from 'leva'
 import * as THREE from 'three'
 
+function Sun({ target }) {
+  const { intensity, color, position, rotation } = useControls('Sol', {
+    intensity: { value: 6.83, min: 0, max: 20, step: 0.1 },
+    color: { value: '#fcffff' },
+    position: { value: [0.049, 39.292, 22.175] },
+    rotation: { value: [-0.648, 0, 0] },
+  })
+
+  return (
+    <directionalLight
+      intensity={intensity}
+      decay={2}
+      color={color}
+      position={position}
+      rotation={rotation}
+      target={target}
+    >
+      <primitive object={target} position={[0, 0, -1]} />
+    </directionalLight>
+  )
+}
+
 export function MetallicKremlin(props) {
   const { scene } = useGLTF('/models/MetallicKremlin.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
+
+  // Clonar material Dorado para uso independiente
+  const dorado2Material = React.useMemo(() => {
+    if (materials.Dorado) return materials.Dorado.clone()
+    return new THREE.MeshStandardMaterial()
+  }, [materials.Dorado])
 
   // --- Controles para Material Dorado ---
   const doradoControls = useControls('Material Dorado', {
@@ -22,6 +50,15 @@ export function MetallicKremlin(props) {
     metalness: { value: 1, min: 0, max: 1, step: 0.01, label: 'Metalness' },
     emissive: { value: '#000000', label: 'Emissive' },
     emissiveIntensity: { value: 1, min: 0, max: 10, step: 0.1, label: 'Emissive Intensity' },
+  })
+
+  // --- Controles para Material Dorado 2 (Luces y Cilindros) ---
+  const dorado2Controls = useControls('Material Dorado 2', {
+    color: { value: '#90813c', label: 'Color' },
+    roughness: { value: 0, min: 0, max: 1, step: 0.01, label: 'Roughness' },
+    metalness: { value: 0, min: 0, max: 1, step: 0.01, label: 'Metalness' },
+    emissive: { value: '#f5c102', label: 'Emissive' },
+    emissiveIntensity: { value: 1.2, min: 0, max: 10, step: 0.1, label: 'Emissive Intensity' },
   })
 
   // --- Controles para Material Vidrio ---
@@ -35,8 +72,8 @@ export function MetallicKremlin(props) {
 
   // --- Controles para Material Base ---
   const baseControls = useControls('Material Base', {
-    color: { value: '#0049ff', label: 'Color' },
-    roughness: { value: 0, min: 0, max: 1, step: 0.01, label: 'Roughness' },
+    color: { value: '#1f429a', label: 'Color' },
+    roughness: { value: 0.54, min: 0, max: 1, step: 0.01, label: 'Roughness' },
     metalness: { value: 1, min: 0, max: 1, step: 0.01, label: 'Metalness' },
   })
 
@@ -49,6 +86,16 @@ export function MetallicKremlin(props) {
       materials.Dorado.emissive.set(doradoControls.emissive)
       materials.Dorado.emissiveIntensity = doradoControls.emissiveIntensity
       materials.Dorado.needsUpdate = true
+    }
+
+    // Actualizar Material Dorado 2
+    if (dorado2Material) {
+      dorado2Material.color.set(dorado2Controls.color)
+      dorado2Material.roughness = dorado2Controls.roughness
+      dorado2Material.metalness = dorado2Controls.metalness
+      dorado2Material.emissive.set(dorado2Controls.emissive)
+      dorado2Material.emissiveIntensity = dorado2Controls.emissiveIntensity
+      dorado2Material.needsUpdate = true
     }
 
     // Actualizar Material Vidrio (celeste)
@@ -70,13 +117,11 @@ export function MetallicKremlin(props) {
       materials.Base.metalness = baseControls.metalness
       materials.Base.needsUpdate = true
     }
-  }, [materials, doradoControls, vidrioControls, baseControls])
+  }, [materials, dorado2Material, doradoControls, dorado2Controls, vidrioControls, baseControls])
 
   return (
     <group {...props} dispose={null}>
-      <directionalLight intensity={6.83} decay={2} color="#fcffff" position={[0.049, 39.292, 22.175]} rotation={[-0.648, 0, 0]} target={nodes.Sun.target}>
-        <primitive object={nodes.Sun.target} position={[0, 0, -1]} />
-      </directionalLight>
+      <Sun target={nodes.Sun.target} />
       <mesh geometry={nodes.Aro_dorado.geometry} material={materials.Dorado} position={[0, 28.726, -14.042]} scale={[7.101, 0.431, 7.101]} />
       <mesh geometry={nodes.ArosDelanteros.geometry} material={materials['Vidrio celeste']} position={[-13.58, 22.182, -0.6]} scale={[3.055, 0.185, 3.055]} />
       <mesh geometry={nodes.ArosTraseros.geometry} material={materials['Vidrio celeste.001']} position={[-13.58, 22.182, -27.606]} scale={[3.055, 0.185, 3.055]} />
@@ -123,22 +168,22 @@ export function MetallicKremlin(props) {
       <mesh geometry={nodes.Columna_custom.geometry} material={materials.Base} position={[-18.567, 1.428, 4.316]} scale={[1.564, 1, 1.057]} />
       <mesh geometry={nodes.Columna_custom001.geometry} material={materials.Base} position={[6.468, 1.428, 4.316]} scale={[1.566, 1, 1.057]} />
       <mesh geometry={nodes.Cupula.geometry} material={materials.Base} position={[0, 28.674, -13.991]} scale={7.013} />
-      <mesh geometry={nodes.Cupula1.geometry} material={materials['Base.003']} position={[-13.523, 22.385, -0.581]} scale={[3.022, 3.103, 3.103]} />
-      <mesh geometry={nodes.Cupula2.geometry} material={materials['Base.004']} position={[13.479, 22.385, -0.581]} scale={[3.022, 3.103, 3.103]} />
-      <mesh geometry={nodes.Cupula3.geometry} material={materials['Base.005']} position={[13.453, 22.385, -27.584]} scale={[3.022, 3.103, 3.103]} />
-      <mesh geometry={nodes.Cupula4.geometry} material={materials['Base.006']} position={[-13.55, 22.385, -27.584]} scale={[3.022, 3.103, 3.103]} />
+      <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
+      <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[32.539, 6.37, 0]} scale={0.305} />
+      <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[5.539, 6.37, -27]} scale={0.305} />
+      <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[32.539, 6.37, -27]} scale={0.305} />
       <mesh geometry={nodes.Plane.geometry} material={materials.Base} position={[5.539, 17.221, -8.159]} rotation={[-Math.PI, Math.PI / 4, Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
       <mesh geometry={nodes.Plane001.geometry} material={materials['Base.007']} position={[5.818, 17.221, -19.697]} rotation={[Math.PI, -0.802, Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
       <mesh geometry={nodes.Plane002.geometry} material={materials['Base.008']} position={[-5.913, 17.221, -8.159]} rotation={[0, 0.824, -Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
       <mesh geometry={nodes.Plane003.geometry} material={materials['Base.009']} position={[-5.634, 17.221, -19.774]} rotation={[0, -0.771, -Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
-      <mesh geometry={nodes.Luz_interior_ventanas.geometry} material={materials.Dorado} position={[-0.225, 11.185, 2.216]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} scale={[2.888, 1.254, 17.778]} />
+      <mesh geometry={nodes.Luz_interior_ventanas.geometry} material={dorado2Material} position={[-0.225, 11.185, 2.216]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} scale={[2.888, 1.254, 17.778]} />
       <mesh geometry={nodes.Columna_custom002.geometry} material={materials.Base} position={[6.086, 1.428, 4.067]} scale={[1.463, 1, 1.224]} />
       <mesh geometry={nodes.Columna_custom003.geometry} material={materials.Base} position={[-17.492, 1.428, 3.996]} scale={[1.463, 1, 1.236]} />
-      <mesh geometry={nodes.Cylinder.geometry} material={materials.Dorado} position={[13.525, 18.839, -0.683]} scale={[2.236, 3.339, 2.236]} />
-      <mesh geometry={nodes.Cylinder001.geometry} material={materials.Dorado} position={[-13.477, 18.839, -0.683]} scale={[2.236, 3.339, 2.236]} />
-      <mesh geometry={nodes.Cylinder002.geometry} material={materials.Dorado} position={[-13.477, 18.839, -27.481]} scale={[2.236, 3.339, 2.236]} />
-      <mesh geometry={nodes.Cylinder003.geometry} material={materials.Dorado} position={[13.525, 18.839, -27.481]} scale={[2.236, 3.339, 2.236]} />
-      <mesh geometry={nodes.Cylinder004.geometry} material={materials.Dorado} position={[-0.034, 25.58, -13.979]} scale={[6.36, 2.329, 6.36]} />
+      <mesh geometry={nodes.Cylinder.geometry} material={dorado2Material} position={[13.525, 18.839, -0.683]} scale={[2.236, 3.339, 2.236]} />
+      <mesh geometry={nodes.Cylinder001.geometry} material={dorado2Material} position={[-13.477, 18.839, -0.683]} scale={[2.236, 3.339, 2.236]} />
+      <mesh geometry={nodes.Cylinder002.geometry} material={dorado2Material} position={[-13.477, 18.839, -27.481]} scale={[2.236, 3.339, 2.236]} />
+      <mesh geometry={nodes.Cylinder003.geometry} material={dorado2Material} position={[13.525, 18.839, -27.481]} scale={[2.236, 3.339, 2.236]} />
+      <mesh geometry={nodes.Cylinder004.geometry} material={dorado2Material} position={[-0.034, 25.58, -13.979]} scale={[6.36, 2.329, 6.36]} />
       <mesh geometry={nodes.ARC_PIL_Cubierta_Tipo_03_CON_Pilar_CubiertaDecoración__0fcdce6.geometry} material={materials.Dorado} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.ARC_PIL_Cubierta_Tipo_03_CON_Pilar_CubiertaDecoración__0fe824a.geometry} material={materials.Dorado} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.ARC_PIL_Cubierta_Tipo_03_CON_Pilar_CubiertaDecoración__2b50d08.geometry} material={materials.Dorado} position={[5.539, 6.37, 0]} scale={0.305} />
@@ -399,7 +444,6 @@ export function MetallicKremlin(props) {
       <mesh geometry={nodes.Cubierta_básica_ARQ_Cubierta_100_mm_164209.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.Cubierta_básica_ARQ_Cubierta_100_mm_285051.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.Cubierta_básica_ARQ_Cubierta_100_mm_289292.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
-      <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.Escalera_moldeada_in_situ_Escalera_249975.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.Muro_básico_ARQ_Fachada_190mm_219676.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />
       <mesh geometry={nodes.Muro_básico_ARQ_Fachada_190mm_219912.geometry} material={materials.Base} position={[5.539, 6.37, 0]} scale={0.305} />

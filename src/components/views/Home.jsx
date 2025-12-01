@@ -11,6 +11,7 @@ import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
 import Footer2 from "../layout/Footer2";
+import HeroVideo from "../../assets/video/hero-production.mp4";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
 
@@ -195,6 +196,17 @@ function Home() {
       <div className="relative h-full w-full bg-black/60">
         {/* Fondo y Blur */}
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
+
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-30 z-0 pointer-events-none"
+        >
+          <source src={HeroVideo} type="video/mp4" />
+        </video>
 
 
 

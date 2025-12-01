@@ -199,9 +199,9 @@ export function MetallicKremlin(props) {
         <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[5.539, 6.37, -27]} scale={0.305} />
         <mesh geometry={nodes.CupulaEsquina1_CupulaEsquina_161331.geometry} material={materials.Base} position={[32.539, 6.37, -27]} scale={0.305} />
         <mesh geometry={nodes.Plane.geometry} material={materials.Base} position={[5.539, 17.221, -8.159]} rotation={[-Math.PI, Math.PI / 4, Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
-        <mesh geometry={nodes.Plane001.geometry} material={materials['Base.007']} position={[5.818, 17.221, -19.697]} rotation={[Math.PI, -0.802, Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
+        {/* <mesh geometry={nodes.Plane001.geometry} material={materials['Base.007']} position={[5.818, 17.221, -19.697]} rotation={[Math.PI, -0.802, Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
         <mesh geometry={nodes.Plane002.geometry} material={materials['Base.008']} position={[-5.913, 17.221, -8.159]} rotation={[0, 0.824, -Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
-        <mesh geometry={nodes.Plane003.geometry} material={materials['Base.009']} position={[-5.634, 17.221, -19.774]} rotation={[0, -0.771, -Math.PI / 2]} scale={[2.368, 2.037, 1.836]} />
+        <mesh geometry={nodes.Plane003.geometry} material={materials['Base.009']} position={[-5.634, 17.221, -19.774]} rotation={[0, -0.771, -Math.PI / 2]} scale={[2.368, 2.037, 1.836]} /> */}
         <mesh geometry={nodes.Luz_interior_ventanas.geometry} material={dorado2Material} position={[-0.225, 11.185, 2.216]} rotation={[-Math.PI / 2, Math.PI / 2, 0]} scale={[2.888, 1.254, 17.778]} />
         <mesh geometry={nodes.Columna_custom002.geometry} material={materials.Base} position={[6.086, 1.428, 4.067]} scale={[1.463, 1, 1.224]} />
         <mesh geometry={nodes.Columna_custom003.geometry} material={materials.Base} position={[-17.492, 1.428, 3.996]} scale={[1.463, 1, 1.236]} />

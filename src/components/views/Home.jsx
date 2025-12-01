@@ -29,7 +29,7 @@ const pointsOfInterest = [
       azimuth: 45,
       polar: 75,
       radius: 5,
-      target: { x: -1.8, y: -0.05, z: 0.8 },
+      target: { x: 20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -59,7 +59,7 @@ const pointsOfInterest = [
       azimuth: 0,
       polar: 75,
       radius: 5,
-      target: { x: 0, y: -0.25, z: 0 },
+      target: { x: 20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -89,7 +89,7 @@ const pointsOfInterest = [
       azimuth: -45,
       polar: 75,
       radius: 5,
-      target: { x: 2.8, y: -0.05, z: 0.8 },
+      target: { x: -20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -118,11 +118,11 @@ import { useMediaQuery } from "../../hooks/use-media-query";
 
 // 2. Configuración inicial de la cámara
 const INITIAL_CAMERA_CONFIG = {
-  fov: 50,
+  fov: 90,
   azimuth: 0,
   polar: 75,
-  radius: 5,
-  target: { x: 0, y: 0.35, z: 0 },
+  radius: 35,
+  target: { x: 0, y: 10.25, z: 0 },
   duration: 1.5,
 };
 

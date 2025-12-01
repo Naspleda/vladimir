@@ -41,13 +41,13 @@ function Scene() {
 
         <OrbitControls
           ref={controlsRef}
-          target={[0, -0.25, 0]}
+          target={[0, 10.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
           enabled={true} // Enabled para pruebas
         />
 
-        <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[0, 2, 5]} />
+        <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[-1, 35, 75]} />
 
         {/* Renderizado del Modelo */}
         {/* <Kremlin /> */}

@@ -222,7 +222,7 @@ function Home() {
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
-            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
+            <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
               <div className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
                 <ContextCard
                   title={activePointData.cardContent.title}

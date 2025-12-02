@@ -43,7 +43,7 @@ const ContextCard = ({
               src={imageUrl}
               alt={title || 'Context card image'}
               // Aspect ratio cuadrado o 4:3 se ve mejor en cards verticales
-              className="w-full max-w-[240px] md:max-w-full aspect-square md:aspect-auto rounded-2xl object-cover shadow-2xl shadow-purple-500/10"
+              className="w-full max-w-[180px] md:max-w-full aspect-square md:aspect-auto rounded-2xl object-cover shadow-2xl shadow-purple-500/10"
             />
           </div>
 
@@ -53,22 +53,22 @@ const ContextCard = ({
             {/* Grupo de Títulos */}
             <div className="mb-4">
               {/* Tag / Título pequeño (8px de separación con el siguiente) */}
-              <h1 className="text-sm font-bold tracking-wide uppercase bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent bg-clip-text mb-2">
+              <h1 className="text-xs font-bold tracking-wide uppercase bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent bg-clip-text mb-2">
                 {title || 'Estrategia y Análisis'}
               </h1>
 
               {/* Título Principal (Leading tight para que no ocupe tanto verticalmente) */}
-              <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+              <h3 className="text-xl md:text-3xl font-bold text-white leading-tight">
                 {subtitle || 'El Núcleo de la Operación'}
               </h3>
             </div>
 
             {/* Cuerpo de texto (Separado 16px del título) */}
-            <div className="space-y-3 text-gray-300 text-[15px] leading-relaxed">
-              <p>
+            <div className="space-y-3 text-gray-300 leading-relaxed">
+              <p className="text-[12px]">
                 {text || 'Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales.'}
               </p>
-              <p>
+              <p className="text-[12px]">
                 {text2 || 'Aquí la matemática se convierte en poder de mercado.'}
               </p>
             </div>

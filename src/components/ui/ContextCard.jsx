@@ -48,7 +48,7 @@ const ContextCard = ({
           </div>
 
           {/* 2. TEXTOS (Orden visual 2) */}
-          <div className="flex flex-col w-full md:w-1/2 md:order-1">
+          <div className="flex flex-col w-full md:w-1/2 md:order-1 relative flex-1">
 
             {/* Grupo de Títulos */}
             <div className="mb-4">
@@ -64,7 +64,7 @@ const ContextCard = ({
             </div>
 
             {/* Cuerpo de texto (Separado 16px del título) */}
-            <div className="space-y-3 text-gray-300 leading-relaxed">
+            <div className="space-y-3 text-gray-300 leading-relaxed overflow-y-auto pb-16">
               <p className="text-[12px]">
                 {text || 'Nuestro ScienceDivision desarrolla tácticas propias, probadas en escenarios reales.'}
               </p>
@@ -74,7 +74,7 @@ const ContextCard = ({
             </div>
 
             {/* Botón (Empujado al fondo con mt-auto, margen superior mínimo de 32px) */}
-            <div className="mt-8 md:mt-auto pt-0">
+            <div className="absolute bottom-0 left-0 w-full">
               <a
                 href="https://t.me/KremlinTrading_bot"
                 target="_blank"

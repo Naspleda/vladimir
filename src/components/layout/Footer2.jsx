@@ -7,9 +7,9 @@ const Footer2 = ({ items, activeId, onItemClick }) => {
     const navItems = items || [];
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4">
+        <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4">
             {/* Glass Container */}
-            <div className="relative flex items-center justify-between px-6 py-4 bg-white/5 backdrop-blur-2xl border border-white/20 rounded-full shadow-lg">
+            <div className="relative flex items-center justify-between px-6 py-2 bg-white/5 backdrop-blur-2xl border border-white/20 rounded-full shadow-lg">
 
                 {navItems.map((item) => {
                     const isActive = activeId === item.id;

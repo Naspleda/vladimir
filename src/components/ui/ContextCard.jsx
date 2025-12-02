@@ -16,7 +16,7 @@ const ContextCard = ({
       relative overflow-hidden
       border border-white/15 rounded-3xl 
       p-6 md:p-8 
-      h-auto min-h-[500px] md:h-[550px] 
+      h-[65vh] md:h-[550px] 
       text-white 
       ${className}`}>
 

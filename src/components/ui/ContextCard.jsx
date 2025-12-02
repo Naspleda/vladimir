@@ -16,7 +16,7 @@ const ContextCard = ({
       backdrop-blur-md
       bg-black/10
         relative overflow-hidden
-        border border-white/15 rounded-2xl p-4 md:p-8 h-full md:h-[550px] md:max-h-none text-white ${className}`}>
+        border border-white/15 rounded-2xl p-4 md:p-8 h-[60vh] md:h-[550px] md:max-h-none text-white ${className}`}>
 
       {/* Efecto de fondo granular - Con colores personalizables */}
       <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/4">
@@ -34,8 +34,18 @@ const ContextCard = ({
       <div className="relative z-10 flex flex-col h-full">
         {/* Contenido principal (Grid) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center">
+
+          {/* Columna derecha - Imagen */}
+          <div className="flex justify-center items-center order-1 md:order-2">
+            <img
+              src={imageUrl}
+              alt={title || 'Context card image'}
+              className="w-full max-w-[200px] md:max-w-full h-auto rounded-lg object-cover"
+            />
+          </div>
+
           {/* Columna izquierda - Texto */}
-          <div className="space-y-2 md:space-y-4 order-1 md:order-1">
+          <div className="space-y-2 md:space-y-4 order-2 md:order-1">
             <h1 className="text-lg md:text-2xl bg-gradient-to-r from-fuchsia-500 to-cyan-500 text-transparent block bg-clip-text font-extrabold">
               {title || 'Estrategia y analisis'}
             </h1>
@@ -62,14 +72,7 @@ const ContextCard = ({
             </div>
           </div>
 
-          {/* Columna derecha - Imagen */}
-          <div className="flex justify-center items-center order-2 md:order-2">
-            <img
-              src={imageUrl}
-              alt={title || 'Context card image'}
-              className="w-full max-w-[200px] md:max-w-full h-auto rounded-lg object-cover"
-            />
-          </div>
+
         </div>
       </div>
     </div>

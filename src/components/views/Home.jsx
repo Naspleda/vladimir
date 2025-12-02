@@ -198,7 +198,7 @@ function Home() {
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
 
         {/* Video Background */}
-        <video
+        {/* <video
           autoPlay
           loop
           muted
@@ -206,7 +206,7 @@ function Home() {
           className="absolute inset-0 w-full h-full object-cover opacity-30 z-0 pointer-events-none"
         >
           <source src={HeroVideo} type="video/mp4" />
-        </video>
+        </video> */}
 
 
 
@@ -222,8 +222,8 @@ function Home() {
 
           {/* ContextCard con animación */}
           {activePointData && kremlinAnimationFinished && (
-            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 md:static md:inset-auto md:w-auto md:h-auto`}>
-              <div className={`w-full h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
+            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
+              <div className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
                 <ContextCard
                   title={activePointData.cardContent.title}
                   subtitle={activePointData.cardContent.subtitle}

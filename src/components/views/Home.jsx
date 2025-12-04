@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
 const Scene = lazy(() => import("../../../public/models/Scene"));
@@ -221,21 +222,44 @@ function Home() {
           </Suspense>
 
           {/* ContextCard con animación */}
-          {activePointData && kremlinAnimationFinished && (
-            <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
-              <div className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
-                <ContextCard
-                  title={activePointData.cardContent.title}
-                  subtitle={activePointData.cardContent.subtitle}
-                  text={activePointData.cardContent.text}
-                  text2={activePointData.cardContent.text2}
-                  imageUrl={activePointData.cardContent.imageUrl}
-                  className={activePointData.cardClassName}
-                  gradientColors={activePointData.cardContent.gradientColors}
-                />
+          <AnimatePresence mode="wait">
+            {activePointData && kremlinAnimationFinished && (
+              <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
+                {/* Wrapper for positioning - preserves Tailwind transforms */}
+                <motion.div
+                  key={activePointData.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4`}
+                >
+                  {/* Inner wrapper for Scale/Spring animation */}
+                  <motion.div
+                    initial={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
+                    animate={{ scale: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                      mass: 0.5
+                    }}
+                  >
+                    <ContextCard
+                      title={activePointData.cardContent.title}
+                      subtitle={activePointData.cardContent.subtitle}
+                      text={activePointData.cardContent.text}
+                      text2={activePointData.cardContent.text2}
+                      imageUrl={activePointData.cardContent.imageUrl}
+                      className={activePointData.cardClassName}
+                      gradientColors={activePointData.cardContent.gradientColors}
+                    />
+                  </motion.div>
+                </motion.div>
               </div>
-            </div>
-          )}
+            )}
+          </AnimatePresence>
 
 
           {/* Footer con logos - Con animación fade-in */}

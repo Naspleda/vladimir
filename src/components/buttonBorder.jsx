@@ -21,6 +21,34 @@ export function ButtonBorder({
     "--hover": hoverTextColor,
   };
 
+  if (rest.href) {
+    return (
+      <a
+        style={style}
+        className={`relative inline-flex h-12 w-24 overflow-hidden rounded-2xl p-[1px]
+                    focus:outline-none focus:ring-2 focus:ring-slate-400
+                    focus:ring-offset-2 focus:ring-offset-slate-50 ${className}`}
+        {...rest}
+      >
+        {/* Borde animado */}
+        <span
+          className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite]
+                     bg-[conic-gradient(from_90deg_at_50%_50%,var(--neutral)_0%,var(--primary)_50%,var(--light)_100%)]"
+        />
+        {/* Interior */}
+        <span
+          className="font-title inline-flex h-full w-full items-center justify-center
+                     rounded-2xl px-3 py-1 text-sm font-medium backdrop-blur-3xl
+                     transition-all duration-200
+                     bg-[var(--inner)] text-[color:var(--text)]
+                     hover:bg-transparent hover:text-[color:var(--hover)]"
+        >
+          {title}
+        </span>
+      </a>
+    );
+  }
+
   return (
     <button
       type="button"

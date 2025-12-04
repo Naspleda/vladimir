@@ -1,3 +1,17 @@
+import { ButtonBorder } from "../buttonBorder";
+
+const TAILWIND_TO_HEX = {
+  // Primary colors with their neutral counterparts (darker shade)
+  'bg-purple-700': { hex: '#7e22ce', neutral: '#581c87' }, // purple-900
+  'bg-emerald-600': { hex: '#059669', neutral: '#065f46' }, // emerald-800
+  'bg-orange-600': { hex: '#ea580c', neutral: '#9a3412' }, // orange-800
+
+  // Secondary colors
+  'bg-blue-600': { hex: '#6804ffff' },
+  'bg-cyan-500': { hex: '#06b6d4' },
+  'bg-red-500': { hex: '#ef4444' }
+};
+
 const ContextCard = ({
   title,
   subtitle,
@@ -11,6 +25,10 @@ const ContextCard = ({
   },
   buttonText = "Lo quiero"
 }) => {
+
+  const primaryColorData = TAILWIND_TO_HEX[gradientColors.primary] || { hex: '#3f3100', neutral: '#fffdf5' };
+  const secondaryColorData = TAILWIND_TO_HEX[gradientColors.secondary] || { hex: '#ffefb5' };
+
   return (
     <div className={`
       relative overflow-hidden
@@ -28,7 +46,7 @@ const ContextCard = ({
         <div className={`h-[150px] w-[300px] rounded-full ${gradientColors.secondary} opacity-25 blur-[80px]`}></div>
       </div>
       {/* Glassmorphism mejorado: más saturación para viveza */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-2xl backdrop-saturate-150 -z-10"></div>
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-2xl backdrop-saturate-150 -z-10"></div>
 
 
       {/* --- CONTENIDO Z-10 --- */}
@@ -75,23 +93,16 @@ const ContextCard = ({
 
             {/* Botón (Empujado al fondo con mt-auto, margen superior mínimo de 32px) */}
             <div className="absolute bottom-0 left-0 w-full">
-              <a
+              <ButtonBorder
+                title={buttonText}
                 href="https://t.me/KremlinTrading_bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                // Botón Full Width en móvil para mejor UX (Ley de Fitts)
-                className="
-                  block w-full md:w-auto text-center
-                  bg-white/10 hover:bg-white/20 
-                  border border-white/20 
-                  text-white font-semibold 
-                  py-3.5 px-6 rounded-xl 
-                  transition-all duration-200 active:scale-[0.98]
-                  shadow-lg shadow-black/20
-                "
-              >
-                {buttonText}
-              </a>
+                primaryColor={primaryColorData.hex}
+                lightColor={secondaryColorData.hex}
+                neutralColor={primaryColorData.neutral}
+                className="w-full md:w-auto"
+              />
             </div>
           </div>
 

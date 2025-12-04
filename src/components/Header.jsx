@@ -1,4 +1,4 @@
-import LogoKt from "../assets/images/logokt.png";
+import LogoKt from "../assets/images/logokt.svg";
 import { Effect } from './animate-ui/primitives/effects/effect';
 
 const Header = ({ onLogoClick }) => {

@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
 const Scene = lazy(() => import("../../../public/models/Scene"));
@@ -10,10 +11,11 @@ import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
 import Header from "../Header";
-import Footer from "../layout/Footer";
+import Footer2 from "../layout/Footer2";
+import HeroVideo from "../../assets/video/hero-production.mp4";
 
 import { Effect } from "../animate-ui/primitives/effects/effect";
-import { RadialNav } from "../animate-ui/components/community/radial-nav";
+
 
 // Importa los iconos para el RadialNav
 import { BrainCircuit, Bot, Globe } from 'lucide-react';
@@ -28,7 +30,7 @@ const pointsOfInterest = [
       azimuth: 45,
       polar: 75,
       radius: 5,
-      target: { x: -1.8, y: -0.05, z: 0.8 },
+      target: { x: 20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -58,7 +60,7 @@ const pointsOfInterest = [
       azimuth: 0,
       polar: 75,
       radius: 5,
-      target: { x: 0, y: -0.25, z: 0 },
+      target: { x: 20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -88,7 +90,7 @@ const pointsOfInterest = [
       azimuth: -45,
       polar: 75,
       radius: 5,
-      target: { x: 2.8, y: -0.05, z: 0.8 },
+      target: { x: -20, y: 30.05, z: 75 },
       duration: 1.5,
     },
     cardContent: {
@@ -117,11 +119,11 @@ import { useMediaQuery } from "../../hooks/use-media-query";
 
 // 2. Configuración inicial de la cámara
 const INITIAL_CAMERA_CONFIG = {
-  fov: 50,
+  fov: 90,
   azimuth: 0,
   polar: 75,
-  radius: 5,
-  target: { x: 0, y: 0.35, z: 0 },
+  radius: 35,
+  target: { x: 0, y: 10.25, z: 0 },
   duration: 1.5,
 };
 
@@ -196,20 +198,23 @@ function Home() {
         {/* Fondo y Blur */}
         <div aria-hidden className="absolute inset-0 z-10 pointer-events-none" />
 
-        {/* Contenedor para centrar RadialNav */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-          <RadialNav
-            items={navItems}
-            onActiveChange={handleNavChange}
-            defaultActiveId={activeCard}
-            size={radialSize}
-          />
-        </div>
+        {/* Video Background */}
+        {/* <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-30 z-0 pointer-events-none"
+        >
+          <source src={HeroVideo} type="video/mp4" />
+        </video> */}
+
+
 
         {/* Contenido */}
         <div className="relative z-20 h-full w-full">
           {/* Header - Con animación fade-in */}
-          <Header onLogoClick={() => applyCameraAndCardState(null)} />
+          {kremlinAnimationFinished && <Header onLogoClick={() => applyCameraAndCardState(null)} />}
 
           {/* Escena 3D */}
           <Suspense fallback={null}>
@@ -217,25 +222,54 @@ function Home() {
           </Suspense>
 
           {/* ContextCard con animación */}
-          {activePointData && kremlinAnimationFinished && (
-            <div className={`fixed inset-x-4 top-[80px] bottom-[50px] z-40 md:static md:inset-auto md:w-auto md:h-auto`}>
-              <div className={`w-full h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-fade-in`}>
-                <ContextCard
-                  title={activePointData.cardContent.title}
-                  subtitle={activePointData.cardContent.subtitle}
-                  text={activePointData.cardContent.text}
-                  text2={activePointData.cardContent.text2}
-                  imageUrl={activePointData.cardContent.imageUrl}
-                  className={activePointData.cardClassName}
-                  gradientColors={activePointData.cardContent.gradientColors}
-                />
+          <AnimatePresence mode="wait">
+            {activePointData && kremlinAnimationFinished && (
+              <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
+                {/* Wrapper for positioning - preserves Tailwind transforms */}
+                <motion.div
+                  key={activePointData.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4`}
+                >
+                  {/* Inner wrapper for Scale/Spring animation */}
+                  <motion.div
+                    initial={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
+                    animate={{ scale: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                      mass: 0.5
+                    }}
+                  >
+                    <ContextCard
+                      title={activePointData.cardContent.title}
+                      subtitle={activePointData.cardContent.subtitle}
+                      text={activePointData.cardContent.text}
+                      text2={activePointData.cardContent.text2}
+                      imageUrl={activePointData.cardContent.imageUrl}
+                      className={activePointData.cardClassName}
+                      gradientColors={activePointData.cardContent.gradientColors}
+                    />
+                  </motion.div>
+                </motion.div>
               </div>
-            </div>
-          )}
+            )}
+          </AnimatePresence>
 
 
           {/* Footer con logos - Con animación fade-in */}
-          <Footer />
+          {kremlinAnimationFinished && (
+            <Footer2
+              items={navItems}
+              activeId={activeCard}
+              onItemClick={handleNavChange}
+            />
+          )}
 
         </div>
       </div>

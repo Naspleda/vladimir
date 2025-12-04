@@ -14,7 +14,7 @@ const Footer = () => {
             zoom={{ initialScale: 0.8, scale: 1 }}
             inView={true}
             inViewOnce={true}
-            delay={2500}
+            delay={0}
             transition={{ type: 'spring', stiffness: 100, damping: 15 }}
         >
             <div className="absolute bottom-0 inset-x-0 h-8 md:h-16 flex items-center justify-center space-x-8 md:space-x-32 transition-opacity duration-1000 delay-500 opacity-100">

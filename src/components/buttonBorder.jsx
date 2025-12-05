@@ -37,7 +37,7 @@ export function ButtonBorder({
         />
         {/* Interior */}
         <span
-          className="font-title inline-flex h-full w-full items-center justify-center
+          className="inline-flex h-full w-full items-center justify-center
                      rounded-2xl px-3 py-1 text-sm font-medium backdrop-blur-3xl
                      transition-all duration-200
                      bg-[var(--inner)] text-[color:var(--text)]
@@ -65,7 +65,7 @@ export function ButtonBorder({
       />
       {/* Interior */}
       <span
-        className="font-title inline-flex h-full w-full items-center justify-center
+        className="inline-flex h-full w-full items-center justify-center
                    rounded-2xl px-3 py-1 text-sm font-medium backdrop-blur-3xl
                    transition-all duration-200
                    bg-[var(--inner)] text-[color:var(--text)]

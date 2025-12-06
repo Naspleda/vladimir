@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
-const Scene = lazy(() => import("../../../public/models/Scene"));
+const Scene = lazy(() => import("../3d/Scene"));
 import LocalImage from "../../assets/images/blue_bg_hd.png";
 import BImage from "../../assets/images/blackcircle.png";
 import Logo from "../../assets/images/logo1.png";
@@ -218,7 +218,7 @@ function Home() {
 
           {/* Escena 3D */}
           <Suspense fallback={null}>
-            <Scene />
+            {/* <Scene /> */}
           </Suspense>
 
           {/* ContextCard con animación */}

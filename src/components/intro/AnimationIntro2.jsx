@@ -1,44 +1,37 @@
-import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import React, { useRef, useEffect, useState } from 'react';
 
 const AnimationIntro2 = ({ onComplete }) => {
-    const containerRef = useRef(null);
-    const textRef = useRef(null);
+    const [text, setText] = useState("Кремль Трейдинг");
+    const [opacity, setOpacity] = useState(0);
+    const [blur, setBlur] = useState(10);
+    const [curtainTransform, setCurtainTransform] = useState("translate-y-0");
+
+    // Refs for animation state
+    const textRef = useRef(text);
 
     const russianText = "Кремль Трейдинг";
     const englishText = "Kremlin Trading";
 
     useEffect(() => {
-        const tl = gsap.timeline({
-            onComplete: () => {
-                onComplete && onComplete();
-            }
-        });
+        const sequence = async () => {
+            // Phase 1: Fade in (0s - 1s)
+            // Small delay to ensure render
+            await new Promise(r => setTimeout(r, 100));
+            setOpacity(1);
+            setBlur(0);
 
-        // Initial state
-        gsap.set(textRef.current, {
-            opacity: 0,
-            filter: "blur(10px)",
-            text: russianText // Ensure initial text is Russian
-        });
+            // Wait for fade in + hold (1s + 0.5s)
+            await new Promise(r => setTimeout(r, 1500));
 
-        // Phase 1: Fade in Russian text
-        tl.to(textRef.current, {
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1,
-            ease: "power2.out"
-        });
+            // Phase 2: Text Scramble (1.5s duration)
+            const scrambleDuration = 1500;
+            const startTime = Date.now();
+            const chars = "KTadegiklmnrt!@#$%^&*";
 
-        // Phase 2: Text Scramble Effect
-        // We'll manually animate the text change since ScrambleText is paid
-        const scrambleDuration = 1.5;
-        const chars = "KTadegiklmnrt!@#$%^&*";
+            const scrambleInterval = setInterval(() => {
+                const now = Date.now();
+                const progress = Math.min((now - startTime) / scrambleDuration, 1);
 
-        tl.to({}, {
-            duration: scrambleDuration,
-            onUpdate: function () {
-                const progress = this.progress();
                 const len = Math.floor(progress * englishText.length);
                 let newText = "";
 
@@ -47,52 +40,51 @@ const AnimationIntro2 = ({ onComplete }) => {
 
                 // Part that is still "scrambling" or Russian
                 if (len < englishText.length) {
-                    // Add some random chars for the scrambling effect
                     for (let i = len; i < englishText.length; i++) {
                         // Mix of Russian chars and random chars for effect
                         if (Math.random() > 0.5) {
                             newText += chars[Math.floor(Math.random() * chars.length)];
                         } else {
-                            // Keep original Russian char if length matches, otherwise random
                             newText += russianText[i] || chars[Math.floor(Math.random() * chars.length)];
                         }
                     }
                 }
 
-                if (textRef.current) {
-                    textRef.current.innerText = newText;
+                setText(newText);
+
+                if (progress >= 1) {
+                    clearInterval(scrambleInterval);
+                    setText(englishText);
                 }
-            },
-            onComplete: () => {
-                if (textRef.current) {
-                    textRef.current.innerText = englishText;
-                }
-            }
-        });
+            }, 50); // Update every 50ms
 
-        // Wait a bit to read the final text
-        tl.to({}, { duration: 0.5 });
+            // Wait for scramble to finish + hold
+            await new Promise(r => setTimeout(r, scrambleDuration + 500));
 
-        // Phase 3: Curtain Lift
-        tl.to(containerRef.current, {
-            yPercent: -100,
-            duration: 1.2,
-            ease: "power4.inOut"
-        });
+            // Phase 3: Curtain Lift
+            setCurtainTransform("-translate-y-full");
 
+            // Wait for curtain animation (1.2s)
+            await new Promise(r => setTimeout(r, 1200));
+
+            onComplete && onComplete();
+        };
+
+        sequence();
     }, [onComplete]);
 
     return (
         <div
-            ref={containerRef}
-            className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden"
+            className={`fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${curtainTransform}`}
         >
             <h1
-                ref={textRef}
-                className="text-white text-4xl md:text-6xl font-bold tracking-wider"
-            // Monospace helps with the scramble effect look
+                className="text-white text-4xl md:text-6xl font-bold tracking-wider transition-all duration-1000 ease-out"
+                style={{
+                    opacity: opacity,
+                    filter: `blur(${blur}px)`
+                }}
             >
-                {russianText}
+                {text}
             </h1>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+
 
 const Footer2 = ({ items, activeId, onItemClick }) => {
     // Si no se pasan items, usamos un array vacío o podríamos tener un default, 
@@ -16,12 +16,10 @@ const Footer2 = ({ items, activeId, onItemClick }) => {
                     const Icon = item.icon;
 
                     return (
-                        <motion.button
+                        <button
                             key={item.id}
                             onClick={() => onItemClick && onItemClick(item.id)}
-                            whileHover={{ scale: 1.2 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="flex flex-col items-center justify-center space-y-1 relative group"
+                            className="flex flex-col items-center justify-center space-y-1 relative group transition-transform duration-200 hover:scale-125 active:scale-90"
                         >
                             <Icon
                                 size={24}
@@ -32,7 +30,7 @@ const Footer2 = ({ items, activeId, onItemClick }) => {
                             <span className={`text-[10px] font-medium tracking-wide transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/70 group-hover:text-white'}`}>
                                 {item.label}
                             </span>
-                        </motion.button>
+                        </button>
                     );
                 })}
             </div>

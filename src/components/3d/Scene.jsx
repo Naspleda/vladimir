@@ -4,7 +4,8 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import * as THREE from "three";
 import PropTypes from 'prop-types';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { MetallicKremlin } from "./MetallicKremlin";
+// import { MetallicKremlin } from "./MetallicKremlin";
+import { CustomKremlin } from "./CustomKremlin";
 // import { Luces } from "../Luces"; // Vamos a reemplazar esto por luces más eficientes aquí mismo
 import useSceneControls from "../../store/useSceneControls";
 
@@ -49,7 +50,7 @@ function Scene() {
 
         {/* Renderizado del Modelo */}
         {/* <Kremlin /> */}
-        <MetallicKremlin />
+        <CustomKremlin />
 
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo */}
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo - Solo en Desktop */}

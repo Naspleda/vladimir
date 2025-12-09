@@ -19,14 +19,42 @@ function Scene() {
   const { kremlinAnimationFinished } = useSceneControls();
 
   // Optimización de Performance para móviles
-  // Detectar si es móvil para bajar calidad si es necesario (opcional)
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check on mount and on resize
+    const checkMobile = () => {
+      const mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile fallback - show static image instead of 3D
+  if (isMobile) {
+    return (
+      <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+        <img
+          src="/images/kremlin_static.jpg"
+          alt="Kremlin Trading"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
       <Canvas
         // 1. OPTIMIZACIÓN CRÍTICA: Pixel Ratio
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={[1, 2]}
         // Desactivamos sombras por defecto (shadows={false}) porque usaremos ContactShadows
         gl={{ powerPreference: "high-performance", antialias: false }}
         style={{ background: "transparent" }}
@@ -49,20 +77,16 @@ function Scene() {
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[-1, 35, 75]} />
 
         {/* Renderizado del Modelo */}
-        {/* <Kremlin /> */}
         <CustomKremlin />
 
-        {/* 2. OPTIMIZACIÓN: Bloom Selectivo */}
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo - Solo en Desktop */}
-        {!isMobile && (
-          <EffectComposer disableNormalPass multisampling={0}>
-            <Bloom
-              luminanceThreshold={1}
-              mipmapBlur
-              intensity={0.5}
-            />
-          </EffectComposer>
-        )}
+        <EffectComposer disableNormalPass multisampling={0}>
+          <Bloom
+            luminanceThreshold={1}
+            mipmapBlur
+            intensity={0.5}
+          />
+        </EffectComposer>
 
         {/* <FloatingGrid /> */}
 

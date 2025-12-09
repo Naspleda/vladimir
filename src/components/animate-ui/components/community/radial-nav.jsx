@@ -1,8 +1,6 @@
-'use client';;
+'use client';
 import * as React from 'react';
 import { MousePointer2 } from 'lucide-react';
-import { motion } from 'motion/react';
-
 import { Bookmark, LayoutGrid, User } from 'lucide-react';
 
 const ITEMS = [
@@ -19,44 +17,6 @@ const defaultMenuButtonConfig = {
 
 const POINTER_BASE_DEG = 45;
 
-const POINTER_ROT_SPRING = {
-  type: 'spring',
-  stiffness: 220,
-  damping: 26
-};
-
-const BUTTON_MOTION_CONFIG = {
-  initial: 'rest',
-
-  variants: {
-    rest: { maxWidth: '40px' },
-    hover: {
-      maxWidth: '140px',
-      transition: { type: 'spring', stiffness: 200, damping: 35, delay: 0.05 },
-    },
-    tap: { scale: 0.95 },
-  },
-
-  transition: { type: 'spring', stiffness: 200, damping: 25 }
-};
-
-const LABEL_VARIANTS = {
-  rest: { opacity: 0, x: 4 },
-  hover: {
-    opacity: 1,
-    x: 0,
-    visibility: 'visible',
-    width: 'auto',
-  },
-  tap: { opacity: 1, x: 0, visibility: 'visible', width: 'auto' },
-};
-
-const LABEL_TRANSITION = {
-  type: 'spring',
-  stiffness: 200,
-  damping: 25,
-};
-
 function getPolarCoordinates(angleDeg, r) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
   return { x: r * Math.cos(rad), y: r * Math.sin(rad) };
@@ -72,7 +32,6 @@ function calculateIconOffset({
   return centerOffset - buttonPadding + bias;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function withDefaults(defaults, overrides) {
   return { ...defaults, ...overrides };
 }
@@ -112,11 +71,9 @@ function MenuButton({
   });
 
   return (
-    <motion.button
-      {...BUTTON_MOTION_CONFIG}
-      initial={false}
-      animate={isActive ? 'hover' : 'rest'}
-      className="relative flex space-x-1 items-center overflow-hidden whitespace-nowrap rounded-full border border-neutral-800 dark:border-neutral-200 bg-background text-foreground font-medium"
+    <button
+      className={`relative flex space-x-1 items-center overflow-hidden whitespace-nowrap rounded-full border border-neutral-800 dark:border-neutral-200 bg-background text-foreground font-medium transition-all duration-300 ease-out ${isActive ? 'max-w-[140px]' : 'max-w-[40px]'
+        }`}
       style={{
         height: buttonSize,
         minWidth: buttonSize,
@@ -126,27 +83,28 @@ function MenuButton({
       type="button"
       role="menuitem"
       aria-pressed={!!isActive}
-      aria-label={label}>
+      aria-label={label}
+    >
       <Icon
         className="shrink-0"
         style={{
           height: iconSize,
           width: iconSize,
           transform: `translateX(${translateX}px)`,
-        }} />
-      <motion.span
-        variants={LABEL_VARIANTS}
-        transition={LABEL_TRANSITION}
-        className="invisible text-sm w-0">
+        }}
+      />
+      <span
+        className={`text-sm transition-all duration-300 ease-out ${isActive
+            ? 'opacity-100 w-auto visible translate-x-0'
+            : 'opacity-0 w-0 invisible translate-x-1'
+          }`}
+      >
         {label}
-      </motion.span>
-    </motion.button>
+      </span>
+    </button>
   );
 }
 
-// orbitRadius determines how far from the center each item should be placed.
-// It positions the CENTER of each small circle exactly on the parent circle's stroke.
-// Formula: parentRadius (size/2) minus half of the child diameter (~0.5 accounts for border).
 function RadialNav({
   size = 480,
   items = ITEMS,
@@ -155,13 +113,10 @@ function RadialNav({
   onActiveChange
 }) {
   const orbitRadius = size / 2 - 0.5;
-  // const [activeId, setActiveId] = React.useState(defaultActiveId ?? null);
 
   const handleActivate = React.useCallback((id) => {
-    // SIMPLIFICADO: Solo notifica al componente padre qué ID se ha clicado.
-    // La lógica de si se abre o se cierra la manejará el padre.
     onActiveChange?.(id);
-  }, [onActiveChange]); // La dependencia ahora es solo onActiveChange
+  }, [onActiveChange]);
 
   const baseAngle =
     (items.find((it) => it.id === activeId)?.angle ?? 0) + POINTER_BASE_DEG;
@@ -174,16 +129,19 @@ function RadialNav({
       className="relative flex items-center justify-center rounded-full border border-neutral-800 dark:border-neutral-200"
       style={{ width: size, height: size }}
       role="menu"
-      aria-label="Radial navigation">
-      <motion.div
-        initial={false}
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        animate={{ rotate: rotateAngle }}
-        transition={POINTER_ROT_SPRING}
-        style={{ originX: 0.5, originY: 0.5 }}
-        aria-hidden="true">
+      aria-label="Radial navigation"
+    >
+      {/* Pointer - CSS transition instead of motion */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 ease-out"
+        style={{
+          transform: `translate(-50%, -50%) rotate(${rotateAngle}deg)`,
+        }}
+        aria-hidden="true"
+      >
         <MousePointer2 className="size-5 text-foreground" />
-      </motion.div>
+      </div>
+
       {items.map((item) => {
         const { id, angle } = item;
         const { x, y } = getPolarCoordinates(angle, orbitRadius);
@@ -195,12 +153,14 @@ function RadialNav({
               left: `calc(50% + ${x}px)`,
               top: `calc(50% + ${y}px)`,
               transform: 'translate(-50%, -50%)',
-            }}>
+            }}
+          >
             <MenuButton
               item={item}
               isActive={activeId === id}
               onActivate={() => handleActivate(id)}
-              menuButtonConfig={resolvedMenuButtonConfig} />
+              menuButtonConfig={resolvedMenuButtonConfig}
+            />
           </div>
         );
       })}

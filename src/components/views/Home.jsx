@@ -4,13 +4,10 @@ import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
 const Scene = lazy(() => import("../3d/Scene"));
 import LocalImage from "../../assets/images/blue_bg_hd.png";
-import BImage from "../../assets/images/blackcircle.png";
-import Logo from "../../assets/images/logo1.png";
 import BinanceLogo from "../../assets/images/binancelogo.png";
 import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
 import RefImage from "../../assets/images/ref.jpg";
-import KremlinStatic from "../../assets/images/kremlin_static.jpg";
 import Header from "../Header";
 import Footer2 from "../layout/Footer2";
 import HeroVideo from "../../assets/video/hero-production.mp4";
@@ -228,12 +225,12 @@ function Home() {
               <div className="max-w-lg">
                 {/* Título Principal */}
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                  Wink Geemauring Landetftl Ale Pi
+                  Precisión Algorítmica para tus Inversiones
                 </h1>
 
                 {/* Subtítulo / Descripción */}
                 <p className="text-sm md:text-base text-gray-300 mb-6 leading-relaxed">
-                  Colensomontvihis enfocese-m Race leomteftl in ankope Penh on sontlereech Sit
+                  Deja de mirar gráficos todo el día. Conecta tu cuenta y deja que una estrategia probada opere el mercado por ti con disciplina matemática. Sin emociones.
                 </p>
 
                 {/* Botones CTA */}

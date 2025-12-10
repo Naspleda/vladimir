@@ -8,6 +8,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { CustomKremlin } from "./CustomKremlin";
 // import { Luces } from "../Luces"; // Vamos a reemplazar esto por luces más eficientes aquí mismo
 import useSceneControls from "../../store/useSceneControls";
+import kremlinImg from "../../assets/images/kremlin-cycles.png";
 
 import CameraTransitioner from "../CameraTransitioner";
 
@@ -33,22 +34,17 @@ function Scene() {
   }, []);
 
   // Mobile fallback - show static image instead of 3D
-  // if (isMobile) {
-  //   return (
-  //     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-  //       <img
-  //         src="/images/kremlin_static.jpg"
-  //         alt="Kremlin Trading"
-  //         style={{
-  //           width: "100%",
-  //           height: "100%",
-  //           objectFit: "cover",
-  //           objectPosition: "center",
-  //         }}
-  //       />
-  //     </div>
-  //   );
-  // }
+  if (isMobile) {
+    return (
+      <div className="relative w-full h-screen">
+        <img
+          src={kremlinImg}
+          alt="Kremlin Trading"
+          className="top-[50%] object-cover object-center"
+        />
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>

@@ -222,6 +222,33 @@ function Home() {
           {/* Header - Con animación fade-in */}
           {kremlinAnimationFinished && <Header onLogoClick={() => applyCameraAndCardState(null)} />}
 
+          {/* Hero Text Section - Mobile */}
+          {kremlinAnimationFinished && (
+            <div className="absolute top-20 left-0 right-0 z-30 px-4 md:px-8 pointer-events-none">
+              <div className="max-w-lg">
+                {/* Título Principal */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                  Wink Geemauring Landetftl Ale Pi
+                </h1>
+
+                {/* Subtítulo / Descripción */}
+                <p className="text-sm md:text-base text-gray-300 mb-6 leading-relaxed">
+                  Colensomontvihis enfocese-m Race leomteftl in ankope Penh on sontlereech Sit
+                </p>
+
+                {/* Botones CTA */}
+                {/* <div className="flex flex-col gap-3 pointer-events-auto max-w-[180px]">
+                  <button className="px-6 py-3 bg-gradient-to-r from-amber-400 to-amber-500 text-black font-semibold rounded-full hover:from-amber-500 hover:to-amber-600 transition-all duration-300 shadow-lg">
+                    Stopt on Now
+                  </button>
+                  <button className="px-6 py-3 border-2 border-amber-400 text-amber-400 font-semibold rounded-full hover:bg-amber-400/10 transition-all duration-300">
+                    Ogan Now
+                  </button>
+                </div> */}
+              </div>
+            </div>
+          )}
+
           {/* Escena 3D */}
           <Suspense fallback={null}>
             <Scene />

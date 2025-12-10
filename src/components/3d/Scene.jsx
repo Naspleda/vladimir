@@ -33,22 +33,22 @@ function Scene() {
   }, []);
 
   // Mobile fallback - show static image instead of 3D
-  if (isMobile) {
-    return (
-      <div style={{ position: "relative", width: "100%", height: "100vh" }}>
-        <img
-          src="/images/kremlin_static.jpg"
-          alt="Kremlin Trading"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
-      </div>
-    );
-  }
+  // if (isMobile) {
+  //   return (
+  //     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+  //       <img
+  //         src="/images/kremlin_static.jpg"
+  //         alt="Kremlin Trading"
+  //         style={{
+  //           width: "100%",
+  //           height: "100%",
+  //           objectFit: "cover",
+  //           objectPosition: "center",
+  //         }}
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>

@@ -221,10 +221,10 @@ function Home() {
 
           {/* Hero Text Section - Mobile */}
           {kremlinAnimationFinished && (
-            <div className="absolute top-20 left-0 right-0 z-30 px-4 md:px-8 pointer-events-none">
+            <div className="absolute top-20 left-0 right-0 z-30 px-6 py-6 md:px-8 pointer-events-none">
               <div className="max-w-lg">
                 {/* Título Principal */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                   Precisión Algorítmica para tus Inversiones
                 </h1>
 

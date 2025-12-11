@@ -36,11 +36,11 @@ function Scene() {
   // Mobile fallback - show static image instead of 3D
   if (isMobile) {
     return (
-      <div className="relative w-full h-screen">
+      <div className="absolute w-full h-screen">
         <img
           src={kremlinImg}
           alt="Kremlin Trading"
-          className="top-[50%] object-cover object-center"
+          className="pt-[50dvh] object-cover object-center"
         />
       </div>
     );

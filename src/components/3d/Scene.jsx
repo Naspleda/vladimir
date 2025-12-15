@@ -34,17 +34,17 @@ function Scene() {
   }, []);
 
   // Mobile fallback - show static image instead of 3D
-  if (isMobile) {
-    return (
-      <div className="absolute w-full h-screen">
-        <img
-          src={kremlinImg}
-          alt="Kremlin Trading"
-          className="pt-[50dvh] object-cover object-center"
-        />
-      </div>
-    );
-  }
+  // if (isMobile) {
+  //   return (
+  //     <div className="absolute w-full h-screen">
+  //       <img
+  //         src={kremlinImg}
+  //         alt="Kremlin Trading"
+  //         className="pt-[50dvh] object-cover object-center"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>

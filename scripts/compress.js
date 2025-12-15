@@ -1,8 +1,8 @@
-const { execSync } = require('child_process');
-const glob = require('glob');
-const path = require('path');
-const fs = require('fs');
-const sharp = require('sharp'); // Para UI
+import { execSync } from 'child_process';
+import { globSync } from 'glob';
+import path from 'path';
+import fs from 'fs';
+import sharp from 'sharp';
 
 // CONFIGURACIÓN DE RUTAS
 const INPUT_DIR = './raw_assets';  // Donde pones tus archivos de Blender
@@ -13,13 +13,22 @@ if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
+// AGREGAR KTX AL PATH
+const ktxBin = path.resolve('./scripts/ktx/KTX-Software-4.4.2-Linux-x86_64/bin');
+if (fs.existsSync(ktxBin)) {
+    console.log(`🔧 Agregando KTX al PATH: ${ktxBin}`);
+    process.env.PATH = `${ktxBin}${path.delimiter}${process.env.PATH}`;
+} else {
+    console.warn('⚠️ No se encontró la carpeta bin de KTX-Software en scripts/ktx. Asegúrate de tenerlo instalado en el sistema o descargado localmente.');
+}
+
 console.log('🚀 Iniciando Pipeline de Optimización...\n');
 
 // ---------------------------------------------------------
 // 1. PROCESAR MODELOS 3D (GLB)
 // Documentación: "Compresses embeded texture with etc1s --quality 255"
 // ---------------------------------------------------------
-const glbFiles = glob.sync(`${INPUT_DIR}/**/*.glb`);
+const glbFiles = globSync(`${INPUT_DIR}/**/*.glb`);
 
 glbFiles.forEach(file => {
     const fileName = path.basename(file);
@@ -40,7 +49,7 @@ glbFiles.forEach(file => {
 // 2. PROCESAR TEXTURAS (PNG/JPG -> KTX2)
 // Documentación: "Compresses to --encode etc1s --qlevel 255"
 // ---------------------------------------------------------
-const textures = glob.sync(`${INPUT_DIR}/**/*.{png,jpg}`);
+const textures = globSync(`${INPUT_DIR}/**/*.{png,jpg}`);
 
 // Filtramos para no procesar UI aquí, si las tienes separadas
 const textureFiles = textures.filter(f => !f.includes('/ui/'));
@@ -67,9 +76,9 @@ textureFiles.forEach(file => {
 // 3. PROCESAR UI (PNG -> WebP)
 // Documentación: "Compresses to WebP"
 // ---------------------------------------------------------
-const uiFiles = glob.sync(`${INPUT_DIR}/ui/**/*.{png,jpg}`);
+const uiFiles = globSync(`${INPUT_DIR}/ui/**/*.{png,jpg}`);
 
-uiFiles.forEach(async file => {
+for (const file of uiFiles) {
     const fileName = path.basename(file, path.extname(file));
     const outFolder = path.join(OUTPUT_DIR, 'ui');
     if (!fs.existsSync(outFolder)) fs.mkdirSync(outFolder, { recursive: true });
@@ -78,9 +87,13 @@ uiFiles.forEach(async file => {
 
     console.log(`🖼️  Convirtiendo UI a WebP: ${fileName}`);
 
-    await sharp(file)
-        .webp({ quality: 80 })
-        .toFile(output);
-});
+    try {
+        await sharp(file)
+            .webp({ quality: 80 })
+            .toFile(output);
+    } catch (error) {
+        console.error(`❌ Error convirtiendo UI ${fileName}`, error);
+    }
+}
 
 console.log('\n✅ ¡Proceso finalizado! Tus assets están listos en /public/assets');

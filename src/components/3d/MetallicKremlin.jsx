@@ -33,7 +33,8 @@ function Sun({ target }) {
 }
 
 export function MetallicKremlin(props) {
-  const { scene } = useGLTF('/models/MetallicKremlin.glb')
+  // const { scene } = useGLTF('/models/MetallicKremlin.glb')
+  const { scene } = useGLTF('public/assets/glbKremlin.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
 

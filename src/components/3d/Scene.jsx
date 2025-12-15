@@ -49,8 +49,8 @@ function Scene() {
   return (
     <div style={{ position: "relative", width: "100%", height: "100vh" }}>
       <Canvas
-        // 1. OPTIMIZACIÓN CRÍTICA: Pixel Ratio
-        dpr={[1, 2]}
+        // 1. OPTIMIZACIÓN CRÍTICA: Pixel Ratio adaptativo
+        dpr={isMobile ? [1, 1.5] : [1, 2]}
         // Desactivamos sombras por defecto (shadows={false}) porque usaremos ContactShadows
         gl={{ powerPreference: "high-performance", antialias: false }}
         style={{ background: "transparent" }}
@@ -67,13 +67,16 @@ function Scene() {
           target={[0, 10.25, 0]}
           maxPolarAngle={Math.PI - 0.1}
           enableDamping
-          enabled={true} // Enabled para pruebas
+          enabled={!isMobile} // Desactivado en mobile para que no gire ni rote
+          enableZoom={!isMobile}
+          enableRotate={!isMobile}
+          enablePan={!isMobile}
         />
 
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[-1, 35, 75]} />
 
         {/* Renderizado del Modelo */}
-        <CustomKremlin />
+        <CustomKremlin isMobile={isMobile} />
 
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo - Solo en Desktop */}
         <EffectComposer disableNormalPass multisampling={0}>
@@ -128,7 +131,7 @@ function Scene() {
         )}
       </Canvas>
 
-      <CameraTransitioner controlsRef={controlsRef} camRef={camRef} />
+      <CameraTransitioner controlsRef={controlsRef} camRef={camRef} isMobile={isMobile} />
     </div>
   );
 }

@@ -33,7 +33,7 @@ function Sun({ target }) {
   )
 }
 
-export function CustomKremlin(props) {
+export function CustomKremlin({ isMobile, ...props }) {
   const { scene } = useGLTF('/models/CustomKremlin-transformed.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
@@ -116,7 +116,8 @@ export function CustomKremlin(props) {
   const groupRef = useRef()
 
   useFrame((state) => {
-    if (floating && groupRef.current) {
+    // Desactivar animación en mobile
+    if (floating && groupRef.current && !isMobile) {
       const time = state.clock.elapsedTime
       const offset = Math.sin(time * speed) * amplitude
 

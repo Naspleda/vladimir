@@ -38,10 +38,11 @@ glbFiles.forEach(file => {
 
     // Usamos gltf-transform con compresión ETC1S (formato GPU friendly)
     try {
-        // Nota: --quality 255 es la máxima calidad
-        execSync(`gltf-transform etc1s "${file}" "${output}" --quality 255`, { stdio: 'inherit' });
+        // Usamos draco para compresión de geometría (no requiere KTX-Software)
+        // También optimizamos texturas con webp y dedup para reducir tamaño
+        execSync(`gltf-transform optimize "${file}" "${output}" --compress draco`, { stdio: 'inherit' });
     } catch (error) {
-        console.error(`❌ Error optimizando ${fileName}`);
+        console.error(`❌ Error optimizando ${fileName}`, error.message);
     }
 });
 

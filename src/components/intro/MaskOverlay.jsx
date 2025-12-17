@@ -7,7 +7,7 @@ import * as THREE from 'three';
 const MaskShaderMaterial = shaderMaterial(
     {
         uRadius: 0.0, // Initial radius (closed or very small)
-        uEdgeColor: new THREE.Color('#ff0055'), // Neon Red/Pink
+        uEdgeColor: new THREE.Color('rgba(6, 19, 56, 1)'), // Neon Blue
         uResolution: new THREE.Vector2(1, 1), // Screen aspect ratio correction
     },
     // Vertex Shader
@@ -110,7 +110,7 @@ const MaskOverlay = ({ onRevealStart, onRevealComplete }) => {
                     ref={materialRef}
                     transparent
                     depthTest={false}
-                    uEdgeColor="#ff0055"
+                    uEdgeColor="#244393"
                 />
             </mesh>
 

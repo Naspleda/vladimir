@@ -19,8 +19,8 @@ export function CustomKremlin({ isMobile, ...props }) {
     color: { value: '#ffcc00', label: 'Color' },
     roughness: { value: 0.24, min: 0, max: 1, step: 0.01, label: 'Roughness' },
     metalness: { value: 1, min: 0, max: 1, step: 0.01, label: 'Metalness' },
-    emissive: { value: '#000000', label: 'Emissive' },
-    emissiveIntensity: { value: 1, min: 0, max: 10, step: 0.1, label: 'Emissive Intensity' },
+    emissive: { value: '#c1b085', label: 'Emissive' },
+    emissiveIntensity: { value: 3.3, min: 0, max: 10, step: 0.1, label: 'Emissive Intensity' },
   })
 
   // --- Controles para Material Vidrio ---
@@ -34,7 +34,7 @@ export function CustomKremlin({ isMobile, ...props }) {
 
   // --- Controles para Material Base ---
   const baseControls = useControls('Material Base', {
-    color: { value: '#1f429a', label: 'Color' },
+    color: { value: '#244393', label: 'Color' },
     roughness: { value: 0.54, min: 0, max: 1, step: 0.01, label: 'Roughness' },
     metalness: { value: 1, min: 0, max: 1, step: 0.01, label: 'Metalness' },
   })

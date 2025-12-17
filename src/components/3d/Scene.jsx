@@ -13,6 +13,7 @@ import kremlinImg from "../../assets/images/kremlin-cycles.png";
 import CameraTransitioner from "../CameraTransitioner";
 
 
+
 // --- Escena ---
 function Scene() {
   const controlsRef = useRef(null);
@@ -92,6 +93,7 @@ function Scene() {
         </EffectComposer>
 
         {/* <FloatingGrid /> */}
+
 
         {/* Lógica de luces optimizada */}
         {kremlinAnimationFinished && (

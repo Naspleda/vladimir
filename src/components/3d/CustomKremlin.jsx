@@ -92,7 +92,7 @@ export function CustomKremlin({ isMobile, ...props }) {
   const groupRef = useRef()
 
   useFrame((state) => {
-    if (floating && groupRef.current && !isMobile) {
+    if (floating && groupRef.current) {
       const time = state.clock.elapsedTime
       const offset = Math.sin(time * speed) * amplitude
 

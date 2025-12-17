@@ -76,7 +76,11 @@ function Scene() {
         <PerspectiveCamera ref={camRef} makeDefault fov={50} position={[-1, 35, 75]} />
 
         {/* Renderizado del Modelo */}
-        <CustomKremlin isMobile={isMobile} />
+        <CustomKremlin
+          isMobile={isMobile}
+          scale={isMobile ? 0.55 : 1}
+          position={isMobile ? [0, -8, 0] : [0, 0, 0]}
+        />
 
         {/* 2. OPTIMIZACIÓN: Bloom Selectivo - Solo en Desktop */}
         <EffectComposer disableNormalPass multisampling={0}>

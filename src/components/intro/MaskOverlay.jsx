@@ -67,12 +67,12 @@ const MaskOverlay = ({ onRevealStart, onRevealComplete }) => {
     const materialRef = useRef();
     const { viewport, size } = useThree();
 
-    const [revealing, setRevealing] = useState(false);
+    const [animationPhase, setAnimationPhase] = useState('idle'); // 'idle', 'shrinking', 'expanding', 'done'
     const radius = useRef(0.15); // Start with a small peephole
 
     const handleReveal = () => {
-        if (!revealing) {
-            setRevealing(true);
+        if (animationPhase === 'idle') {
+            setAnimationPhase('shrinking');
             if (onRevealStart) onRevealStart();
         }
     };
@@ -82,17 +82,34 @@ const MaskOverlay = ({ onRevealStart, onRevealComplete }) => {
             // Update Resolution uniform
             materialRef.current.uResolution.set(size.width, size.height);
 
-            if (revealing) {
-                // Animate radius expansion
-                // Target: enough to cover corners. For aspect ratio 16:9, ~1.0 is safe but let's go 1.5
-                const target = 1.5;
-                const speed = 1.5; // Adjustable speed
+            if (animationPhase !== 'idle' && animationPhase !== 'done') {
+                let target = 0;
+                let speed = 0;
 
-                radius.current = THREE.MathUtils.lerp(radius.current, target, delta * speed);
+                if (animationPhase === 'shrinking') {
+                    // Shrink phase
+                    target = 0.005; // Shrink to very small
+                    speed = 3.00;   // Shrink relatively fast
 
-                // Completion check
-                if (radius.current > 1.4) {
-                    if (onRevealComplete) onRevealComplete();
+                    radius.current = THREE.MathUtils.lerp(radius.current, target, delta * speed);
+
+                    // Switch to expanding when close enough to small size
+                    if (radius.current < 0.06) {
+                        setAnimationPhase('expanding');
+                    }
+                } else if (animationPhase === 'expanding') {
+                    // Expand phase
+                    // Target: enough to cover corners. For aspect ratio 16:9, ~1.0 is safe but let's go 1.5
+                    target = 1.5;
+                    speed = 0.5; // Slower expansion speed (previously was faster)
+
+                    radius.current = THREE.MathUtils.lerp(radius.current, target, delta * speed);
+
+                    // Completion check
+                    if (radius.current > 1.4) {
+                        setAnimationPhase('done');
+                        if (onRevealComplete) onRevealComplete();
+                    }
                 }
             }
 
@@ -115,7 +132,7 @@ const MaskOverlay = ({ onRevealStart, onRevealComplete }) => {
             </mesh>
 
             {/* HTML Text Overlay */}
-            {!revealing && (
+            {animationPhase === 'idle' && (
                 <Html center position={[0, -0.2, 0]} pointerEvents="none">
                     <div className="flex flex-col items-center gap-2 animate-pulse whitespace-nowrap">
                         <span className="text-white font-bold tracking-[0.2em] text-sm md:text-lg drop-shadow-[0_0_10px_rgba(255,0,85,0.8)]">

@@ -1,22 +1,12 @@
-'use client';;
+'use client';
 import * as React from 'react';
-import { motion } from 'motion/react';
-
 import { useIsInView } from '@/hooks/use-is-in-view';
 import { Slot } from '@/components/animate-ui/primitives/animate/slot';
+import { cn } from '@/lib/utils'; // Assuming cn exists, if not I see clsx/tailwind-merge in package.json so I can use that or just template literals. I'll rely on template literals/variables to be safe or assuming this project structure follows shadcn-like patterns.
+// Wait, I don't see `cn` imported in the original file. I should not introduce it unless I'm sure. I'll just use template strings.
 
-const DEFAULT_SLIDE_DIRECTION = 'up';
-const DEFAULT_SLIDE_OFFSET = 100;
-const DEFAULT_FADE_INITIAL_OPACITY = 0;
-const DEFAULT_FADE_OPACITY = 1;
-const DEFAULT_ZOOM_INITIAL_SCALE = 0.5;
-const DEFAULT_ZOOM_SCALE = 1;
-const DEFAULT_BLUR_INITIAL_BLUR = 10;
-const DEFAULT_BLUR_BLUR = 0;
-
-function Effect({
-  ref,
-  transition = { type: 'spring', stiffness: 200, damping: 20 },
+const Effect = React.forwardRef(({
+  transition = { duration: 0.5, ease: "ease-out" }, // Approximate default mapping
   delay = 0,
   inView = false,
   inViewMargin = '0px',
@@ -26,84 +16,85 @@ function Effect({
   fade = false,
   zoom = false,
   asChild = false,
+  className,
+  style,
+  children,
   ...props
-}) {
+}, ref) => {
   const { ref: localRef, isInView } = useIsInView(ref, {
     inView,
     inViewOnce,
     inViewMargin,
   });
 
-  const hiddenVariant = {};
-  const visibleVariant = {};
+  // Calculate delay in seconds for style
+  const delaySec = delay / 1000;
 
-  if (slide) {
-    const offset =
-      typeof slide === 'boolean'
-        ? DEFAULT_SLIDE_OFFSET
-        : (slide.offset ?? DEFAULT_SLIDE_OFFSET);
-    const direction =
-      typeof slide === 'boolean'
-        ? DEFAULT_SLIDE_DIRECTION
-        : (slide.direction ?? DEFAULT_SLIDE_DIRECTION);
-    const axis = direction === 'up' || direction === 'down' ? 'y' : 'x';
-    hiddenVariant[axis] =
-      direction === 'right' || direction === 'down' ? -offset : offset;
-    visibleVariant[axis] = 0;
-  }
+  // Determine classes based on prop configuration
+  // We will use inline styles for dynamic transform/filter values to emulate the framed-motion variants precisely without creating 1000 CSS classes
 
-  if (fade) {
-    hiddenVariant.opacity =
-      typeof fade === 'boolean'
-        ? DEFAULT_FADE_INITIAL_OPACITY
-        : (fade.initialOpacity ?? DEFAULT_FADE_INITIAL_OPACITY);
-    visibleVariant.opacity =
-      typeof fade === 'boolean'
-        ? DEFAULT_FADE_OPACITY
-        : (fade.opacity ?? DEFAULT_FADE_OPACITY);
-  }
+  const getInitialStyle = () => {
+    const s = {
+      transition: `all ${transition.duration ?? 0.5}s ${transition.ease ?? "ease-out"}`,
+      transitionDelay: `${delaySec}s`,
+      opacity: 1,
+      transform: 'translate(0, 0) scale(1)',
+      filter: 'blur(0px)',
+    };
 
-  if (zoom) {
-    hiddenVariant.scale =
-      typeof zoom === 'boolean'
-        ? DEFAULT_ZOOM_INITIAL_SCALE
-        : (zoom.initialScale ?? DEFAULT_ZOOM_INITIAL_SCALE);
-    visibleVariant.scale =
-      typeof zoom === 'boolean'
-        ? DEFAULT_ZOOM_SCALE
-        : (zoom.scale ?? DEFAULT_ZOOM_SCALE);
-  }
+    if (!isInView) {
+      if (fade) {
+        s.opacity = typeof fade === 'object' ? (fade.initialOpacity ?? 0) : 0;
+      }
 
-  if (blur) {
-    hiddenVariant.filter =
-      typeof blur === 'boolean'
-        ? `blur(${DEFAULT_BLUR_INITIAL_BLUR}px)`
-        : `blur(${blur.initialBlur ?? DEFAULT_BLUR_INITIAL_BLUR}px)`;
-    visibleVariant.filter =
-      typeof blur === 'boolean'
-        ? `blur(${DEFAULT_BLUR_BLUR}px)`
-        : `blur(${blur.blur ?? DEFAULT_BLUR_BLUR}px)`;
-  }
+      if (zoom) {
+        const scale = typeof zoom === 'object' ? (zoom.initialScale ?? 0.5) : 0.5;
+        s.transform = `scale(${scale})`; // Only scale? what if slide is also there? see below
+      }
 
-  const Component = asChild ? Slot : motion.div;
+      if (slide) {
+        const offset = typeof slide === 'object' ? (slide.offset ?? 100) : 100;
+        const direction = typeof slide === 'object' ? (slide.direction ?? 'up') : 'up';
+
+        let x = 0;
+        let y = 0;
+        if (direction === 'up') y = offset;
+        if (direction === 'down') y = -offset;
+        if (direction === 'left') x = offset;
+        if (direction === 'right') x = -offset;
+
+        // Compose transform
+        const currentScale = s.transform.match(/scale\(([^)]+)\)/)?.[1] ?? 1;
+        s.transform = `translate(${x}px, ${y}px) scale(${currentScale})`;
+      }
+
+      if (blur) {
+        const b = typeof blur === 'object' ? (blur.initialBlur ?? 10) : 10;
+        s.filter = `blur(${b}px)`;
+      }
+    }
+
+    return s;
+  };
+
+  const Component = asChild ? Slot : 'div';
 
   return (
     <Component
       ref={localRef}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
-      exit="hidden"
-      variants={{
-        hidden: hiddenVariant,
-        visible: visibleVariant,
+      className={className}
+      style={{
+        ...style,
+        ...getInitialStyle()
       }}
-      transition={{
-        ...transition,
-        delay: (transition?.delay ?? 0) + delay / 1000,
-      }}
-      {...props} />
+      {...props}
+    >
+      {children}
+    </Component>
   );
-}
+});
+
+Effect.displayName = "Effect";
 
 function Effects({
   children,

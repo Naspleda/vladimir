@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import useSceneControls from "../store/useSceneControls";
 
 // --- Controlador con transición (botón y panel) ---
-function CameraTransitioner({ controlsRef, camRef }) {
+function CameraTransitioner({ controlsRef, camRef, isMobile }) {
     const [open, setOpen] = useState(false);
 
     // Valores objetivo desde el store
@@ -58,12 +58,15 @@ function CameraTransitioner({ controlsRef, camRef }) {
     const { cameraAnimationTrigger } = useSceneControls();
 
     useEffect(() => {
+        // En mobile prevenimos movimientos automáticos de cámara
+        if (isMobile) return;
+
         if (cameraAnimationTrigger) {
             setTarget(cameraAnimationTrigger.target);
             // setDuration(2); // 2 segundos de transición
             animateToTargets();
         }
-    }, [cameraAnimationTrigger]);
+    }, [cameraAnimationTrigger, isMobile]);
 
     const stop = () => {
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -135,6 +138,7 @@ function CameraTransitioner({ controlsRef, camRef }) {
 CameraTransitioner.propTypes = {
     controlsRef: PropTypes.object.isRequired,
     camRef: PropTypes.object.isRequired,
+    isMobile: PropTypes.bool,
 };
 
 export default CameraTransitioner;

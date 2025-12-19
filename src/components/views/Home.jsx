@@ -1,11 +1,9 @@
-import { Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Suspense, lazy, useEffect } from 'react';
+
 import useSceneControls from "../../store/useSceneControls";
 import ContextCard from "../ui/ContextCard";
-const Scene = lazy(() => import("../../../public/models/Scene"));
+const Scene = lazy(() => import("../3d/Scene"));
 import LocalImage from "../../assets/images/blue_bg_hd.png";
-import BImage from "../../assets/images/blackcircle.png";
-import Logo from "../../assets/images/logo1.png";
 import BinanceLogo from "../../assets/images/binancelogo.png";
 import BingxLogo from "../../assets/images/bingxlogo.png";
 import BitgetLogo from "../../assets/images/bitgetlogo.png";
@@ -139,7 +137,12 @@ function Home() {
     setActiveCard,
     triggerCameraAnimation,
     kremlinAnimationFinished, // Importar el estado de la animación
+    setKremlinAnimationFinished,
   } = useSceneControls();
+
+  useEffect(() => {
+    setKremlinAnimationFinished(true);
+  }, [setKremlinAnimationFinished]);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
   const radialSize = isMobile ? 300 : 480;
@@ -216,50 +219,73 @@ function Home() {
           {/* Header - Con animación fade-in */}
           {kremlinAnimationFinished && <Header onLogoClick={() => applyCameraAndCardState(null)} />}
 
+          {/* Hero Text Section - Mobile */}
+          {/* Hero Text Section - Mobile */}
+          {kremlinAnimationFinished && (
+            <div
+              className={`absolute top-20 left-0 right-0 z-30 px-6 py-6 md:px-8 pointer-events-none transition-all duration-500
+                ${!activeCard
+                  ? 'animate-in fade-in zoom-in-95 slide-in-from-bottom-10 opacity-100'
+                  : 'animate-out fade-out zoom-out-95 slide-out-to-bottom-10 opacity-0 fill-mode-forwards'
+                }`}
+            >
+              <div className="max-w-lg md:max-w-2xl md:pt-16">
+                {/* Título Principal */}
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  Precisión Algorítmica para tus Inversiones
+                </h1>
+
+                {/* Subtítulo / Descripción */}
+                <p className="text-sm md:text-base text-gray-300 mb-6 leading-relaxed">
+                  Deja de mirar gráficos todo el día. Conecta tu cuenta y deja que una estrategia probada opere el mercado por ti con disciplina matemática. Sin emociones.
+                </p>
+
+                {/* Botones CTA */}
+                {/* <div className="flex flex-col gap-3 pointer-events-auto max-w-[180px]">
+                  <button className="px-6 py-3 bg-gradient-to-r from-amber-400 to-amber-500 text-black font-semibold rounded-full hover:from-amber-500 hover:to-amber-600 transition-all duration-300 shadow-lg">
+                    Stopt on Now
+                  </button>
+                  <button className="px-6 py-3 border-2 border-amber-400 text-amber-400 font-semibold rounded-full hover:bg-amber-400/10 transition-all duration-300">
+                    Ogan Now
+                  </button>
+                </div> */}
+              </div>
+            </div>
+          )}
+
           {/* Escena 3D */}
           <Suspense fallback={null}>
             <Scene />
           </Suspense>
+          {/* <div className="absolute inset-0 flex items-center justify-center -z-10">
+            <img src={KremlinStatic} alt="Metallic Kremlin" className="w-full h-full object-cover" />
+          </div> */}
 
-          {/* ContextCard con animación */}
-          <AnimatePresence mode="wait">
-            {activePointData && kremlinAnimationFinished && (
-              <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
-                {/* Wrapper for positioning - preserves Tailwind transforms */}
-                <motion.div
-                  key={activePointData.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4`}
+          {/* ContextCard con animación CSS */}
+          {activePointData && kremlinAnimationFinished && (
+            <div className={`fixed inset-x-4 top-[10vh] bottom-[10vh] z-40 flex items-center justify-center md:static md:block md:inset-auto md:w-auto md:h-auto`}>
+              {/* Wrapper for positioning */}
+              <div
+                key={activePointData.id}
+                className={`w-full max-h-full md:w-auto md:h-auto md:absolute md:translate-y-[-120%] md:${activePointData.cardPosition} md:max-w-6xl md:m-4 animate-in fade-in duration-200`}
+              >
+                {/* Inner wrapper for Scale/Spring animation simulation */}
+                <div
+                  className="animate-in fade-in zoom-in-95 slide-in-from-bottom-10 duration-500 ease-out fill-mode-forwards"
                 >
-                  {/* Inner wrapper for Scale/Spring animation */}
-                  <motion.div
-                    initial={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
-                    animate={{ scale: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ scale: 0.8, y: 50, filter: "blur(10px)" }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 25,
-                      mass: 0.5
-                    }}
-                  >
-                    <ContextCard
-                      title={activePointData.cardContent.title}
-                      subtitle={activePointData.cardContent.subtitle}
-                      text={activePointData.cardContent.text}
-                      text2={activePointData.cardContent.text2}
-                      imageUrl={activePointData.cardContent.imageUrl}
-                      className={activePointData.cardClassName}
-                      gradientColors={activePointData.cardContent.gradientColors}
-                    />
-                  </motion.div>
-                </motion.div>
+                  <ContextCard
+                    title={activePointData.cardContent.title}
+                    subtitle={activePointData.cardContent.subtitle}
+                    text={activePointData.cardContent.text}
+                    text2={activePointData.cardContent.text2}
+                    imageUrl={activePointData.cardContent.imageUrl}
+                    className={activePointData.cardClassName}
+                    gradientColors={activePointData.cardContent.gradientColors}
+                  />
+                </div>
               </div>
-            )}
-          </AnimatePresence>
+            </div>
+          )}
 
 
           {/* Footer con logos - Con animación fade-in */}

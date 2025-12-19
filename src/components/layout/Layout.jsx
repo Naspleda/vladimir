@@ -6,7 +6,7 @@ import Home from "../views/Home";
 import { BubbleBackground } from "../animate-ui/components/backgrounds/bubble";
 import { Leva } from "leva";
 
-const showLeva = true;
+const showLeva = false;
 
 
 function Layout() {

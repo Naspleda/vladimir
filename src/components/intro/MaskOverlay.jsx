@@ -135,7 +135,7 @@ const MaskOverlay = ({ onRevealStart, onRevealComplete }) => {
             {animationPhase === 'idle' && (
                 <Html center position={[0, -0.2, 0]} pointerEvents="none">
                     <div className="flex flex-col items-center gap-2 animate-pulse whitespace-nowrap">
-                        <span className="text-white font-bold tracking-[0.2em] text-sm md:text-lg drop-shadow-[0_0_10px_rgba(255,0,85,0.8)]">
+                        <span className="text-white font-bold tracking-[0.2em] text-sm md:text-lg drop-shadow-[0_0_10px_rgba(0, 132, 255, 0.8)]">
                             CLICK TO START
                         </span>
                         {/* Sound Icon placeholder */}

@@ -229,7 +229,7 @@ function Home() {
                   : 'animate-out fade-out zoom-out-95 slide-out-to-bottom-10 opacity-0 fill-mode-forwards'
                 }`}
             >
-              <div className="max-w-lg">
+              <div className="max-w-lg md:max-w-2xl md:pt-16">
                 {/* Título Principal */}
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                   Precisión Algorítmica para tus Inversiones
